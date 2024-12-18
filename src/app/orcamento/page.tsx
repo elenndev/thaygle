@@ -1,6 +1,6 @@
 'use client'
 import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import FormQuote from "./components/Form"
 import "../globals.css"
 import '../components/style.css'
@@ -65,4 +65,11 @@ const Orcamento = () => {
     )
 }
 
-export default Orcamento
+export default function OrcamentoPage() {
+    return (
+        <Suspense fallback={<div>Carregando...</div>}>
+            <Orcamento />
+        </Suspense>
+    );
+}
+
