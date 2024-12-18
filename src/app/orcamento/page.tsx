@@ -22,9 +22,9 @@ const Orcamento = () => {
         }
     }, [produto, produto_tipo, produto_nome]);
 
-    if(produto == 'churrasqueira' && produto_tipo != 'predial'){
-        setIsLaje(false)
-    }
+    // if(produto == 'churrasqueira' && produto_tipo != 'predial'){
+    //     setIsLaje(false)
+    // }
 
     if(paramsError){
         return(
@@ -40,8 +40,8 @@ const Orcamento = () => {
 
 
     return(
-        <div className="quote-container flex flex-col items-center justify-center w-full">
-            <p className="text-black bg-white">Orcamento pro produto: {produto_nome}</p>
+        <div className="quote-container flex flex-col items-center justify-center w-full gap-y-[30px]">
+            <p className="text-black bg-white text-[1.5rem]">Orcamento pro produto: {produto_nome}</p>
             {produto == 'churrasqueira' && produto_tipo == 'predial' && (
                 <>
                 <div className="pergunta-PreOrcamento text-black bg-white w-fit flex-column gap-x-[10px]">

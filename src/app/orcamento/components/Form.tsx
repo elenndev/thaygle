@@ -1,6 +1,6 @@
 import getValue from "@/app/components/FunctionProductValue"
 import TypeOrcamento from "@/app/components/Type_orcamento"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import OrcamentoFinalizado from "./Orcamento";
 
 // valores pra teste
@@ -29,11 +29,20 @@ const FormQuote: React.FC<({
     const [isOrcamento_concluido, setIsOrcamento_concluido] = useState(false)
     const [orcamentoErro, setOrcamentoErro] = useState<boolean | string>(false)
     const [qtProdutos, setQtProdutos] = useState(1)
-    const valorUn_produto = getValue(produto, produto_tipo, 1) ?? 0
+    const valorUn_produto = getValue(produto, produto_tipo, 1)
+    console.log('produto: ', valorUn_produto)
         if (valorUn_produto == 0){
             setOrcamentoErro("Erro ao buscar o valor unitário do produto")}
-    const [tamParede_metros, seTamParede_metros] = useState(0)
+    const [tamParede_metros, setTamParede_metros] = useState(0)
     const alturaParede = tamParede_metros * 100 // cliente informa altura em metros mas pros calculos usamos sempre em cm
+    // function handle_setTamParede(valorInput: string){
+    //     if(valorInput.includes(",")){
+    //         const stringFormatada = valorInput.replace(",",".")
+    //         setTamParede_metros(parseFloat(stringFormatada))
+    //     } else{
+    //         setTamParede_metros(parseFloat(valorInput))
+    //     }
+    // }
     
     function getValorDecimal(number: number){
         const string = number.toString()
@@ -87,6 +96,10 @@ const FormQuote: React.FC<({
         return getModulos(base)
     }
     function valorTotal(){
+        if (tamParede_metros<2.24){
+            window.alert("Por favor informe um valor válido para o tamanho da parede")
+            return
+        }
         const qtDutos = calcDutos()
         let valorDutos = 0
         let qtModulos = 0
@@ -101,7 +114,8 @@ const FormQuote: React.FC<({
                 valorDutos = getValue('duto', 'tijolinho', qtDutos) ?? 0
             }
             const valorProduto = qtProdutos * valorUn_produto
-            const soma = valorDutos?? + valorModulos?? + valorProduto
+            console.log("valor calculado do produto: ", valorProduto)
+            const soma = valorDutos + valorModulos + valorProduto
             setOrcamento({
                 produto: produto_nome,
                 total: soma,
@@ -129,10 +143,6 @@ const FormQuote: React.FC<({
         setQtProdutos(novaQt)
     }
 
-    useEffect(()=>{return console.log("ta concluido porra", isOrcamento_concluido)
-    },[isOrcamento_concluido])
-    useEffect(()=>{return console.log("ta concluido porra", orcamento)
-    },[orcamento])
 
     // Elementos HTML
     if (orcamentoErro){
@@ -168,7 +178,7 @@ const FormQuote: React.FC<({
                             <label htmlFor="wallHeight">Por favor informe a altura em metros do chão até o telhado da área em que será instalada a churrasqueira</label>
                         </>
                     )}                    
-                    <input onChange={(e) => {seTamParede_metros(parseFloat(e.target.value))}} type="number" placeholder="tamanho em metros" className="text-black" name="wallHeight"></input>
+                    <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros" className="text-black" name="wallHeight"></input>
                     <QuantProdutos />
                 </>): (
                     <QuantProdutos />
