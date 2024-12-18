@@ -17,11 +17,11 @@ function getTodosProdutos(){
 }
 
     return(
-        <><div className="catalogo bg-[--devScheme-white] min-h-[fit] flex flex-col w-full items-center justify-center gap-y-[30px]">
+        <><div className="catalogo bg-[--devScheme-white] min-h-[fit] flex flex-col w-full items-center flex-wrap justify-center gap-y-[30px]">
             <p className="text-[2rem] text-[--devScheme-gray]">Catálogo</p>
-            <div className="produtos-principais flex flex-row gap-20 w-full items-center justify-center">
+            <div className="produtos-principais lg:grid grid-cols-3 md:flex md:flex-col gap-y-[20px] gap-x-[10px] w-fit items-center justify-center">
                 {principaisProdutos.map((produto) => (
-                    <div key={produto.id} className={`produto ${produto.nome}`}>
+                    <div key={produto.id} className={`produto ${produto.nome} w-full flex flex-row`}>
                         <p className="nome-produto">{produto.nome}</p>
                         <p>{produto.infos.breve_descricao}</p>
                         <Link className="fazer-orcamento bg-blue-800 text-white rounded-[10px]"
@@ -67,7 +67,7 @@ function getTodosProdutos(){
 
 const Catalogo = () =>{
     return(
-        <div className="produtos w-[90%] items-center justify-center flex-row flex-wrap">
+        <div className="produtos flex w-[90%] items-center justify-center flex-row flex-wrap">
             <PrincipaisProdutos />
         </div>
     )

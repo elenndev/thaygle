@@ -165,7 +165,7 @@ const FormQuote: React.FC<({
         {isOrcamento_concluido && orcamento ? (
             <OrcamentoFinalizado getOrcamento={orcamento} alturaParede={tamParede_metros}/>
         ) : (<>
-            <div className="bg-[--devScheme-white] px-[20px] shadow-md flex flex-col items-center justify-center gap-10 text-black rounded-sm">
+            <div className="bg-[--devScheme-white] px-[20px] shadow-md flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[90%]">
             
             <form className="flex flex-col items-center justify-center p-[20px] ">
                 {produto == 'churrasqueira' ? (<>
