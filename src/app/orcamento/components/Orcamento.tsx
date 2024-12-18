@@ -24,6 +24,7 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     function finalizarOrcamento(){
         GerarPdfOrcamento(orcamento, alturaParede)
         setOrcamentoEnviado(true)
+        redirect('/')
     }
 
     function handleVoltarHomepage(){

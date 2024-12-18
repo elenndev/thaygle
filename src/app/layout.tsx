@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`h-screen w-screen`}
+        className={`min-h-[fit] h-screen w-screen`}
       >
         {children}
       </body>
