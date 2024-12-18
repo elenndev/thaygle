@@ -2,6 +2,9 @@
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import FormQuote from "./components/Form"
+import "../globals.css"
+import '../components/style.css'
+
 
 const Orcamento = () => {
     const searchParams = useSearchParams()
@@ -40,23 +43,25 @@ const Orcamento = () => {
 
 
     return(
-        <div className="quote-container flex flex-col items-center justify-center w-full gap-y-[30px]">
-            <p className="text-black bg-white text-[1.5rem]">Orcamento pro produto: {produto_nome}</p>
-            {produto == 'churrasqueira' && produto_tipo == 'predial' && (
-                <>
-                <div className="pergunta-PreOrcamento text-black bg-white w-fit flex-column gap-x-[10px]">
-                    <p>No local da instalação da churrasqueira, tem laje?</p>
-                    <button className="isLaje bg-blue-700 text-white px-[10px] mr-[20px]" type="button" onClick={() =>handleQuestion(false)}>Não</button>
-                    <button className="isLaje bg-blue-700 text-white px-[10px]" type="button" onClick={() => handleQuestion(true)}>Sim</button>
-                </div>
-                </>
-            )}
-            {perguntas_preOrcamento && (<>
-                <FormQuote produto_nome = {produto_nome} produto = {produto} produto_tipo={produto_tipo} isLaje={isLaje != undefined}/>
-            </>)}
+        <main className="h-full w-full bg-[--devScheme-softBlue] flex flex-col items-center justify-center">
+            <div className="quote-container flex flex-col items-center justify-center h-[90%] w-[90%] gap-y-[30px]">
+                <p className="text-white rounded-[20px] bg-[--devScheme-orange] px-[10px] text-[1.5rem]">Orcamento pro produto: {produto_nome}</p>
+                {produto == 'churrasqueira' && produto_tipo == 'predial' && (
+                    <>
+                    <div className="pergunta-PreOrcamento text-black bg-white w-fit flex-column gap-x-[10px]">
+                        <p>No local da instalação da churrasqueira, tem laje?</p>
+                        <button className="isLaje bg-blue-700 text-white px-[10px] mr-[20px]" type="button" onClick={() =>handleQuestion(false)}>Não</button>
+                        <button className="isLaje bg-blue-700 text-white px-[10px]" type="button" onClick={() => handleQuestion(true)}>Sim</button>
+                    </div>
+                    </>
+                )}
+                {perguntas_preOrcamento && (<>
+                    <FormQuote produto_nome = {produto_nome} produto = {produto} produto_tipo={produto_tipo} isLaje={isLaje != undefined}/>
+                </>)}
 
 
-        </div>
+            </div>
+        </main>
     )
 }
 

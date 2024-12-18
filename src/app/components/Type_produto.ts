@@ -1,4 +1,5 @@
 type TypeProduto = {
+    id: number;
     nome: string;
     infos: {
         produto: string;

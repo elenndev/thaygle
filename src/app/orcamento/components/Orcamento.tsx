@@ -11,11 +11,14 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     const [orcamento, setOrcamento] = useState<TypeOrcamento>(getOrcamento)
     const [orcamentoEnviado, setOrcamentoEnviado] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const handleCloseModal = () => setIsModalOpen(false);
-    const handleConfirmModal = () => {
+    const handleCloseModal = () => {
         setIsModalOpen(false)
         setOrcamentoEnviado(true)
         handleVoltarHomepage()
+    }
+    const handleConfirmModal = () => {
+        setIsModalOpen(false)
+        redirect('/')
     }
 
     function finalizarOrcamento(){

@@ -150,8 +150,8 @@ const FormQuote: React.FC<({
     }
     const QuantProdutos = () =>{
         return(<>
-                <div className="set_qtProduto flex-row flex-wrap">
-                    <label htmlFor="set-qtProdutos" className="w-full">Quantidade de produtos:</label>
+                <div className="set_qtProduto flex flex-row items-center justify-center">
+                    <label htmlFor="set-qtProdutos" className="w-full block">Quantidade de {produto}s:</label>
                     <button className="bg-blue-700 text-[30px] w-[50px]" type="button" onClick={() => handle_setQtProduto(false)}>-</button>
                     <input className="text-black" type="number" name="set-qtProdutos" placeholder="Quantidade de itens" value={qtProdutos} onChange={(e) => {parseFloat(e.target.value)}}></input>
                     <button className="bg-blue-700 text-[30px] w-[50px]" type="button" onClick={() => handle_setQtProduto(true)}>+</button>
@@ -165,17 +165,17 @@ const FormQuote: React.FC<({
         {isOrcamento_concluido && orcamento ? (
             <OrcamentoFinalizado getOrcamento={orcamento} alturaParede={tamParede_metros}/>
         ) : (<>
-            <div className="bg-slate-600 flex flex-col gap-10">
-            <>
-            <form className="flex-column">
+            <div className="bg-[--devScheme-white] px-[20px] shadow-md flex flex-col items-center justify-center gap-10 text-black rounded-sm">
+            
+            <form className="flex flex-col items-center justify-center p-[20px] ">
                 {produto == 'churrasqueira' ? (<>
                     {produto_tipo == 'predial' && isLaje ? (
                         <>
-                        <label htmlFor="wallHeight">Por favor informe a altura em metros do chão até a laje da área em que será instalada a churrasqueira</label>
+                        <label htmlFor="wallHeight" className="block">Por favor informe a altura em metros do chão até a laje da área em que será instalada a churrasqueira</label>
                         </>
                     ):(
                         <>
-                            <label htmlFor="wallHeight">Por favor informe a altura em metros do chão até o telhado da área em que será instalada a churrasqueira</label>
+                            <label htmlFor="wallHeight" className="block">Por favor informe a altura em metros do chão até o telhado da área em que será instalada a churrasqueira</label>
                         </>
                     )}                    
                     <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros" className="text-black" name="wallHeight"></input>
@@ -184,8 +184,8 @@ const FormQuote: React.FC<({
                     <QuantProdutos />
                 )}
             </form>
-            <button type="button" onClick={valorTotal} className="bg-blue-900">calcular</button>
-            </>
+            <button type="button" onClick={valorTotal} className="bg-[--devScheme-softBlue] w-fit px-[10px] rounded-[20px] text-white">calcular</button>
+            
             </div>
         </>)}
     </>)

@@ -5,6 +5,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --devScheme-gray: #1E1E1E;
+  --devScheme-white: #F1E7E4;
+  --devScheme-orange: #D4542F;
+  --devScheme-blue: #131143;
+  --devScheme-softBlue: #1E1B60;
+  
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,3 +25,4 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
