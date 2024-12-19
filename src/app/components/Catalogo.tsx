@@ -8,7 +8,7 @@ import './style.css'
 
 const CardProduto: React.FC<{produto: TypeProduto}> = ({produto}) =>{
     return(<>
-        <div className={`produto ${produto.nome} w-full flex flex-row 
+        <div className={`produto ${produto.nome} w-full flex flex-row items-center justify-center 
         `}>
             <p className="nome-produto">{produto.nome}</p>
             <p>{produto.infos.breve_descricao}</p>
@@ -29,20 +29,13 @@ const ListaProdutos = () =>{
     console.log("produtos: ", principaisProdutos)
     const [catalogoCompleto, setCatalogoCompleto] = useState(false)
     const outrosProdutos = Produtos.filter((produto) => produto.infos.produto != 'churrasqueira')
-    const [outrosProdutosClass, setOutrosProdutosClass] = useState("hidden")
     function getTodosProdutos(){
         setCatalogoCompleto(true)
     }
 
-    useEffect(()=>{
-        if(catalogoCompleto){
-            setOutrosProdutosClass("")
-        }
-    },[catalogoCompleto])
-
     const Principais = () => {
         return(<>
-            <div className="produtos-principais lg:grid grid-cols-3 md:flex md:flex-col gap-y-[20px] gap-x-[10px] w-fit items-center justify-center">
+            <div className="produtos-principais flex flex-col gap-y-[20px] gap-x-[10px] w-fit items-center justify-center">
                 {principaisProdutos.map((produto) => (
                     <CardProduto key={produto.id} produto={produto}/>                    
                 ))}
