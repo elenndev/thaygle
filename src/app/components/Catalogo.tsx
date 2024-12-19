@@ -2,7 +2,7 @@
 import Link from "next/link"
 import Produtos from "./Produtos"
 import TypeProduto from "./Type_produto"
-import { useState, useEffect } from "react"
+import { useState} from "react"
 import './style.css'
 
 
