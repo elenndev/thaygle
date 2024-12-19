@@ -96,7 +96,7 @@ const FormQuote: React.FC<({
         return getModulos(base)
     }
     function valorTotal(){
-        if (tamParede_metros<2.24){
+        if (tamParede_metros<2.24 && produto =='churrasqueira'){
             window.alert("Por favor informe um valor válido para o tamanho da parede")
             return
         }

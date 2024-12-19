@@ -8,18 +8,10 @@ export default {
   ],
   theme: {
     extend: {
-      screens: {
-        // Adicione breakpoints personalizados
-        xs: "480px", // Para dispositivos pequenos
-        sm: "640px",
-        md: "768px",
-        lg: "1024px",
-        xl: "1280px",
-      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-      },
+      }
     }
   },
   plugins: [],
