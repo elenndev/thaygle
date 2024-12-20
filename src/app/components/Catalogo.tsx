@@ -4,25 +4,70 @@ import Produtos from "./Produtos"
 import TypeProduto from "./Type_produto"
 import { useState} from "react"
 import './style.css'
+import Image from "next/image"
 
 
-const CardProduto: React.FC<{produto: TypeProduto}> = ({produto}) =>{
+const CardProduto: React.FC<{produto: TypeProduto, isProdutoPrincipal: boolean}> = ({produto, isProdutoPrincipal}) =>{
+    const [display, setDisplay] = useState("hidden")
+
+    function openCard(){
+        setDisplay('flex')
+    }
+
+    function closeCard(){
+        setDisplay('hidden')
+    }
+
+    // elementos html
+    const CardProdutoAberto: React.FC<{produto: TypeProduto}> = ({produto}) => {
+        return(<>
+            <div className={`${display} h-[90%] w-[90%] bg-[--devScheme-orange] flex-col items-center justify-center text-white`}>
+                <button type="button" onClick={()=>closeCard()}>Close</button>
+                <Image width={300} height={300} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
+                <p className="font-bold nome-produto">{produto.nome}</p>
+                <p>{produto.infos.descricao_completa}</p>
+                <Link key={produto.id + 10} className="fazer-orcamento bg-blue-800 text-white text-center rounded-[10px]"
+                    href={{pathname:'/orcamento', 
+                    query: {
+                        produto_nome: produto.nome,
+                        produto: produto.infos.produto, 
+                        tipo: produto.infos.tipo,
+                        nome: produto.nome
+                    }}}>Fazer orçamento</Link>
+            </div>
+        </>)
+    }
+
     return(<>
-        <div className={`produto ${produto.nome} w-full flex flex-row items-center justify-center 
+        <div className={`card-produto ${produto.nome} w-full flex flex-row items-center justify-center 
         `}>
-            <p className="nome-produto">{produto.nome}</p>
-            <p>{produto.infos.breve_descricao}</p>
-            <Link key={produto.id + 10} className="fazer-orcamento bg-blue-800 text-white rounded-[10px]"
-            href={{pathname:'/orcamento', 
-            query: {
-                produto_nome: produto.nome,
-                produto: produto.infos.produto, 
-                tipo: produto.infos.tipo,
-                nome: produto.nome
-            }}}>Fazer orçamento</Link>
+            {isProdutoPrincipal && (
+                <Image width={200} height={200} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
+            )}
+            <div className="produtos-info flex flex-col">
+                <p className="font-bold nome-produto">{produto.nome}</p>
+                <p>{produto.infos.breve_descricao}</p>
+                {isProdutoPrincipal?(
+                    <button type="button" onClick={() => openCard()} className="fazer-orcamento bg-blue-800 text-white rounded-[10px]">Ver produto</button>
+                ):(
+                    <Link key={produto.id + 10} className="fazer-orcamento bg-blue-800 text-white text-center rounded-[10px]"
+                    href={{pathname:'/orcamento', 
+                    query: {
+                        produto_nome: produto.nome,
+                        produto: produto.infos.produto, 
+                        tipo: produto.infos.tipo,
+                        nome: produto.nome
+                    }}}>Fazer orçamento</Link>
+
+                )}
+            </div>
+
+
         </div> 
+        <CardProdutoAberto produto={produto} />
     </>)
 }
+
 
 const ListaProdutos = () =>{
     const principaisProdutos = Produtos.filter((produto)=> produto.infos.produto == 'churrasqueira')
@@ -37,7 +82,7 @@ const ListaProdutos = () =>{
         return(<>
             <div className="produtos-principais flex flex-col gap-y-[20px] gap-x-[10px] w-fit items-center justify-center">
                 {principaisProdutos.map((produto) => (
-                    <CardProduto key={produto.id} produto={produto}/>                    
+                    <CardProduto key={produto.id} produto={produto} isProdutoPrincipal={true}/>                    
                 ))}
             </div>
         </>)
@@ -48,7 +93,7 @@ const ListaProdutos = () =>{
             <p className={`text-[1rem] text-[--devScheme-gray] w-[80%] text-center border-t border-[--devScheme-gray]`}>Outros produtos</p>
             <div className={`outros-produtos flex flex-row flex-wrap gap-20 w-full items-center justify-center`}>
                 {outrosProdutos.map((produto) => (
-                    <CardProduto key={produto.id} produto={produto}/>                    
+                    <CardProduto key={produto.id} produto={produto} isProdutoPrincipal={false}/>                    
                 ))}
             </div>
         </>)
@@ -73,9 +118,10 @@ const ListaProdutos = () =>{
 
 const Catalogo = () =>{
     return(
-        <div className="produtos flex w-[90%] items-center justify-center flex-row flex-wrap">
+        <section id="produtos" className="produtos bg-[--devScheme-white] flex h-screen w-screen items-center justify-center flex-row flex-wrap">
+            <h2 className="text-[--devScheme-grat]">Produtos</h2>
             <ListaProdutos />
-        </div>
+        </section>
     )
 }
 export default Catalogo
