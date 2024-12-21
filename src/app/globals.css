@@ -62,6 +62,11 @@ body {
     transform: rotate(-15deg);
   }
 }
+main.orcamento{
+  h1{
+    letter-spacing: 2px;
+  }
+}
 .produtos-principais>.card-produto{
   color: black;
 }
@@ -94,19 +99,35 @@ button.perguntaLaje.on, button.perguntaDesconto.on{
 button.perguntaLaje.off, button.perguntaDesconto.off{
   opacity: 0.5;
 }
+button.calcular{
+  letter-spacing: 3px;
+}
+
+.form-orcamento>input.altura-parede::placeholder{
+  margin-left: 20px;
+}
 
 
 .form-orcamento::after, .form-orcamento::before{
   content: "";
   position: absolute;
   width: 100%;
-  border: solid 1px var(--decScheme-gray);
+  height: 2px;
 }
 .form-orcamento::before{
   top: 0;
+  margin-bottom: 15px
 }
 .form-orcamento::after{
+  border-top: solid 1px var(--devScheme-gray);
   bottom: 0;
+  margin-top: 5px
+}
+.orcamento-finalizado{
+  .valores{
+    margin-top: solid black 1px;
+    margin-bottom: solid black 1px;
+  }
 }
 }
 

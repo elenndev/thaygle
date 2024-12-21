@@ -44,16 +44,16 @@ const Orcamento = () => {
 
 
     return(
-        <main className="h-full relative m-0 w-screen flex flex-col items-center justify-between">
-            <div className="quote-container absolute top-1 flex flex-col items-center justify-center h-[90%] w-[90%] gap-y-[30px]">
-                <h1 className="font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[1.5rem]">Orcamento: {produto_nome}</h1>
+        <main className="orcamento h-full text-[1.25rem] relative m-0 w-screen flex flex-col items-center justify-between">
+            <h1 className="font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[2rem]">Orcamento: {produto_nome}</h1>
+            <div className="quote-container relative top-1 flex flex-col items-center justify-center min-h-[fit-content] h-[90%] w-[90%] gap-y-[30px]">
                 {produto == 'churrasqueira' && produto_tipo == 'predial' && (
                     <>
-                    <div className="pergunta-PreOrcamento perguntaLaje bg-[--devScheme-orange] text-[--devScheme-white] w-[90%] flex flex-col gap-x-[10px] py-[10px] rounded-[20px]">
+                    <div className="pergunta-PreOrcamento perguntaLaje bg-[--devScheme-orange] text-[--devScheme-white] w-[90%] flex flex-col gap-x-[10px] items-center justify-center py-[10px] rounded-[20px]">
                         <p className="w-[90%] text-center">No local da instalação da churrasqueira, tem laje?</p>
-                        <span className="flex flex-row items-center justify-center w-[90%]">
-                            <button className="perguntaLaje nao text-white py-[3px] px-[20px] rounded-[20px]" type="button" onClick={() =>handleQuestion(false)}>Não</button>
+                        <span className="flex flex-row items-center justify-around w-[90%]">
                             <button className="perguntaLaje sim text-white py-[3px] px-[20px] rounded-[20px]" type="button" onClick={() => handleQuestion(true)}>Sim</button>
+                            <button className="perguntaLaje nao text-white py-[3px] px-[20px] rounded-[20px]" type="button" onClick={() =>handleQuestion(false)}>Não</button>
                         </span>
                     </div>
                     </>

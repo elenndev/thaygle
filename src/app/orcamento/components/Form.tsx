@@ -2,6 +2,7 @@ import getValue from "@/app/components/FunctionProductValue"
 import TypeOrcamento from "@/app/components/Type_orcamento"
 import { useState } from "react"
 import OrcamentoFinalizado from "./Orcamento";
+import Link from "next/link";
 
 // valores pra teste
     // pra ter m primeiro resultado que equivale a 0,(>5) 
@@ -96,6 +97,9 @@ const FormQuote: React.FC<({
         return getModulos(base)
     }
     function valorTotal(){
+        const perguntaLaje = document.querySelector('.perguntaLaje')
+        perguntaLaje?.classList.remove('flex')
+        perguntaLaje?.classList.add('hidden')
         if (tamParede_metros<2.24 && produto =='churrasqueira'){
             window.alert("Por favor informe um valor válido para o tamanho da parede")
             return
@@ -150,11 +154,11 @@ const FormQuote: React.FC<({
     }
     const QuantProdutos = () =>{
         return(<>
-                <div className="set_qtProduto w-full flex flex-wrap items-center justify-center">
-                    <label htmlFor="set-qtProdutos" className="flex">Quantidade de {produto}s:</label>
+                <div className="set_qtProduto w-full mt-[10px] flex flex-wrap items-center justify-center">
+                    <label htmlFor="set-qtProdutos" className="flex">Quantidade de {produto}s pro orçamento:</label>
                     <button className="text-[35px] w-fit h-fit" type="button" onClick={() => handle_setQtProduto(false)}>-</button>
                     <input className="text-[--devScheme-gray] w-[20%] mx-[15px]" type="number" name="set-qtProdutos" placeholder="Quantidade de itens" value={qtProdutos} onChange={(e) => {parseFloat(e.target.value)}}></input>
-                    <button className="text-[--devScheme-gray] w-fit h-fit" type="button" onClick={() => handle_setQtProduto(true)}>+</button>
+                    <button className="text-[32px] text-[--devScheme-gray] w-fit h-fit" type="button" onClick={() => handle_setQtProduto(true)}>+</button>
                 </div>
             </>)
     }
@@ -165,27 +169,27 @@ const FormQuote: React.FC<({
         {isOrcamento_concluido && orcamento ? (
             <OrcamentoFinalizado getOrcamento={orcamento} alturaParede={tamParede_metros}/>
         ) : (<>
-            <div className=" w-fit px-[20px] flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[90%]">
+            <div className=" w-fit px-[20px] flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[95%]">
             
-            <form className="form-orcamento relative flex flex-col items-center justify-around p-[20px] py-[30px] w-full">
+            <form className="form-orcamento relative flex flex-col items-center gap-x-[10px] justify-evenly p-[20px]w-full">
                 {produto == 'churrasqueira' ? (<>
                     {produto_tipo == 'predial' && isLaje ? (
                         <>
-                        <label htmlFor="wallHeight">Por favor informe a altura em metros do chão até a laje da área em que será instalada a churrasqueira</label>
+                        <label htmlFor="wallHeight">Por favor informe a altura em metros do chão até a laje da área em que será instalada a churrasqueira:</label>
                         </>
                     ):(
                         <>
                             <label htmlFor="wallHeight" className="block">Por favor informe a altura em metros do chão até o telhado da área em que será instalada a churrasqueira</label>
                         </>
                     )}                    
-                    <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="border-[--devScheme-orange] border border-solid bg-[--devScheme-softBlue]  text-black" name="wallHeight"></input>
+                    <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="wallHeight"></input>
                     <QuantProdutos />
                 </>): (
                     <QuantProdutos />
                 )}
             </form>
-            <button type="button" onClick={valorTotal} className="w-fit px-[10px] rounded-[30px] text-white">calcular</button>
-            
+            <button type="button" onClick={valorTotal} className="calcular w-fit py-[3px] px-[30px] rounded-[30px] bg-[--devScheme-orange] text-white">calcular</button>
+            <Link href="/" aria-label="Voltar a página inicial" className="w-fit py-[3px] px-[20px] rounded-[30px] bg-[--devScheme-gray] text-white p-2">Voltar</Link>
             </div>
         </>)}
     </>)

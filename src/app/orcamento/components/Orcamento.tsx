@@ -11,6 +11,7 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     const [isDesconto, setIsDesconto] = useState(false)
     const [orcamento, setOrcamento] = useState<TypeOrcamento>(getOrcamento)
     const [orcamentoEnviado, setOrcamentoEnviado] = useState(false)
+    // const [perguntaRespondida, setPerguntaRespondida] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleCloseModal = () => {
         setIsModalOpen(false)
@@ -24,9 +25,9 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
 
 
 
-    function handleControlePergunta(resposta: boolean, element: string){
+    function handleControlePergunta(resposta: boolean){
+        controlePergunta(resposta, "perguntaDesconto")
         setIsDesconto(resposta)
-        controlePergunta(resposta, element)
     }
 
     function finalizarOrcamento(){
@@ -69,15 +70,17 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     //elementos html
     const PerguntaDesconto = () =>{
         return(<>
-            <span className="bg-[--devScheme-orange] justify-center text-[--devScheme-white] p-[10px] perguntaDesconto grid grid-cols-2 gap-4 w-[50%]">
-                <p className="col-span-2 text-center">O pagamento seria no Pix?</p>
-                <button type="button" className="perguntaDesconto sim bg-[--devScheme-softBlue] text-[--devScheme-white] rounded-sm p-2" onClick={()=> handleControlePergunta(true, "perguntaDesconto")}>Sim</button>
-                <button type="button" className="perguntaDesconto nao bg-[--devScheme-softBlue] text-[--devScheme-white] rounded-sm  p-2" onClick={()=> handleControlePergunta(false, "perguntaDesconto")}>Não</button>
+            <span className="bg-[--devScheme-orange] rounded-[20px] justify-center text-[--devScheme-white] p-[10px] perguntaDesconto flex flex-col items-center w-[90%]">
+                <p className=" w-full text-center">O pagamento seria no Pix?</p>
+                <span className="flex w-full flex-row items-center justify-evenly">
+                    <button type="button" className="perguntaDesconto sim py-[3px] px-[20px] rounded-[20px]" onClick={()=> handleControlePergunta(true)}>Sim</button>
+                    <button type="button" className="perguntaDesconto nao py-[3px] px-[20px] rounded-[20px]" onClick={()=> handleControlePergunta(false)}>Não</button>
+                </span>
         </span>    
         </>)
     }
     return(<>
-    <div className=" flex flex-col bg-white text-black items-center justify-center">
+    <div className="orcamento-concluido flex flex-col w-[97%] text-black items-center justify-center">
         <p>Altura da parede: {alturaParede}m</p>
         <p>Quantidade de dutos: {orcamento.dutos.qt}</p>
         <p>Valor dos dutos: R${orcamento.dutos.valor}</p>
@@ -86,12 +89,17 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
             <p>Valor dos modulos: R${orcamento.modulos.valor}</p>
         </>)}
         <PerguntaDesconto />
-        {/* <p> Valor sem desconto: R${orcamento.soma}</p> */}
-        <p>Valor sem desconto: R${orcamento.soma.toFixed(2).replace(".",",")}</p>
-        <p>Desconto: R${orcamento.desconto.toFixed(2).replace(".",",")}</p>
-        <p>Valor total: R${orcamento.total.toFixed(2).replace(".",",")}</p>
-        <button className="bg-[--devScheme-orange] text-white rounded-sm  p-2" type="button" onClick={() => {finalizarOrcamento()}}>Finalizar orçamento!</button>
-        <button className="bg-[--devScheme-gray] text-white rounded-sm  p-2" type="button" onClick={()=>{handleVoltarHomepage()}}>Voltar</button>
+        <div className="valores border-y-2 border-solid border-black py-[2rem] my-[1.5rem]">
+            {isDesconto ?(<>
+                <p className="line-through">Valor sem desconto: R${orcamento.soma.toFixed(2).replace(".",",")}</p>
+                <p>Desconto: R${orcamento.desconto.toFixed(2).replace(".",",")}</p>
+                <p>Valor total: R${orcamento.total.toFixed(2).replace(".",",")}</p>
+            </>):(<>
+                <p>Valor total: R${orcamento.total.toFixed(2).replace(".",",")}</p>
+            </>)}
+        </div>
+        <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" type="button" onClick={() => {finalizarOrcamento()}}>Finalizar orçamento!</button>
+        <button className="bg-[--devScheme-gray] text-white rounded-[2rem] mt-[10px] px-[15px]  py-2" type="button" onClick={()=>{handleVoltarHomepage()}}>Voltar</button>
 
     </div>
         <ConfirmationModal
