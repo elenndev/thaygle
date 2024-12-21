@@ -4,7 +4,7 @@ import { useState } from "react";
 const HomeNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     return(<>
-    <nav className="absolute z-5 w-full top-[0] bg-[--devScheme-white] text-[--devScheme-gray]">
+    <nav className="absolute z-5 w-[80%] top-[0] bg-[--devScheme-white] text-[--devScheme-gray]">
         <div className="flex items-center justify-between p-4 lg:hidden">
         <h1 className="text-xl font-bold">Logo</h1>
         <button

@@ -61,16 +61,15 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     //elementos html
     const PerguntaDesconto = () =>{
         return(<>
-            <span className="bg-gray-200 justify-center p-[10px] ask desconto grid grid-cols-2 gap-4 w-[50%]">
+            <span className="bg-[--devScheme-orange] justify-center p-[10px] ask desconto grid grid-cols-2 gap-4 w-[50%]">
                 <p className="col-span-2 text-center">O pagamento seria no Pix?</p>
-                <button type="button" className="bg-blue-700 text-white rounded-sm p-2" onClick={()=> setIsDesconto(true)}>Sim</button>
-                <button type="button" className="bg-blue-700 text-white rounded-sm  p-2" onClick={()=> setIsDesconto(false)}>Não</button>
+                <button type="button" className="bg-[--devScheme-softBlue] text-[--devScheme-white] rounded-sm p-2" onClick={()=> setIsDesconto(true)}>Sim</button>
+                <button type="button" className="bg-[--devScheme-softBlue] text-[--devScheme-white] rounded-sm  p-2" onClick={()=> setIsDesconto(false)}>Não</button>
         </span>    
         </>)
     }
     return(<>
     <div className=" flex flex-col bg-white text-black items-center justify-center">
-        <p className="text-[1.5rem]">Orçamento: {orcamento.produto}</p>
         <p>Altura da parede: {alturaParede}m</p>
         <p>Quantidade de dutos: {orcamento.dutos.qt}</p>
         <p>Valor dos dutos: R${orcamento.dutos.valor}</p>
@@ -83,8 +82,8 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
         <p>Valor sem desconto: R${orcamento.soma.toFixed(2).replace(".",",")}</p>
         <p>Desconto: R${orcamento.desconto.toFixed(2).replace(".",",")}</p>
         <p>Valor total: R${orcamento.total.toFixed(2).replace(".",",")}</p>
-        <button className="bg-blue-700 text-white rounded-sm  p-2" type="button" onClick={() => {finalizarOrcamento()}}>Finalizar orçamento!</button>
-        <button className="bg-blue-500 text-white rounded-sm  p-2" type="button" onClick={()=>{handleVoltarHomepage()}}>Voltar</button>
+        <button className="bg-[--devScheme-orange] text-white rounded-sm  p-2" type="button" onClick={() => {finalizarOrcamento()}}>Finalizar orçamento!</button>
+        <button className="bg-[--devScheme-gray] text-white rounded-sm  p-2" type="button" onClick={()=>{handleVoltarHomepage()}}>Voltar</button>
 
     </div>
         <ConfirmationModal

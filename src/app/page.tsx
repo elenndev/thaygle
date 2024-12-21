@@ -12,7 +12,7 @@ const Home = () => {
   return(<>
     <div className="home flex overflow-x-hidden flex-col items-center justify-center h-full w-full relative" id="home">
       <Image style={logoImageStyle} loading="lazy" height={200} width={200} alt="Logo da Thaygle pré-moldados" src="/logo.webp" />
-      <h1 className="text-[--devScheme-orange] text-[2rem] uppercase text-center">Churrasqueiras pré-moldadas</h1>
+      <h1 className="text-[--devScheme-orange] text-[2rem] font-gothic font-extrabold uppercase text-center">Churrasqueiras pré-moldadas</h1>
       <span className="w-fit bg-[--devScheme-white] text-[--devScheme-gray] py-[5px] px-[20px] rounded-[10px]">
         <a className="localizacao">Em Itumbiara - GO e proximidades</a>
       </span>
