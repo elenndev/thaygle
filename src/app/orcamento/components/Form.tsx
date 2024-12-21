@@ -130,7 +130,7 @@ const FormQuote: React.FC<({
             })
         } else {
             const valorProduto = qtProdutos * valorUn_produto
-            const soma = valorDutos?? + valorModulos?? + valorProduto
+            const soma =  valorProduto
             setOrcamento({
                 produto: produto_nome,
                 total: soma,
@@ -167,7 +167,7 @@ const FormQuote: React.FC<({
     return(<>
         
         {isOrcamento_concluido && orcamento ? (
-            <OrcamentoFinalizado getOrcamento={orcamento} alturaParede={tamParede_metros}/>
+            <OrcamentoFinalizado getOrcamento={orcamento} alturaParede={tamParede_metros} produtoInfo={produto}/>
         ) : (<>
             <div className=" w-fit px-[20px] flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[95%]">
             

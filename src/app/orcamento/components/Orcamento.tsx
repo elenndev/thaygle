@@ -7,7 +7,7 @@ import controlePergunta from "./controlePergunta";
 
 
 
-const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: number}> = ({getOrcamento, alturaParede}) => {
+const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: number, produtoInfo: string}> = ({getOrcamento, alturaParede, produtoInfo}) => {
     const [isDesconto, setIsDesconto] = useState(false)
     const [orcamento, setOrcamento] = useState<TypeOrcamento>(getOrcamento)
     const [orcamentoEnviado, setOrcamentoEnviado] = useState(false)
@@ -31,7 +31,7 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     }
 
     function finalizarOrcamento(){
-        GerarPdfOrcamento(orcamento, alturaParede)
+        GerarPdfOrcamento(orcamento, alturaParede, produtoInfo)
         setOrcamentoEnviado(true)
         
         redirect('/')
@@ -81,12 +81,14 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     }
     return(<>
     <div className="orcamento-concluido flex flex-col w-[97%] text-black items-center justify-center">
-        <p>Altura da parede: {alturaParede}m</p>
-        <p>Quantidade de dutos: {orcamento.dutos.qt}</p>
-        <p>Valor dos dutos: R${orcamento.dutos.valor}</p>
-        {orcamento.modulos.qt > 0 && (<>
-            <p>Quantidade de modulos: {orcamento.modulos.qt}</p>
-            <p>Valor dos modulos: R${orcamento.modulos.valor}</p>
+        {produtoInfo == 'churrasqueira' && (<> 
+            <p>Altura da parede: {alturaParede}m</p>
+            <p>Quantidade de dutos: {orcamento.dutos.qt}</p>
+            <p>Valor dos dutos: R${orcamento.dutos.valor}</p>
+            {orcamento.modulos.qt > 0 && (<>
+                <p>Quantidade de modulos: {orcamento.modulos.qt}</p>
+                <p>Valor dos modulos: R${orcamento.modulos.valor}</p>
+            </>)}
         </>)}
         <PerguntaDesconto />
         <div className="valores border-y-2 border-solid border-black py-[2rem] my-[1.5rem]">
