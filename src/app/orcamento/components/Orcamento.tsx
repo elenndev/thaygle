@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import GerarPdfOrcamento from "./GerarPdf";
 import ConfirmationModal from "./ModalFecharOrcamento";
 import { redirect } from "next/navigation";
+import controlePergunta from "./controlePergunta";
 
 
 
@@ -19,6 +20,13 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     const handleConfirmModal = () => {
         setIsModalOpen(false)
         redirect('/')
+    }
+
+
+
+    function handleControlePergunta(resposta: boolean, element: string){
+        setIsDesconto(resposta)
+        controlePergunta(resposta, element)
     }
 
     function finalizarOrcamento(){
@@ -61,10 +69,10 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     //elementos html
     const PerguntaDesconto = () =>{
         return(<>
-            <span className="bg-[--devScheme-orange] justify-center p-[10px] ask desconto grid grid-cols-2 gap-4 w-[50%]">
+            <span className="bg-[--devScheme-orange] justify-center text-[--devScheme-white] p-[10px] perguntaDesconto grid grid-cols-2 gap-4 w-[50%]">
                 <p className="col-span-2 text-center">O pagamento seria no Pix?</p>
-                <button type="button" className="bg-[--devScheme-softBlue] text-[--devScheme-white] rounded-sm p-2" onClick={()=> setIsDesconto(true)}>Sim</button>
-                <button type="button" className="bg-[--devScheme-softBlue] text-[--devScheme-white] rounded-sm  p-2" onClick={()=> setIsDesconto(false)}>Não</button>
+                <button type="button" className="perguntaDesconto sim bg-[--devScheme-softBlue] text-[--devScheme-white] rounded-sm p-2" onClick={()=> handleControlePergunta(true, "perguntaDesconto")}>Sim</button>
+                <button type="button" className="perguntaDesconto nao bg-[--devScheme-softBlue] text-[--devScheme-white] rounded-sm  p-2" onClick={()=> handleControlePergunta(false, "perguntaDesconto")}>Não</button>
         </span>    
         </>)
     }

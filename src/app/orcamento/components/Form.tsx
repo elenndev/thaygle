@@ -165,9 +165,9 @@ const FormQuote: React.FC<({
         {isOrcamento_concluido && orcamento ? (
             <OrcamentoFinalizado getOrcamento={orcamento} alturaParede={tamParede_metros}/>
         ) : (<>
-            <div className=" w-fit bg-[--devScheme-white] px-[20px] shadow-md flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[90%]">
+            <div className=" w-fit px-[20px] flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[90%]">
             
-            <form className="flex flex-col items-center justify-around p-[20px] py-[30px] w-full">
+            <form className="form-orcamento relative flex flex-col items-center justify-around p-[20px] py-[30px] w-full">
                 {produto == 'churrasqueira' ? (<>
                     {produto_tipo == 'predial' && isLaje ? (
                         <>
@@ -178,13 +178,13 @@ const FormQuote: React.FC<({
                             <label htmlFor="wallHeight" className="block">Por favor informe a altura em metros do chão até o telhado da área em que será instalada a churrasqueira</label>
                         </>
                     )}                    
-                    <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros" className="text-black" name="wallHeight"></input>
+                    <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="border-[--devScheme-orange] border border-solid bg-[--devScheme-softBlue]  text-black" name="wallHeight"></input>
                     <QuantProdutos />
                 </>): (
                     <QuantProdutos />
                 )}
             </form>
-            <button type="button" onClick={valorTotal} className="bg-[--devScheme-softBlue] w-fit px-[10px] rounded-[20px] text-white">calcular</button>
+            <button type="button" onClick={valorTotal} className="w-fit px-[10px] rounded-[30px] text-white">calcular</button>
             
             </div>
         </>)}

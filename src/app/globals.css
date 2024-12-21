@@ -82,6 +82,31 @@ body {
     background: var(--devScheme-blue);
   }
 }
+button.perguntaLaje, button.perguntaDesconto{
+  background: var(--devScheme-white);
+  color: var(--devScheme-gray);
+  width: fit-content
+}
+button.perguntaLaje.on, button.perguntaDesconto.on{
+  background: var(--devScheme-blue);
+  color: var(--devScheme-white);
+}
+button.perguntaLaje.off, button.perguntaDesconto.off{
+  opacity: 0.5;
+}
 
+
+.form-orcamento::after, .form-orcamento::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  border: solid 1px var(--decScheme-gray);
+}
+.form-orcamento::before{
+  top: 0;
+}
+.form-orcamento::after{
+  bottom: 0;
+}
 }
 

@@ -1,5 +1,6 @@
 export default function controlCard(action: string, elementId: string){
-    const openCard = document.querySelector(`#${elementId}`)
+    const id = elementId.replace(" ", "_")
+    const openCard = document.querySelector(`#${id}`)
     const allMiniCards = document.querySelectorAll('.smallCard-produto')
     console.log(openCard)
 

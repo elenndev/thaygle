@@ -14,12 +14,12 @@ const CardProduto: React.FC<{produto: TypeProduto, isProdutoPrincipal: boolean}>
     const CardProdutoAberto: React.FC<{produto: TypeProduto}> = ({produto}) => {
 
         return(<>
-            <div id={`bigCard_${produto.infos.produto}_${produto.infos.tipo}`} className={`hidden bg-[--devScheme-orange] h-full flex-col items-center justify-center text-white`}>
+            <div id={`bigCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`hidden bg-[--devScheme-orange] h-[90vh] w-[90vw] flex-col items-center justify-between text-white font-[1.5rem]`}>
                 <button type="button" onClick={()=>controlCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)}>Close</button>
                 <Image width={200} height={200} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
-                <p className="font-bold nome-produto">{produto.nome}</p>
-                <p>{produto.infos.descricao_completa}</p>
-                <Link key={produto.id + 10} className="fazer-orcamento bg-blue-800 px-[10px] text-white text-center rounded-[10px]"
+                <p className="font-bold nome-produto flex w-[90%]">{produto.nome}</p>
+                <p className="flex w-[90%]">{produto.infos.descricao_completa}</p>
+                <Link key={produto.id + 10} className="fazer-orcamento bg-[--devScheme-softBlu] px-[20px] py-[10px] text-white text-center rounded-[10px]"
                     href={{pathname:'/orcamento', 
                     query: {
                         produto_nome: produto.nome,
@@ -33,7 +33,7 @@ const CardProduto: React.FC<{produto: TypeProduto, isProdutoPrincipal: boolean}>
 
     return(<>
         <CardProdutoAberto produto={produto}/>
-        <div id={`smallCard_${produto.infos.produto}_${produto.infos.tipo}`} className={`smallCard-produto ${produto.nome} relative w-full flex flex-row items-center justify-center 
+        <div id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-full flex flex-row items-center justify-center 
         `}>
             {isProdutoPrincipal && (
                 <Image width={200} height={200} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
@@ -42,9 +42,9 @@ const CardProduto: React.FC<{produto: TypeProduto, isProdutoPrincipal: boolean}>
                 <p className="font-bold nome-produto">{produto.nome}</p>
                 <p>{produto.infos.breve_descricao}</p>
                 {isProdutoPrincipal?(
-                    <button type="button" onClick={() => controlCard('open',`bigCard_${produto.infos.produto}_${produto.infos.tipo}`)} className="fazer-orcamento bg-blue-800 text-white rounded-[10px]">Ver produto</button>
+                    <button type="button" onClick={() => controlCard('open',`bigCard_${produto.infos.produto}_${produto.infos.tipo}`)} className="fazer-orcamento bg-[--devScheme-orange] px-[10px] py-[2px] text-white rounded-[10px]">Ver produto</button>
                 ):(
-                    <Link key={produto.id + 10} className="fazer-orcamento bg-blue-800 text-white text-center rounded-[10px]"
+                    <Link key={produto.id + 10} className="fazer-orcamento bg-[--devScheme-orange] px-[10px] py-[2px] text-white text-center rounded-[10px]"
                     href={{pathname:'/orcamento', 
                     query: {
                         produto_nome: produto.nome,
@@ -84,8 +84,8 @@ const ListaProdutos = () =>{
     const OutrosProdutos = () => {
 
         return(<>
-            <p className={`text-[1rem] text-[--devScheme-gray] w-[80%] text-center border-t border-[--devScheme-gray]`}>Outros produtos</p>
-            <div className={`outros-produtos flex flex-row flex-wrap gap-20 w-full items-center justify-center`}>
+            <h3 className={` outros-produtos text-[1rem] text-[--devScheme-gray] w-[80%] text-center border-t border-[--devScheme-gray]`}>Outros produtos</h3>
+            <div className={`outros-produtos flex flex-row flex-wrap gap-9 w-full items-center justify-center`}>
                 {outrosProdutos.map((produto) => (
                     <CardProduto key={produto.id} produto={produto} isProdutoPrincipal={false}/>                    
                 ))}
