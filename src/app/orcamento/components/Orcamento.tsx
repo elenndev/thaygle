@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import GerarPdfOrcamento from "./GerarPdf";
 import ConfirmationModal from "./ModalFecharOrcamento";
 import { redirect } from "next/navigation";
-import controlePergunta from "./controlePergunta";
+// import controlePergunta from "./controlePergunta";
 
 
 
@@ -25,9 +25,10 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
 
 
 
-    function handleControlePergunta(resposta: boolean){
-        controlePergunta(resposta, "perguntaDesconto")
+    function handleControlePergunta(resposta: boolean, event: React.MouseEvent<HTMLButtonElement>){
+        // controlePergunta(resposta, "perguntaDesconto")
         setIsDesconto(resposta)
+        console.log(event)
     }
 
     function finalizarOrcamento(){
@@ -73,8 +74,8 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
             <span className="bg-[--devScheme-orange] rounded-[20px] justify-center text-[--devScheme-white] p-[10px] perguntaDesconto flex flex-col items-center w-[90%]">
                 <p className=" w-full text-center">O pagamento seria no Pix?</p>
                 <span className="flex w-full flex-row items-center justify-evenly">
-                    <button type="button" className="perguntaDesconto sim py-[3px] px-[20px] rounded-[20px]" onClick={()=> handleControlePergunta(true)}>Sim</button>
-                    <button type="button" className="perguntaDesconto nao py-[3px] px-[20px] rounded-[20px]" onClick={()=> handleControlePergunta(false)}>Não</button>
+                    <button type="button" className={`perguntaDesconto sim py-[3px] px-[20px] rounded-[20px] ${isDesconto === true ? "on" : "off"}`} onClick={(event)=> handleControlePergunta(true, event)}>Sim</button>
+                    <button type="button" className={`perguntaDesconto nao py-[3px] px-[20px] rounded-[20px] ${isDesconto === true ? "off" : "on"}`}  onClick={(event)=> handleControlePergunta(false, event)}>Não</button>
                 </span>
         </span>    
         </>)

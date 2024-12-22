@@ -1,4 +1,5 @@
 export default function controlePergunta(resposta: boolean, element: string){
+    return true
 const respostaNao = document.querySelector(`.${element}.nao`)
 const respostaSim = document.querySelector(`.${element}.sim`)
 window.alert(resposta)

@@ -47,7 +47,7 @@ const Orcamento = () => {
         <main className="orcamento h-full text-[1.25rem] relative m-0 w-screen flex flex-col items-center justify-between">
             <h1 className="font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[2rem]">Orcamento: {produto_nome}</h1>
             <div className="quote-container relative top-1 flex flex-col items-center justify-center min-h-[fit-content] h-[90%] w-[90%] gap-y-[30px]">
-                {produto == 'churrasqueira' && produto_tipo == 'predial' && (
+                {produto == 'churrasqueira' && produto_tipo == 'predial' && !perguntas_preOrcamento && (
                     <>
                     <div className="pergunta-PreOrcamento perguntaLaje bg-[--devScheme-orange] text-[--devScheme-white] w-[90%] flex flex-col gap-x-[10px] items-center justify-center py-[10px] rounded-[20px]">
                         <p className="w-[90%] text-center">No local da instalação da churrasqueira, tem laje?</p>

@@ -87,7 +87,7 @@ main.orcamento{
     background: var(--devScheme-blue);
   }
 }
-button.perguntaLaje, button.perguntaDesconto{
+button.perguntaLaje, button.perguntaDesconto.semResposta{
   background: var(--devScheme-white);
   color: var(--devScheme-gray);
   width: fit-content
@@ -97,6 +97,8 @@ button.perguntaLaje.on, button.perguntaDesconto.on{
   color: var(--devScheme-white);
 }
 button.perguntaLaje.off, button.perguntaDesconto.off{
+  background: var(--devScheme-white);
+  color: var(--devScheme-gray);
   opacity: 0.5;
 }
 button.calcular{
