@@ -43,20 +43,21 @@ body {
     z-index: 3;
   }
 .homepage{
-  .home{
+  #hero{
     background-image: url("./midia/cover.webp");
     background-size: cover;
     background-color: #131143d4;
     background-blend-mode: multiply;
     color: var(--devScheme-orange);
+
   }
-  .home::after{
+  #hero::after{
     content: "";
     position: absolute;
     background: var(--devScheme-white);
     top: -5%;
     width: 150%;
-    height: 50%;
+    height: 40%;
     z-index: 1;
     clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
     transform: rotate(-15deg);

@@ -10,13 +10,13 @@ const Home = () => {
   }
 
   return(<>
-    <div className="home flex overflow-x-hidden flex-col items-center justify-center h-full w-full relative" id="home">
-      <Image style={logoImageStyle} loading="lazy" height={200} width={200} alt="Logo da Thaygle pré-moldados" src="/logo.webp" />
-      <h1 className="text-[--devScheme-orange] text-[2rem] font-gothic font-extrabold uppercase text-center">Churrasqueiras pré-moldadas</h1>
+    <section id="hero" className="home relative flex overflow-x-hidden flex-col items-center justify-center h-full w-full">
+      <Image style={logoImageStyle} loading="lazy" height={200} width={200} alt="Logo da Thaygle pré-moldados"  className="absolute top-[7vh] left-[2vw]" src="/logo.webp" />
+      <h1 className="text-[--devScheme-orange] text-[2.5rem] font-gothic font-bold uppercase tracking-widest text-center">Churrasqueiras<br></br>pré-moldadas</h1>
       <span className="w-fit bg-[--devScheme-white] text-[--devScheme-gray] py-[5px] px-[20px] rounded-[10px]">
-        <a className="localizacao">Em Itumbiara - GO e proximidades</a>
+        <a className="localizacao font-gothic font-bold">Em Itumbiara - GO e proximidades</a>
       </span>
-    </div>
+    </section>
   </>)
 }
 
@@ -29,11 +29,11 @@ export default function HomePage() {
 
   return (
     <>
-    <div className="homepage relative min-h-[fit-content] bg-gray-900 w-screen h-full flex flex-col items-center justify-end">
+    <main className="homepage relative min-h-[fit-content] bg-gray-900 w-screen h-full flex flex-col items-center justify-end">
       <HomeNavbar />
       <Home />
       <Catalogo />
-    </div>
+    </main>
     </>
   );
 }
