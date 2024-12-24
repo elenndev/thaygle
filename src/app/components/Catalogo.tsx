@@ -5,7 +5,7 @@ import Image from "next/image"
 import controlCard from "./controlCard"
 import Churrasqueiras from "./Churrasqueiras"
 import TypeChurrasqueira from "./Type_churrasqueira"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import gsap from 'gsap';
 
 
@@ -19,20 +19,65 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
             imagem_variacao: string;
         }
         const variacoes = produto.detalhes.variacoes
-        console.log(variacoes)
         const [imagemEsquerda, setImagemEsquerda] = useState<listaVariacao>(variacoes[0])
         const [imagemCentro, setImagemCentro] = useState<listaVariacao>(variacoes[1])
         const [imagemDireita, setImagemDireita] = useState<listaVariacao>(variacoes[3])
+        const [paragrafo_nomeVariacao, setParagrafo] = useState({background: "transparent", color: "--devScheme-gray"})
+
+        useEffect(()=>{
+            if (variacoes.length >= 3){
+                mudarCor(variacoes[1].nome_variacao)
+            }
+        },[])
+        // useEffect(()=> {
+        //     if(paragrafo_nomeVariacao.background == '--devScheme-champanhe'){
+        //         setParagrafo({background: paragrafo_nomeVariacao.background, color: "--devScheme-white"})
+        //     }
+        // },[paragrafo_nomeVariacao])
 
         // ANIMACOES
         const containerEsquerdo = useRef(null)
         const containerCentro = useRef(null)
         const containerDireito = useRef(null)
+        const nomeVariacaoFocada = useRef(null)
         const durationAnimation = 0.5
         const fromX_proxima = -100
         const fromX_anterior = 100
         const toX_proxima = 100
         const toX_anterior = -100
+        function mudarCor(variacaoProduto: string){
+            let cor = "transparent"
+            switch (variacaoProduto){
+                case "Prestígio":
+                    // cor = "#484942"
+                    cor = "--devScheme-prestigio"
+                    break
+                case "Vermelho":
+                    cor = "--devScheme-vermelho"
+                    break
+                case "Champanhe":
+                    // cor = "#BFAB76"
+                    cor = "--devScheme-champanhe"
+                    break
+                case "Chocolate":
+                    // cor = "#66453B"
+                    cor = "--devScheme-chocolate"
+                    break
+                case "Amadeirada":
+                    // cor = "#A84912"
+                    cor = "--devScheme-amadeirada"
+                    break
+            }
+            gsap.context(()=> {
+                const colorValue = `var(${cor})`
+                gsap.to(nomeVariacaoFocada.current, {
+                    background: colorValue,
+                    color: variacaoProduto == "Champanhe"? "var(--devScheme-gray)" : "var(--devScheme-white)",
+                    duration: 1
+                })
+            }, nomeVariacaoFocada)
+            
+        }
         function movEsquerda(isProxima: boolean){
             gsap.context(() => {
                 gsap.to(containerEsquerdo.current, {
@@ -55,7 +100,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                 });
             }, containerEsquerdo);             
         }        
-        function movCentro(isProxima: boolean){
+        function movCentro(isProxima: boolean, variacao: listaVariacao){
             gsap.context(()=> {
                 gsap.to(containerCentro.current, {
                     x: isProxima? toX_proxima : toX_anterior,
@@ -73,6 +118,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                     })
                 })
             }, containerCentro)
+            mudarCor(variacao.nome_variacao)
         }
         function movDireita(isProxima: boolean){
             gsap.context(()=> {
@@ -94,17 +140,22 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
             }, containerCentro)
         }
         
+        
 
 
         function controleGaleria(acao: string,imagemAtual: listaVariacao){
             
             if (acao == "anterior"){
                 movEsquerda(false)
-                movCentro(false)
+                movCentro(false, imagemAtual)
                 movDireita(false)
 
                 const imagemEsquerdaAtual = imagemAtual
                 const imagemCentroAtual = imagemCentro
+                if(imagemEsquerdaAtual.nome_variacao == "Champanhe"){
+                    setParagrafo({background: paragrafo_nomeVariacao.background, color: "--devScheme-gray"})
+                }
+                
                 if(imagemEsquerdaAtual.id == 0){
                     setImagemEsquerda(variacoes[(variacoes.length - 1)])
                 } else{
@@ -114,13 +165,17 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                 setImagemCentro(imagemEsquerdaAtual)
             } else if (acao == "proxima"){
                 movDireita(true)
-                movCentro(true)
+                movCentro(true, imagemAtual)
                 movEsquerda(true)
-
+                
                 const imagemDireitaAtual = imagemAtual
                 const imagemCentroAtual = imagemCentro
+                if(imagemDireitaAtual.nome_variacao == "Champanhe"){
+                    setParagrafo({background: paragrafo_nomeVariacao.background, color: "--devScheme-gray"})
+                }
+                
                 if(imagemDireitaAtual.id == variacoes.length - 1){
-                    setImagemDireita(variacoes[1])
+                    setImagemDireita(variacoes[0])
                 }else{
                     setImagemDireita(variacoes[(imagemDireitaAtual.id + 1)])
                 }
@@ -128,8 +183,6 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                 setImagemEsquerda(imagemCentroAtual)
             }
         }
-
-
         return(<>
             <div id={`bigCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`hidden bg-[--devScheme-white] h-[90vh] w-[90vw] flex-col items-center justify-between text-[--devScheme-gray] border-solid border-[--devScheme-orange] border-2 font-[1.5rem]`}>
                 <button type="button" onClick={()=>controlCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)}>Close</button>
@@ -140,7 +193,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                         </span>
                         <span className="imagem-centro overflow-hidden flex flex-col w-fit gap-y-[10px]">
                             <Image ref={containerCentro} width={300} height={300} className={`centro`} alt={`Imagem da variação do produto`} src={imagemCentro.imagem_variacao}/>
-                            <p>{imagemCentro.nome_variacao}</p>
+                            <p className={`centro text-center px-[10px] rounded-[20px] text-[${paragrafo_nomeVariacao.color}] bg-[${paragrafo_nomeVariacao.background == '--devScheme-champanhe'? "gray" : "white"}]`} ref={nomeVariacaoFocada}>{imagemCentro.nome_variacao}</p>
                         </span>
                         <span className="imagem-direita overflow-hidden flex flex-col w-fit gap-y-[10px]">
                             <Image ref={containerDireito} width={100} height={100} className={`direito`} alt={`Imagem da variação do produto`} src={imagemDireita.imagem_variacao} onClick={()=> controleGaleria("proxima", imagemDireita)}/>
@@ -190,7 +243,6 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
 
 const ListaProdutos = () =>{
     const principaisProdutos = Churrasqueiras
-    console.log("produtos: ", principaisProdutos)
 
 
     const Principais = () => {

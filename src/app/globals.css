@@ -11,7 +11,11 @@
   --devScheme-orange: #D4542F;
   --devScheme-blue: #131143;
   --devScheme-softBlue: #1E1B60;
-  
+  --devScheme-prestigio: #484942;
+  --devScheme-vermelho: #d4482f;
+  --devScheme-champanhe: #bfab76;
+  --devScheme-chocolate: #66453b;
+  --devScheme-amadeirada: #a84912;
 }
 
 @media (prefers-color-scheme: dark) {
