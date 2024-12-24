@@ -5,7 +5,8 @@ import Image from "next/image"
 import controlCard from "./controlCard"
 import Churrasqueiras from "./Churrasqueiras"
 import TypeChurrasqueira from "./Type_churrasqueira"
-import { useState } from "react"
+import { useRef, useState } from "react"
+import gsap from 'gsap';
 
 
 const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
@@ -22,11 +23,86 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
         const [imagemEsquerda, setImagemEsquerda] = useState<listaVariacao>(variacoes[0])
         const [imagemCentro, setImagemCentro] = useState<listaVariacao>(variacoes[1])
         const [imagemDireita, setImagemDireita] = useState<listaVariacao>(variacoes[3])
-        // const [imagemDireito, setImagemDireito] = useState<listaVariacao>(variacoes[1])
+
+        // ANIMACOES
+        const containerEsquerdo = useRef(null)
+        const containerCentro = useRef(null)
+        const containerDireito = useRef(null)
+        const durationAnimation = 0.5
+        const fromX_proxima = -100
+        const fromX_anterior = 100
+        const toX_proxima = 100
+        const toX_anterior = -100
+        function movEsquerda(isProxima: boolean){
+            gsap.context(() => {
+                gsap.to(containerEsquerdo.current, {
+                    x: isProxima? toX_proxima : toX_anterior,
+                    delay: isProxima? 0.28 : 0.05,
+                    duration: durationAnimation,
+                    ease: "sine.in",
+                    onComplete: (() => {
+                        gsap.context(() => {
+                            gsap.fromTo(containerEsquerdo.current, {
+                                x: isProxima? fromX_proxima : fromX_anterior,
+                            },
+                            {
+                                x: 0,
+                                duration: durationAnimation,
+                                ease: "circ",
+                            });
+                        }, containerEsquerdo);   
+                    })
+                });
+            }, containerEsquerdo);             
+        }        
+        function movCentro(isProxima: boolean){
+            gsap.context(()=> {
+                gsap.to(containerCentro.current, {
+                    x: isProxima? toX_proxima : toX_anterior,
+                    delay: 0.25,
+                    duration: durationAnimation,
+                    ease: "sine.in",
+                    onComplete: (()=>{
+                        gsap.fromTo(containerCentro.current, {
+                            x: isProxima? fromX_proxima : fromX_anterior
+                        },{
+                            x: 0,
+                            duration: durationAnimation,
+                            ease: "circ"
+                        })
+                    })
+                })
+            }, containerCentro)
+        }
+        function movDireita(isProxima: boolean){
+            gsap.context(()=> {
+                gsap.to(containerDireito.current, {
+                    x: isProxima? toX_proxima : toX_anterior,
+                    delay: isProxima? 0.05 : 0.28,
+                    duration: durationAnimation,
+                    ease: "sine.in",
+                    onComplete: (()=>{
+                        gsap.fromTo(containerDireito.current, {
+                            x: isProxima? fromX_proxima : fromX_anterior,
+                        },{
+                            x: 0,
+                            duration: durationAnimation,
+                            ease: "circ"
+                        })
+                    })
+                })
+            }, containerCentro)
+        }
+        
+
 
         function controleGaleria(acao: string,imagemAtual: listaVariacao){
-            // const qt_variacoes = variacoes.length - 1
+            
             if (acao == "anterior"){
+                movEsquerda(false)
+                movCentro(false)
+                movDireita(false)
+
                 const imagemEsquerdaAtual = imagemAtual
                 const imagemCentroAtual = imagemCentro
                 if(imagemEsquerdaAtual.id == 0){
@@ -37,6 +113,10 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                 setImagemDireita(imagemCentroAtual)
                 setImagemCentro(imagemEsquerdaAtual)
             } else if (acao == "proxima"){
+                movDireita(true)
+                movCentro(true)
+                movEsquerda(true)
+
                 const imagemDireitaAtual = imagemAtual
                 const imagemCentroAtual = imagemCentro
                 if(imagemDireitaAtual.id == variacoes.length - 1){
@@ -55,12 +135,16 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                 <button type="button" onClick={()=>controlCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)}>Close</button>
                 <span className={`galeria items-center justify-center ${variacoes.length >= 3 ? "grid grid-cols-3 grid-rows-1" : "flex flex-row"}`}>
                     {variacoes.length >= 3 ? (<>
-                        <Image width={100} height={100} className={`esquerdo`} alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao} onClick={() => controleGaleria("anterior",imagemEsquerda)}/>
-                        <div className="imagem-centro flex flex-col w-fit gap-y-[10px]">
-                            <Image width={300} height={300} className={`centro`} alt={`Imagem da variação do produto`} src={imagemCentro.imagem_variacao}/>
+                        <span className="imagem-esquerda flex flex-col w-fit overflow-hidden">
+                            <Image ref={containerEsquerdo} width={100} height={100} className={`esquerdo`} alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao} onClick={() => controleGaleria("anterior",imagemEsquerda)}/>
+                        </span>
+                        <span className="imagem-centro overflow-hidden flex flex-col w-fit gap-y-[10px]">
+                            <Image ref={containerCentro} width={300} height={300} className={`centro`} alt={`Imagem da variação do produto`} src={imagemCentro.imagem_variacao}/>
                             <p>{imagemCentro.nome_variacao}</p>
-                        </div>
-                        <Image width={100} height={100} className={`direito`} alt={`Imagem da variação do produto`} src={imagemDireita.imagem_variacao} onClick={()=> controleGaleria("proxima", imagemDireita)}/>
+                        </span>
+                        <span className="imagem-direita overflow-hidden flex flex-col w-fit gap-y-[10px]">
+                            <Image ref={containerDireito} width={100} height={100} className={`direito`} alt={`Imagem da variação do produto`} src={imagemDireita.imagem_variacao} onClick={()=> controleGaleria("proxima", imagemDireita)}/>
+                        </span>
                     </>): (<>
                         <Image width={300} height={300} className={`centro`} alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao}/>
                     </>)}
