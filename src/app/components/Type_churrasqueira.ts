@@ -2,6 +2,11 @@ type listaDetalhes = {
     nome_lista: string;
     itens_lista: string[];
 }
+type listaVariacao = {
+    id: number;
+    nome_variacao: string;
+    imagem_variacao: string;
+}
 type TypeChurrasqueira = {
     id: number;
     nome: string;
@@ -15,7 +20,7 @@ type TypeChurrasqueira = {
     };
     detalhes: {
         listas: listaDetalhes[] | null;
-        variacoes: string[];
+        variacoes: listaVariacao[];
     };
 }
 

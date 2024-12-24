@@ -175,11 +175,11 @@ const FormQuote: React.FC<({
                 {produto == 'churrasqueira' ? (<>
                     {produto_tipo == 'predial' && isLaje ? (
                         <>
-                        <label htmlFor="wallHeight">Por favor informe a altura em metros do chão até a laje da área em que será instalada a churrasqueira:</label>
+                        <label htmlFor="wallHeight">Por favor informe a altura em <strong>metros</strong> do chão até a laje da área em que será instalada a churrasqueira:</label>
                         </>
                     ):(
                         <>
-                            <label htmlFor="wallHeight" className="block">Por favor informe a altura em metros do chão até o telhado da área em que será instalada a churrasqueira</label>
+                            <label htmlFor="wallHeight" className="block">Por favor informe a altura em <strong>metros</strong> do chão até o telhado da área em que será instalada a churrasqueira</label>
                         </>
                     )}                    
                     <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="wallHeight"></input>
