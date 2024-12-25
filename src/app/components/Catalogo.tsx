@@ -68,12 +68,14 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                     cor = "--devScheme-amadeirada"
                     break
             }
+            setParagrafo({background: cor, color: variacaoProduto == "Champanhe"? "--devScheme-gray" : "--devScheme-white"})
             gsap.context(()=> {
                 const colorValue = `var(${cor})`
                 gsap.to(nomeVariacaoFocada.current, {
                     background: colorValue,
-                    color: variacaoProduto == "Champanhe"? "var(--devScheme-gray)" : "var(--devScheme-white)",
-                    duration: 1
+                    // color: variacaoProduto == "Champanhe"? "var(--devScheme-gray)" : "var(--devScheme-white)",
+                    duration: 3.0,
+                    ease: "sine.in"
                 })
             }, nomeVariacaoFocada)
             
@@ -186,6 +188,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
         return(<>
             <div id={`bigCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`hidden bg-[--devScheme-white] h-[90vh] w-[90vw] flex-col items-center justify-between text-[--devScheme-gray] border-solid border-[--devScheme-orange] border-2 font-[1.5rem]`}>
                 <button type="button" onClick={()=>controlCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)}>Close</button>
+                <p className="font-bold nome-produto text-[1.5rem] flex w-[90%]">{produto.nome}</p>
                 <span className={`galeria items-center justify-center ${variacoes.length >= 3 ? "grid grid-cols-3 grid-rows-1" : "flex flex-row"}`}>
                     {variacoes.length >= 3 ? (<>
                         <span className="imagem-esquerda flex flex-col w-fit overflow-hidden">
@@ -202,11 +205,10 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                         <Image width={300} height={300} className={`centro`} alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao}/>
                     </>)}
                 </span>
-                <p className="font-bold nome-produto flex w-[90%]">{produto.nome}</p>
                 <p className="flex w-[90%]">{produto.infos.descricao_completa}</p>
                 {produto.detalhes.listas?.map((detalhe, index) => (
                     <ul key={index} className={`${detalhe.nome_lista}`}>
-                        <p>{detalhe.nome_lista}</p>
+                        <p className="font-bold">{detalhe.nome_lista}</p>
                         {detalhe.itens_lista?.map((detalhe_item,index)=> (
                             <li key={index} className="detalhe">{detalhe_item}</li>)
                         )}
