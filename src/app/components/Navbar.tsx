@@ -1,12 +1,24 @@
 'use client'
 import { useState } from "react";
+import Image from "next/image"
+
 
 const HomeNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    document.querySelectorAll('nav>li').forEach(link => {
+        link.addEventListener('click', () => {
+            const bigCards = document.querySelectorAll('.bigCard')
+            bigCard.forEach(card => {
+                console.log('a')
+                bigcard.classList.remove('flex')
+                bigcard.classList.add('hidden')
+            })
+        })
+    });
     return(<>
     <nav className="fixed z-5 w-[100%] top-[0] bg-[--devScheme-white] text-[--devScheme-gray]">
         <div className="flex items-center justify-between p-4 lg:hidden">
-        <h1 className="text-xl font-bold">Logo</h1>
+        <Image className={`logo`}  width={50} height={50} alt={`logo da empresa Thaygle Pre-moldados`} src="/logo.webp" />
         <button
             aria-label="Toggle Navigation"
             onClick={() => setIsOpen(!isOpen)}

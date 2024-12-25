@@ -29,11 +29,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                 mudarCor(variacoes[1].nome_variacao)
             }
         },[])
-        // useEffect(()=> {
-        //     if(paragrafo_nomeVariacao.background == '--devScheme-champanhe'){
-        //         setParagrafo({background: paragrafo_nomeVariacao.background, color: "--devScheme-white"})
-        //     }
-        // },[paragrafo_nomeVariacao])
+
 
         // ANIMACOES
         const containerEsquerdo = useRef(null)
@@ -73,7 +69,6 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                 const colorValue = `var(${cor})`
                 gsap.to(nomeVariacaoFocada.current, {
                     background: colorValue,
-                    // color: variacaoProduto == "Champanhe"? "var(--devScheme-gray)" : "var(--devScheme-white)",
                     duration: 3.0,
                     ease: "sine.in"
                 })
@@ -186,20 +181,20 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
             }
         }
         return(<>
-            <div id={`bigCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`hidden bg-[--devScheme-white] h-[90vh] w-[90vw] flex-col items-center justify-between text-[--devScheme-gray] border-solid border-[--devScheme-orange] border-2 font-[1.5rem]`}>
+            <div id={`bigCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`hidden bigCard bigCard-produto bg-[--devScheme-white] min-h-[90vh] w-[90vw] flex-col items-center justify-between gap-y-[10px] py-[10px] text-[--devScheme-gray] border-solid border-[--devScheme-orange] border-2 font-[1.5rem]`}>
                 <button type="button" onClick={()=>controlCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)}>Close</button>
                 <p className="font-bold nome-produto text-[1.5rem] flex w-[90%]">{produto.nome}</p>
                 <span className={`galeria items-center justify-center ${variacoes.length >= 3 ? "grid grid-cols-3 grid-rows-1" : "flex flex-row"}`}>
                     {variacoes.length >= 3 ? (<>
-                        <span className="imagem-esquerda flex flex-col w-fit overflow-hidden">
-                            <Image ref={containerEsquerdo} width={100} height={100} className={`esquerdo`} alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao} onClick={() => controleGaleria("anterior",imagemEsquerda)}/>
+                        <span className="imagem-esquerda flex items-center justify-center flex-col w-full overflow-hidden">
+                            <Image ref={containerEsquerdo} width={80} height={80} className={`esquerdo`} alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao} onClick={() => controleGaleria("anterior",imagemEsquerda)}/>
                         </span>
-                        <span className="imagem-centro overflow-hidden flex flex-col w-fit gap-y-[10px]">
+                        <span className="imagem-centro overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]">
                             <Image ref={containerCentro} width={300} height={300} className={`centro`} alt={`Imagem da variação do produto`} src={imagemCentro.imagem_variacao}/>
                             <p className={`centro text-center px-[10px] rounded-[20px] text-[${paragrafo_nomeVariacao.color}] bg-[${paragrafo_nomeVariacao.background == '--devScheme-champanhe'? "gray" : "white"}]`} ref={nomeVariacaoFocada}>{imagemCentro.nome_variacao}</p>
                         </span>
-                        <span className="imagem-direita overflow-hidden flex flex-col w-fit gap-y-[10px]">
-                            <Image ref={containerDireito} width={100} height={100} className={`direito`} alt={`Imagem da variação do produto`} src={imagemDireita.imagem_variacao} onClick={()=> controleGaleria("proxima", imagemDireita)}/>
+                        <span className="imagem-direita overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]">
+                            <Image ref={containerDireito} width={80} height={80} className={`direito`} alt={`Imagem da variação do produto`} src={imagemDireita.imagem_variacao} onClick={()=> controleGaleria("proxima", imagemDireita)}/>
                         </span>
                     </>): (<>
                         <Image width={300} height={300} className={`centro`} alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao}/>
@@ -207,14 +202,14 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                 </span>
                 <p className="flex w-[90%]">{produto.infos.descricao_completa}</p>
                 {produto.detalhes.listas?.map((detalhe, index) => (
-                    <ul key={index} className={`${detalhe.nome_lista}`}>
+                    <ul key={index} className={`${detalhe.nome_lista} w-[90%]`}>
                         <p className="font-bold">{detalhe.nome_lista}</p>
                         {detalhe.itens_lista?.map((detalhe_item,index)=> (
                             <li key={index} className="detalhe">{detalhe_item}</li>)
                         )}
                     </ul>
                 ))}
-                <Link key={produto.id + 10} className="fazer-orcamento bg-[--devScheme-orange] px-[20px] py-[10px] text-white text-center rounded-[10px]"
+                <Link key={produto.id + 10} className="fazer-orcamento bg-[--devScheme-orange] px-[20px] py-[5px] text-white text-center rounded-[10px]"
                     href={{pathname:'/orcamento', 
                     query: {
                         produto_nome: produto.nome,
@@ -268,7 +263,7 @@ const ListaProdutos = () =>{
 
 const Catalogo = () =>{
     return(
-        <section id="produtos" className="produtos bg-[--devScheme-white] flex h-screen w-screen items-center justify-center flex-row flex-wrap">
+        <section id="produtos" className="produtos bg-[--devScheme-white] flex min-h-[fit-content] h-screen w-screen items-center justify-center flex-row flex-wrap">
             <h2 className="text-[--devScheme-gray] text-[2rem] font-bold">Produtos</h2>
             <ListaProdutos />
         </section>

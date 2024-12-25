@@ -3,15 +3,15 @@ import { useState, useEffect } from "react";
 import GerarPdfOrcamento from "./GerarPdf";
 import ConfirmationModal from "./ModalFecharOrcamento";
 import { redirect } from "next/navigation";
+import TypeDadosCliente from "@/app/components/Type_dadosCliente";
 // import controlePergunta from "./controlePergunta";
 
 
 
-const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: number, produtoInfo: string}> = ({getOrcamento, alturaParede, produtoInfo}) => {
+const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOrcamento: TypeOrcamento, alturaParede: number, produtoInfo: string}> = ({getOrcamento, alturaParede, produtoInfo, dadosCliente}) => {
     const [isDesconto, setIsDesconto] = useState(false)
     const [orcamento, setOrcamento] = useState<TypeOrcamento>(getOrcamento)
     const [orcamentoEnviado, setOrcamentoEnviado] = useState(false)
-    // const [perguntaRespondida, setPerguntaRespondida] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleCloseModal = () => {
         setIsModalOpen(false)
@@ -32,7 +32,7 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
     }
 
     function finalizarOrcamento(){
-        GerarPdfOrcamento(orcamento, alturaParede, produtoInfo)
+        GerarPdfOrcamento(dadosCliente, orcamento, alturaParede)
         setOrcamentoEnviado(true)
         
         redirect('/')
@@ -80,6 +80,7 @@ const OrcamentoFinalizado: React.FC<{getOrcamento: TypeOrcamento, alturaParede: 
         </span>    
         </>)
     }
+
     return(<>
     <div className="orcamento-concluido flex flex-col w-[97%] text-black items-center justify-center">
         {produtoInfo == 'churrasqueira' && (<> 

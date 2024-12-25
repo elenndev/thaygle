@@ -3,6 +3,7 @@ import TypeOrcamento from "@/app/components/Type_orcamento"
 import { useState } from "react"
 import OrcamentoFinalizado from "./Orcamento";
 import Link from "next/link";
+import TypeDadosCliente from "@/app/components/Type_dadosCliente";
 
 // valores pra teste
     // pra ter m primeiro resultado que equivale a 0,(>5) 
@@ -23,7 +24,8 @@ const FormQuote: React.FC<({
     produto_nome: string,
     produto: string, 
     produto_tipo: string, 
-    isLaje: boolean})> = ({produto_nome, produto, produto_tipo, isLaje}) =>{
+    isLaje: boolean,
+    dadosCliente: TypeDadosCliente | null})> = ({produto_nome, produto, produto_tipo, isLaje, dadosCliente}) =>{
 
     // let orcamento: TypeOrcamento | undefined
     const [orcamento, setOrcamento] = useState<TypeOrcamento | undefined>(undefined)
@@ -31,11 +33,11 @@ const FormQuote: React.FC<({
     const [orcamentoErro, setOrcamentoErro] = useState<boolean | string>(false)
     const [qtProdutos, setQtProdutos] = useState(1)
     const valorUn_produto = getValue(produto, produto_tipo, 1)
-    console.log('produto: ', valorUn_produto)
         if (valorUn_produto == 0){
             setOrcamentoErro("Erro ao buscar o valor unitário do produto")}
     const [tamParede_metros, setTamParede_metros] = useState(0)
-    const alturaParede = tamParede_metros * 100 // cliente informa altura em metros mas pros calculos usamos sempre em cm
+    const [tamLaje_metros, setTamLaje_metros] = useState(0)
+    const alturaParede = (tamParede_metros * 100)  + (tamLaje_metros * 100) // cliente informa altura em metros mas pros calculos usamos sempre em cm
     // function handle_setTamParede(valorInput: string){
     //     if(valorInput.includes(",")){
     //         const stringFormatada = valorInput.replace(",",".")
@@ -53,25 +55,29 @@ const FormQuote: React.FC<({
         }
 
         return parseInt(string.charAt(decimalPartIndex + 1))
+    }
+    function arredondarResultado(dec: number, base: number){
+        if(dec < 5){
+            console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.0`)
+            return Math.floor(base)
+        } else if (dec >= 5 && dec < 9){
+            console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.5`)
+            return parseFloat(`${base.toString().split('.')[0]}.5`)
+        } else if (dec > 9){
+            console.log(dec, " vai arredonda pro proximo numero inteiro")
+            console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pro inteiro seguinte`)
+            return Math.ceil(base)
+        } else{
+            return 0
+        }
     }     
     function calcDutos(): number{
         const base = ( alturaParede - 190) /25
         function getDutos(base: number): number {
             const dec = getValorDecimal(base)
-            console.log("anted de verificar dec ta como: ", dec)
-            if(dec < 5){
-                console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.0`)
-                return Math.floor(base)
-            } else if (dec >= 5 && dec < 9){
-                console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.5`)
-                return parseFloat(`${base.toString().split('.')[0]}.5`)
-            } else if (dec > 9){
-                console.log(dec, " vai arredonda pro proximo numero inteiro")
-                console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pro inteiro seguinte`)
-                return Math.ceil(base)
-            } else{
-                return 0
-            }
+            if (dec >= 1){
+                return Math.floor(base) + 2
+            } else { return base + 1}
         }       
         return getDutos(base)
     }
@@ -80,23 +86,12 @@ const FormQuote: React.FC<({
         function getModulos(base: number): number {
             const dec = getValorDecimal(base)
             console.log("anted de verificar dec ta como: ", dec)
-            if(dec < 5){
-                console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.0`)
-                return Math.floor(base)
-            } else if (dec >= 5 && dec < 9){
-                console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.5`)
-                return parseFloat(`${base.toString().split('.')[0]}.5`)
-            } else if (dec > 9){
-                console.log(dec, " vai arredonda pro proximo numero inteiro")
-                console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pro inteiro seguinte`)
-                return Math.ceil(base)
-            } else{
-                return 0
-            }
+            return arredondarResultado(dec, base)            
         }       
         return getModulos(base)
     }
     function valorTotal(){
+        console.log("aa", alturaParede)
         const perguntaLaje = document.querySelector('.perguntaLaje')
         perguntaLaje?.classList.remove('flex')
         perguntaLaje?.classList.add('hidden')
@@ -167,7 +162,7 @@ const FormQuote: React.FC<({
     return(<>
         
         {isOrcamento_concluido && orcamento ? (
-            <OrcamentoFinalizado getOrcamento={orcamento} alturaParede={tamParede_metros} produtoInfo={produto}/>
+            <OrcamentoFinalizado dadosCliente={dadosCliente} getOrcamento={orcamento} alturaParede={alturaParede / 100} produtoInfo={produto}/>
         ) : (<>
             <div className=" w-fit px-[20px] flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[95%]">
             
@@ -175,14 +170,17 @@ const FormQuote: React.FC<({
                 {produto == 'churrasqueira' ? (<>
                     {produto_tipo == 'predial' && isLaje ? (
                         <>
-                        <label htmlFor="wallHeight">Por favor informe a altura em <strong>metros</strong> do chão até a laje da área em que será instalada a churrasqueira:</label>
+                        <label htmlFor="alturaParede">Por favor informe a altura em <strong>metros</strong> do chão até a laje da área em que será instalada a churrasqueira:</label>
+                        <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaParede"></input>
+                        <label htmlFor="alturaLaje">Por favor informe a altura em <strong>metros</strong> da laje até o telhado:</label>
+                        <input onChange={(e) => {setTamLaje_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-laje border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaLaje"></input>
                         </>
                     ):(
                         <>
-                            <label htmlFor="wallHeight" className="block">Por favor informe a altura em <strong>metros</strong> do chão até o telhado da área em que será instalada a churrasqueira</label>
+                            <label htmlFor="alturaParede" className="block">Por favor informe a altura em <strong>metros</strong> do chão até o telhado da área em que será instalada a churrasqueira</label>
+                            <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaParede"></input>
                         </>
                     )}                    
-                    <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="wallHeight"></input>
                     <QuantProdutos />
                 </>): (
                     <QuantProdutos />

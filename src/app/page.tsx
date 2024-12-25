@@ -1,4 +1,5 @@
 import Catalogo from "./components/Catalogo";
+import Sobre from "./components/Sobre";
 import HomeNavbar from "./components/Navbar";
 import Image from 'next/image'
 // import Logo from "./"
@@ -20,6 +21,7 @@ const Home = () => {
   </>)
 }
 
+
 export default function HomePage() {
   if (typeof window === "undefined"){
     console.log("server")
@@ -33,6 +35,7 @@ export default function HomePage() {
       <HomeNavbar />
       <Home />
       <Catalogo />
+      <Sobre />
     </main>
     </>
   );
