@@ -188,7 +188,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
 
         function controleGaleria(acao: string,imagemAtual: listaVariacao){
             
-            if (acao == "anterior"){
+            if (acao == "proxima"){
                 movEsquerda(false)
                 movCentro(false, imagemAtual)
                 movDireita(false)
@@ -206,7 +206,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
                 }
                 setImagemDireita(imagemCentroAtual)
                 setImagemCentro(imagemEsquerdaAtual)
-            } else if (acao == "proxima"){
+            } else if (acao == "anterior"){
                 movDireita(true)
                 movCentro(true, imagemAtual)
                 movEsquerda(true)
@@ -269,7 +269,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
 
     return(<>
         <CardProdutoAberto produto={produto}/>
-        <div id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-full flex flex-row items-center justify-between 
+        <div id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-[95%] flex flex-row items-center justify-between 
         `}>
             <Image width={170} height={170} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
             <div className="produtos-info flex flex-col w-[100%] text-[--devScheme-gray]">
@@ -302,7 +302,7 @@ const ListaProdutos = () =>{
     return(
         <><div className="catalogo bg-[--devScheme-white] min-h-[fit] flex flex-col w-full items-center flex-wrap justify-center gap-y-[30px]">
             <Principais />
-            <a className="bg-[--devScheme-softBlue] text-[1.25rem] px-[10px] py-[2px] text-white rounded-[2rem]" href="/Thaygle Pre-Moldados - Catalogo,pdf" download>Baixar catálogo</a>
+            <a className="bg-[--devScheme-softBlue] text-[1.25rem] px-[10px] py-[2px] text-white rounded-[2rem]" href="/Thaygle Pre-Moldados - Catalogo.pdf" download>Baixar catálogo</a>
         </div>
         </>
     )
@@ -312,7 +312,7 @@ const ListaProdutos = () =>{
 const Catalogo = () =>{
     return(
         <section id="catalogo" className="produtos relative bg-[--devScheme-white] flex min-h-[fit-content] h-screen w-screen items-center justify-center flex-col flex-wrap">
-            <h2 className="text-[--devScheme-gray] absolute z-[1] top-[2.5rem] tracking-widest text-[2.5rem] font-gothic font-medium">Catálogo</h2>
+            <h2 className="text-[--devScheme-gray] tracking-widest text-[2.5rem] font-gothic font-medium">Catálogo</h2>
             <ListaProdutos />
         </section>
     )

@@ -26,10 +26,13 @@ const HomeNavbar = () => {
                     <a href="#home" className="text-[--devScheme-gray] font-bold">Contato</a>
                 </li>
                 <li className="p-4 hover:bg-blue-700 lg:p-0">
-                    <a href="#produtos" className="text-[--devScheme-gray] font-bold">Produtos</a>
+                    <a href="#catalogo" className="text-[--devScheme-gray] font-bold">Produtos</a>
                 </li>
                 <li className="p-4 hover:bg-blue-700 lg:p-0">
                     <a href="#sobre" className="text-[--devScheme-gray] font-bold">Sobre</a>
+                </li>
+                <li className="p-4 hover:bg-blue-700 lg:p-0">
+                    <a href="/Thaygle Pre-Moldados - Catalogo.pdf" className="text-[--devScheme-gray] font-bold" download>Download Catálogo</a>
                 </li>
             </ul>
         </div>
