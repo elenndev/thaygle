@@ -272,7 +272,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
         <div id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-[95%] flex flex-row items-center justify-between 
         `}>
             <Image width={170} height={170} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
-            <div className="produtos-info flex flex-col w-[100%] text-[--devScheme-gray]">
+            <div className="produtos-info pl-[10px] flex flex-col w-[100%] text-[--devScheme-gray]">
                 <p className="font-bold nome-produto">{produto.nome}</p>
                 <p>Variações</p>
                 <ListaVariacoes variacoes={produto.detalhes.variacoes} />
@@ -312,7 +312,7 @@ const ListaProdutos = () =>{
 const Catalogo = () =>{
     return(
         <section id="catalogo" className="produtos relative bg-[--devScheme-white] flex min-h-[fit-content] h-screen w-screen items-center justify-center flex-col flex-wrap">
-            <h2 className="text-[--devScheme-gray] tracking-widest text-[2.5rem] font-gothic font-medium">Catálogo</h2>
+            <h2 className="text-[--devScheme-gray] tracking-widest text-[2.5rem] mb-[10px] font-gothic font-medium">Catálogo</h2>
             <ListaProdutos />
         </section>
     )

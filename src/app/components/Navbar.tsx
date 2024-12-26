@@ -22,17 +22,14 @@ const HomeNavbar = () => {
 
         <div className={`lg:flex lg:items-center lg:justify-between ${ isOpen ? "block" : "hidden"}`}>
             <ul className="bg-[--devScheme-white] shadow flex absolute right-[0] flex-col lg:flex-row lg:gap-8 text-center">
-                <li className=" p-4 hover:bg-blue-700 lg:p-0">
-                    <a href="#home" className="text-[--devScheme-gray] font-bold">Contato</a>
+                <li className="p-4 hover:bg-[--devScheme-softBlue] hover:text-[--devScheme-white] lg:p-0">
+                    <a href="#catalogo" className="font-bold">Produtos</a>
                 </li>
-                <li className="p-4 hover:bg-blue-700 lg:p-0">
-                    <a href="#catalogo" className="text-[--devScheme-gray] font-bold">Produtos</a>
+                <li className="p-4 hover:bg-[--devScheme-softBlue] hover:text-[--devScheme-white] lg:p-0">
+                    <a href="#sobre" className="font-bold">Sobre</a>
                 </li>
-                <li className="p-4 hover:bg-blue-700 lg:p-0">
-                    <a href="#sobre" className="text-[--devScheme-gray] font-bold">Sobre</a>
-                </li>
-                <li className="p-4 hover:bg-blue-700 lg:p-0">
-                    <a href="/Thaygle Pre-Moldados - Catalogo.pdf" className="text-[--devScheme-gray] font-bold" download>Download Catálogo</a>
+                <li className="p-4 hover:bg-[--devScheme-softBlue] hover:text-[--devScheme-white] lg:p-0">
+                    <a href="/Thaygle Pre-Moldados - Catalogo.pdf" className="font-bold" download>Download Catálogo</a>
                 </li>
             </ul>
         </div>
