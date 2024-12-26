@@ -64,7 +64,7 @@ const Orcamento = () => {
     }
 
     return(
-        <main className="orcamento h-full text-[1.25rem] relative m-0 w-screen flex flex-col items-center justify-between">
+        <main className="orcamento h-full text-[1.25rem] relative m-0 w-screen flex flex-col items-center justify-start gap-y-[15px]">
             <h1 className="font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[2rem]">Orcamento: {produto_nome}</h1>
             <div className="quote-container relative flex flex-col items-center justify-center min-h-[fit-content] h-[90%] w-[90%] gap-y-[30px]">
                 {!pergunta_dadosCliente && (

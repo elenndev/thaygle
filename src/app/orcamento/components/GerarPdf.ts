@@ -6,8 +6,7 @@ export default function GerarPdfOrcamento(dadosCliente: TypeDadosCliente | null,
     const doc = new jsPDF();
 
     doc.setFontSize(20);
-    doc.addImage("/logo.webp", "JPEG", 15, 40, 30, 30);
-    doc.text('imagem', 10, 10);  
+    doc.addImage("/logo.webp", "PNG", 10, 10, 30, 30);
     doc.text('Thaygle Pré-Moldados', 50, 10);
     doc.setFontSize(17);
     doc.text(`Orçamento: ${orcamento.produto}`, 10, 30);
