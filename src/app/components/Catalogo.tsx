@@ -302,7 +302,7 @@ const ListaProdutos = () =>{
     return(
         <><div className="catalogo bg-[--devScheme-white] min-h-[fit] flex flex-col w-full items-center flex-wrap justify-center gap-y-[30px]">
             <Principais />
-            <a href="/Thaygle Pre-Moldados - Catalogo,pdf" download>Baixar catálogo</a>
+            <a className="bg-[--devScheme-softBlue] text-[1.25rem] px-[10px] py-[2px] text-white rounded-[2rem]" href="/Thaygle Pre-Moldados - Catalogo,pdf" download>Baixar catálogo</a>
         </div>
         </>
     )

@@ -20,7 +20,6 @@ const Orcamento = () => {
     // Perguntas pro orcamento
     const [pergunta_dadosCliente, setPergunta_dadosCliente] = useState(false)
     const [pergunta_possuiLaje, setPergunta_possuiLaje] = useState(false)
-    const [perguntas_preOrcamento, setPerguntas_preOrcamento] = useState(false)
     useEffect(()=> {
         const pergunta = produto == 'churrasqueira' && produto_tipo =='predial' ? false : true
         setPergunta_possuiLaje(pergunta)
@@ -51,7 +50,6 @@ const Orcamento = () => {
         function handleResposta(laje: boolean){
             setIsLaje(laje)
             setPergunta_possuiLaje(true)
-            setPerguntas_preOrcamento(true)
         }
 
         return(<>
