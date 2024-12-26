@@ -10,8 +10,52 @@ import gsap from 'gsap';
 
 
 const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
+    type TypeVariacoes = {
+        id: number;
+        nome_variacao: string;
+        imagem_variacao: string;
+    }
+    function obterCorVariacao(variacaoProduto: string){
+        let cor = 'transparent'
+        switch (variacaoProduto){
+            case "Prestígio":
+                cor = "--devScheme-prestigio"
+                break
+            case "Vermelho":
+                cor = "--devScheme-vermelho"
+                break
+            case "Champanhe":
+                cor = "--devScheme-champanhe"
+                break
+            case "Chocolate":
+                cor = "--devScheme-chocolate"
+                break
+            case "Amadeirada":
+                cor = "--devScheme-amadeirada"
+                break
+            case "Padrão":
+                cor = "--devScheme-gray"
+                break
+        }
+        return cor
+
+    }
 
     // elementos html
+    const ListaVariacoes: React.FC <{variacoes: TypeVariacoes[]}> = ({variacoes}) => {
+        const listaFormatada = variacoes.map(variacao => ({
+            ...variacao,
+            cssBackground: obterCorVariacao(variacao.nome_variacao),
+            cssColor: variacao.nome_variacao == "Champanhe"? "--devScheme-gray" : "--devScheme-white"
+        }))
+        console.log(listaFormatada)
+        return(<span className="lista-variacoes flex flex-row items-center justify-start gap-[3px] flex-wrap w-[90%]">
+            {listaFormatada.map((variacao, index) => (
+                <p style={{background: `var(${variacao.cssBackground})`}} className={`px-[5px] rounded-[20px] text-[${variacao.cssColor}] text-[0.90rem]`} key={index}>{variacao.nome_variacao}</p>
+            ))}
+        </span>)
+    }
+
     const CardProdutoAberto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) => {
         type listaVariacao = {
             id: number;
@@ -24,6 +68,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
         const [imagemDireita, setImagemDireita] = useState<listaVariacao>(variacoes[3])
         const [paragrafo_nomeVariacao, setParagrafo] = useState({background: "transparent", color: "--devScheme-gray"})
 
+        
         useEffect(()=>{
             if (variacoes.length >= 3){
                 mudarCor(variacoes[1].nome_variacao)
@@ -42,28 +87,29 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
         const toX_proxima = 100
         const toX_anterior = -100
         function mudarCor(variacaoProduto: string){
-            let cor = "transparent"
-            switch (variacaoProduto){
-                case "Prestígio":
-                    // cor = "#484942"
-                    cor = "--devScheme-prestigio"
-                    break
-                case "Vermelho":
-                    cor = "--devScheme-vermelho"
-                    break
-                case "Champanhe":
-                    // cor = "#BFAB76"
-                    cor = "--devScheme-champanhe"
-                    break
-                case "Chocolate":
-                    // cor = "#66453B"
-                    cor = "--devScheme-chocolate"
-                    break
-                case "Amadeirada":
-                    // cor = "#A84912"
-                    cor = "--devScheme-amadeirada"
-                    break
-            }
+            // let cor = "transparent"
+            // switch (variacaoProduto){
+            //     case "Prestígio":
+            //         // cor = "#484942"
+            //         cor = "--devScheme-prestigio"
+            //         break
+            //     case "Vermelho":
+            //         cor = "--devScheme-vermelho"
+            //         break
+            //     case "Champanhe":
+            //         // cor = "#BFAB76"
+            //         cor = "--devScheme-champanhe"
+            //         break
+            //     case "Chocolate":
+            //         // cor = "#66453B"
+            //         cor = "--devScheme-chocolate"
+            //         break
+            //     case "Amadeirada":
+            //         // cor = "#A84912"
+            //         cor = "--devScheme-amadeirada"
+            //         break
+            // }
+            const cor = obterCorVariacao(variacaoProduto)
             setParagrafo({background: cor, color: variacaoProduto == "Champanhe"? "--devScheme-gray" : "--devScheme-white"})
             gsap.context(()=> {
                 const colorValue = `var(${cor})`
@@ -225,11 +271,12 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
         <CardProdutoAberto produto={produto}/>
         <div id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-full flex flex-row items-center justify-center 
         `}>
-            <Image width={200} height={200} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
+            <Image width={190} height={190} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
             <div className="produtos-info flex flex-col text-[--devScheme-gray]">
                 <p className="font-bold nome-produto">{produto.nome}</p>
-                <p>{produto.infos.breve_descricao}</p>
-                <button type="button" onClick={() => controlCard('open',`bigCard_${produto.infos.produto}_${produto.infos.tipo}`)} className="fazer-orcamento bg-[--devScheme-orange] px-[10px] py-[2px] text-white rounded-[10px]">Ver produto</button>
+                <p>Variações</p>
+                <ListaVariacoes variacoes={produto.detalhes.variacoes} />
+                <button type="button" onClick={() => controlCard('open',`bigCard_${produto.infos.produto}_${produto.infos.tipo}`)} className="ver-produto mt-[5px] bg-[--devScheme-orange] px-[10px] py-[2px] text-white rounded-[10px]">Ver produto</button>
             </div>
 
 
@@ -264,7 +311,7 @@ const ListaProdutos = () =>{
 const Catalogo = () =>{
     return(
         <section id="produtos" className="produtos bg-[--devScheme-white] flex min-h-[fit-content] h-screen w-screen items-center justify-center flex-row flex-wrap">
-            <h2 className="text-[--devScheme-gray] text-[2rem] font-bold">Produtos</h2>
+            <h2 className="text-[--devScheme-gray] tracking-widest text-[2.5rem] font-gothic font-medium">Produtos</h2>
             <ListaProdutos />
         </section>
     )

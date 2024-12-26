@@ -133,13 +133,20 @@ button.calcular{
 }
 
 #sobre{
-  .foto-empresa::after{
-    content: "";
-    height: 50%;
-    width: 50%;
-    background: red;
-    position: absolute;
+  span.foto-empresa::before, span.foto-empresa::after{
+    content: " ";
+    position:absolute;
+    background: var(--devScheme-gray);
+    width: 100px;
+    height: 100px;
+  }
+  span.foto-empresa::before{
+    right: 0;
     top: 0;
+  }
+  span.foto-empresa::after{
+    left: 0;
+    bottom: 0;
   }
 }
 }
