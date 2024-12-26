@@ -31,9 +31,9 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-lg absolute top-[2rem] mx-auto p-6 bg-white rounded-lg">
       <form onSubmit={handleSubmit}>
-        <p className="w-full text-center text-gray-700">Por favor informe os dadosa seguir para gerar o orçamento</p>
+        <p className="w-full text-center text-gray-700">Por favor informe os dados a seguir para gerar o orçamento</p>
         <div className="mb-4">
           <label htmlFor="nome" className="block text-sm font-medium text-gray-700">Nome</label>
           <input

@@ -132,6 +132,14 @@ button.calcular{
   }
 }
 
+#produtos{
+  .smallCard-produto{
+    img{
+      max-width: fit-content;
+    }
+  }
+}
+
 #sobre{
   span.foto-empresa::before, span.foto-empresa::after{
     content: " ";

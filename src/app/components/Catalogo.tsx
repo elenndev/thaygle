@@ -227,9 +227,9 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
             }
         }
         return(<>
-            <div id={`bigCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`hidden bigCard bigCard-produto bg-[--devScheme-white] min-h-[90vh] w-[90vw] flex-col items-center justify-between gap-y-[10px] py-[10px] text-[--devScheme-gray] border-solid border-[--devScheme-orange] border-2 font-[1.5rem]`}>
-                <button type="button" onClick={()=>controlCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)}>Close</button>
-                <p className="font-bold nome-produto text-[1.5rem] flex w-[90%]">{produto.nome}</p>
+            <div id={`bigCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`hidden z-[2] bigCard bigCard-produto bg-[--devScheme-white] min-h-[90vh] w-[90vw] flex-col items-center justify-between gap-y-[10px] py-[10px] text-[--devScheme-gray] border-solid border-[--devScheme-orange] border-2 font-[1.5rem]`}>
+                <button type="button" className="bg-[--devScheme-softBlue] text-[--devScheme-white] font-bold rounded-[2rem] py-[3px] px-[15px]" onClick={()=>controlCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)}>Voltar pro catálogo</button>
+                <p className="font-bold nome-produto justify-center text-[1.5rem] flex w-[90%]">{produto.nome}</p>
                 <span className={`galeria items-center justify-center ${variacoes.length >= 3 ? "grid grid-cols-3 grid-rows-1" : "flex flex-row"}`}>
                     {variacoes.length >= 3 ? (<>
                         <span className="imagem-esquerda flex items-center justify-center flex-col w-full overflow-hidden">
@@ -269,10 +269,10 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
 
     return(<>
         <CardProdutoAberto produto={produto}/>
-        <div id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-full flex flex-row items-center justify-center 
+        <div id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-full flex flex-row items-center justify-between 
         `}>
-            <Image width={190} height={190} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
-            <div className="produtos-info flex flex-col text-[--devScheme-gray]">
+            <Image width={170} height={170} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
+            <div className="produtos-info flex flex-col w-[100%] text-[--devScheme-gray]">
                 <p className="font-bold nome-produto">{produto.nome}</p>
                 <p>Variações</p>
                 <ListaVariacoes variacoes={produto.detalhes.variacoes} />
@@ -302,6 +302,7 @@ const ListaProdutos = () =>{
     return(
         <><div className="catalogo bg-[--devScheme-white] min-h-[fit] flex flex-col w-full items-center flex-wrap justify-center gap-y-[30px]">
             <Principais />
+            <a href="/Thaygle Pre-Moldados - Catalogo,pdf" download>Baixar catálogo</a>
         </div>
         </>
     )
@@ -310,8 +311,8 @@ const ListaProdutos = () =>{
 
 const Catalogo = () =>{
     return(
-        <section id="produtos" className="produtos bg-[--devScheme-white] flex min-h-[fit-content] h-screen w-screen items-center justify-center flex-row flex-wrap">
-            <h2 className="text-[--devScheme-gray] tracking-widest text-[2.5rem] font-gothic font-medium">Produtos</h2>
+        <section id="catalogo" className="produtos relative bg-[--devScheme-white] flex min-h-[fit-content] h-screen w-screen items-center justify-center flex-col flex-wrap">
+            <h2 className="text-[--devScheme-gray] absolute z-[1] top-[2.5rem] tracking-widest text-[2.5rem] font-gothic font-medium">Catálogo</h2>
             <ListaProdutos />
         </section>
     )

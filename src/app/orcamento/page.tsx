@@ -68,14 +68,14 @@ const Orcamento = () => {
     return(
         <main className="orcamento h-full text-[1.25rem] relative m-0 w-screen flex flex-col items-center justify-between">
             <h1 className="font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[2rem]">Orcamento: {produto_nome}</h1>
-            <div className="quote-container relative top-1 flex flex-col items-center justify-center min-h-[fit-content] h-[90%] w-[90%] gap-y-[30px]">
-                {produto == 'churrasqueira' && produto_tipo == 'predial' && !pergunta_dadosCliente && (
-                    <><Pergunta_DadosCliente /></> )}
+            <div className="quote-container relative flex flex-col items-center justify-center min-h-[fit-content] h-[90%] w-[90%] gap-y-[30px]">
+                {!pergunta_dadosCliente && (
+                    <Pergunta_DadosCliente />
+                )}
                 {pergunta_dadosCliente && !pergunta_possuiLaje && (<>
                     <Pergunta_PossuiLaje />
                 </>)}
-                {!perguntas_preOrcamento && pergunta_possuiLaje && !pergunta_dadosCliente}
-                {perguntas_preOrcamento && (<>
+                {pergunta_dadosCliente && pergunta_possuiLaje && (<>
                     <FormQuote produto_nome = {produto_nome} produto = {produto} produto_tipo={produto_tipo} isLaje={isLaje != undefined} dadosCliente={dadosCliente}/>
                 </>)}
 
