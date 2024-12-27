@@ -38,9 +38,7 @@ body {
   .font-gothic{
     font-family: "League Gothic", serif;;
   }
-  nav{
-    z-index: 3;
-  }
+
 .homepage{
   #hero{
     background-image: url("./midia/cover.webp");
@@ -144,17 +142,18 @@ button.calcular{
   span.foto-empresa::before, span.foto-empresa::after{
     content: " ";
     position:absolute;
+    z-index: 1;
     background: var(--devScheme-gray);
     width: 100px;
     height: 100px;
   }
   span.foto-empresa::before{
-    right: 0;
-    top: 0;
+    right: -8%;
+    top: -8%;
   }
   span.foto-empresa::after{
-    left: 0;
-    bottom: 0;
+    left: -8%;
+    bottom: -8%;
   }
 }
 }
@@ -163,10 +162,32 @@ button.calcular{
   body>.homepage>#hero::after{
     transform: rotate(-10deg);
     bottom: 0;
+    left: 5%;
+    height: 180%;
+    width: 28%; 
+    clip-path: none;
+  }
+  body>.homepage>#hero{
+    img{
+      height: 240;
+      width: auto;
+    }
+  }
+}
+@media(width >= 1024px){
+  body>.homepage>#hero::after{
+    transform: rotate(-10deg);
+    bottom: 0;
     left: 7%;
     height: 180%;
     width: 35%; 
     clip-path: none;
-  } 
+  }
+  body>.homepage>#hero{
+    img{
+      height: 380;
+      width: auto;
+    }
+  }
 }
 

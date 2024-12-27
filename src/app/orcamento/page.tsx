@@ -6,7 +6,7 @@ import "../globals.css"
 import '../components/style.css'
 import TypeDadosCliente from "../components/Type_dadosCliente"
 import FormDadosCliente from "./components/FormDadosCliente"
-// import controlePergunta from "./components/controlePergunta"
+import Navbar from "../components/Navbar"
 
 
 const Orcamento = () => {
@@ -53,9 +53,9 @@ const Orcamento = () => {
         }
 
         return(<>
-            <div className="pergunta-PreOrcamento perguntaLaje bg-[--devScheme-orange] text-[--devScheme-white] w-[90%] flex flex-col gap-x-[10px] items-center justify-center py-[10px] rounded-[20px]">
+            <div className="pergunta-PreOrcamento  md:h-[30vh] bg-[--devScheme-orange] text-[--devScheme-white] w-[90%] flex flex-col gap-x-[10px] items-center justify-center py-[10px] rounded-[20px]">
                         <p className="w-[90%] text-center">No local da instalação da churrasqueira, tem laje?</p>
-                        <span className="flex flex-row items-center justify-around w-[90%]">
+                        <span className="flex flex-row items-center justify-center gap-x-[10px] w-[90%]">
                             <button className="perguntaLaje sim text-white py-[3px] px-[20px] rounded-[20px]" type="button" onClick={() => handleResposta(true)}>Sim</button>
                             <button className="perguntaLaje nao text-white py-[3px] px-[20px] rounded-[20px]" type="button" onClick={() =>handleResposta(false)}>Não</button>
                         </span>
@@ -63,9 +63,10 @@ const Orcamento = () => {
         </>)
     }
 
-    return(
-        <main className="orcamento h-full text-[1.25rem] relative m-0 w-screen flex flex-col items-center justify-start gap-y-[15px]">
-            <h1 className="font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[2rem]">Orcamento: {produto_nome}</h1>
+    return(<>
+        <Navbar isHome={false}/>
+        <main className="orcamento h-full text-[1.25rem] md:text-[1.85rem] relative m-0  mt-[60px] w-screen flex flex-col items-center justify-center">
+            <h1 className="mt-[15px] font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[2rem] md:text-[3rem]">Orcamento: {produto_nome}</h1>
             <div className="quote-container relative flex flex-col items-center justify-center min-h-[fit-content] h-[90%] w-[90%] gap-y-[30px]">
                 {!pergunta_dadosCliente && (
                     <Pergunta_DadosCliente />
@@ -80,7 +81,7 @@ const Orcamento = () => {
 
             </div>
         </main>
-    )
+    </>)
 }
 
 export default function OrcamentoPage() {

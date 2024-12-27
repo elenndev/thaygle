@@ -66,8 +66,7 @@ const Churrasqueiras: TypeChurrasqueira[] = [
             listas: [
                 {nome_lista: "Bancada ideal para:",
                 itens_lista: [
-                    "Manipulação da carne",
-                    "Apoio de utensílios para o churrasco",
+                    "Manipulação da carne | Apoio de utensílios para o churrasco | ",
                     "Combina em qualquer espaço",
                 ]},
                 {nome_lista: "4 Espetos | TM 65",
@@ -125,13 +124,9 @@ const Churrasqueiras: TypeChurrasqueira[] = [
                     "Altura   200cm",
                 ]
                 },
-                {nome_lista: "Customize com",
+                {nome_lista: "Customize com:",
                 itens_lista: [
-                    "Porcelanatos",
-                    "Cerâmicas",
-                    "Pastilhas",
-                    "Texturas",
-                    "Pinturas",
+                    "Porcelanatos | Cerâmicas | Pastilhas | Texturas | Pinturas"
                 ]
                 },
                 {nome_lista: "Bancada ideal para:",

@@ -38,14 +38,6 @@ const FormQuote: React.FC<({
     const [tamParede_metros, setTamParede_metros] = useState(0)
     const [tamLaje_metros, setTamLaje_metros] = useState(0)
     const alturaParede = (tamParede_metros * 100)  + (tamLaje_metros * 100) // cliente informa altura em metros mas pros calculos usamos sempre em cm
-    // function handle_setTamParede(valorInput: string){
-    //     if(valorInput.includes(",")){
-    //         const stringFormatada = valorInput.replace(",",".")
-    //         setTamParede_metros(parseFloat(stringFormatada))
-    //     } else{
-    //         setTamParede_metros(parseFloat(valorInput))
-    //     }
-    // }
     
     function getValorDecimal(number: number){
         const string = number.toString()
@@ -58,7 +50,7 @@ const FormQuote: React.FC<({
     }
     function arredondarResultado(dec: number, base: number){
         if(dec < 5){
-            console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.0`)
+            console.log(`valor da parede em cm ${alturaParede} | resultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.0`)
             return Math.floor(base)
         } else if (dec >= 5 && dec < 9){
             console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.5`)
@@ -151,9 +143,11 @@ const FormQuote: React.FC<({
         return(<>
                 <div className="set_qtProduto w-full mt-[10px] flex flex-wrap items-center justify-center">
                     <label htmlFor="set-qtProdutos" className="flex">Quantidade de {produto}s pro orçamento:</label>
-                    <button className="text-[35px] w-fit h-fit" type="button" onClick={() => handle_setQtProduto(false)}>-</button>
-                    <input className="text-[--devScheme-gray] w-[20%] mx-[15px]" type="number" name="set-qtProdutos" placeholder="Quantidade de itens" value={qtProdutos} onChange={(e) => {parseFloat(e.target.value)}}></input>
-                    <button className="text-[32px] text-[--devScheme-gray] w-fit h-fit" type="button" onClick={() => handle_setQtProduto(true)}>+</button>
+                    <span className="w-full h-fit flex items-center justify-center mb-2">
+                        <button className="text-[35px] w-fit h-fit" type="button" onClick={() => handle_setQtProduto(false)}>-</button>
+                        <input className="text-[--devScheme-gray] w-[20%] mx-[15px]" type="number" name="set-qtProdutos" placeholder="Quantidade de itens" value={qtProdutos} onChange={(e) => {parseFloat(e.target.value)}}></input>
+                        <button className="text-[32px] text-[--devScheme-gray] w-fit h-fit" type="button" onClick={() => handle_setQtProduto(true)}>+</button>
+                    </span>
                 </div>
             </>)
     }

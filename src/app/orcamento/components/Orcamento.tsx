@@ -14,9 +14,10 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
     const [orcamentoEnviado, setOrcamentoEnviado] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleCloseModal = () => {
-        setIsModalOpen(false)
-        setOrcamentoEnviado(true)
-        handleVoltarHomepage()
+        redirect('/')
+        // setIsModalOpen(false)
+        // setOrcamentoEnviado(true)
+        // handleVoltarHomepage()
     }
     const handleConfirmModal = () => {
         setIsModalOpen(false)
@@ -26,7 +27,6 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
 
 
     function handleControlePergunta(resposta: boolean, event: React.MouseEvent<HTMLButtonElement>){
-        // controlePergunta(resposta, "perguntaDesconto")
         setIsDesconto(resposta)
         console.log(event)
     }
@@ -82,7 +82,7 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
     }
 
     return(<>
-    <div className="orcamento-concluido flex flex-col w-[97%] text-black items-center justify-center">
+    <div className="orcamento-concluido mt-[20px] flex flex-col w-[97%] text-black items-center justify-center">
         {produtoInfo == 'churrasqueira' && (<> 
             <p>Altura da parede: {alturaParede}m</p>
             <p>Quantidade de dutos: {orcamento.dutos.qt}</p>
