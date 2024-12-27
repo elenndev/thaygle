@@ -269,7 +269,7 @@ const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
 
     return(<>
         <CardProdutoAberto produto={produto}/>
-        <div id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-[95%] flex flex-row items-center justify-between 
+        <div id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-[95%] flex flex-row lg:flex-col items-center justify-between 
         `}>
             <Image width={170} height={170} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"/>
             <div className="produtos-info pl-[10px] flex flex-col w-[100%] text-[--devScheme-gray]">
@@ -291,7 +291,7 @@ const ListaProdutos = () =>{
 
     const Principais = () => {
         return(<>
-            <div className="produtos-principais flex flex-col gap-y-[20px] gap-x-[10px] w-fit items-center justify-center">
+            <div className="produtos-principais flex flex-col lg:flex-row gap-y-[20px] gap-x-[10px] w-fit items-center justify-center">
                 {principaisProdutos.map((produto) => (
                     <CardProduto key={produto.id} produto={produto}/>                    
                 ))}

@@ -7,9 +7,9 @@ const HomeNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     
     return(<>
-    <nav className="fixed z-5 w-[100%] top-[0] bg-[--devScheme-white] text-[--devScheme-gray]">
-        <div className="flex items-center justify-between p-4 lg:hidden">
-        <Image className={`logo`}  width={50} height={50} alt={`logo da empresa Thaygle Pre-moldados`} src="/logo.webp" />
+    <nav className="fixed md:flex md:flex-row md:justify-between z-5 w-[100%] top-[0] bg-[--devScheme-white] text-[--devScheme-gray] text-[1.5rem] uppercase">
+        <Image className={`logo`} width={50} height={50} alt={`logo da empresa Thaygle Pre-moldados`} src="/logo.webp" />
+        <div className="flex items-center justify-between p-4 md:hidden lg:hidden">
         <button
             aria-label="Toggle Navigation"
             onClick={() => setIsOpen(!isOpen)}
@@ -20,16 +20,16 @@ const HomeNavbar = () => {
         </button>
         </div>
 
-        <div className={`lg:flex lg:items-center lg:justify-between ${ isOpen ? "block" : "hidden"}`}>
-            <ul className="bg-[--devScheme-white] shadow flex absolute right-[0] flex-col lg:flex-row lg:gap-8 text-center">
-                <li className="p-4 hover:bg-[--devScheme-softBlue] hover:text-[--devScheme-white] lg:p-0">
-                    <a href="#catalogo" className="font-bold">Produtos</a>
+        <div className={`md:flex md:items-center md:justify-between md:mr-[100px] font-gothic  ${ isOpen ? "block" : "hidden"}`}>
+            <ul className="py-[10px] px-[5px] bg-[--devScheme-white] sm:shadow flex absolute right-[0] flex-col md:relative md:flex-row md:gap-8 text-center">
+                <li className="py-[5px] md:p-x-[5px] md:px-[5px]">
+                    <a href="#catalogo" className="font-semibold md:font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]">Produtos</a>
                 </li>
-                <li className="p-4 hover:bg-[--devScheme-softBlue] hover:text-[--devScheme-white] lg:p-0">
-                    <a href="#sobre" className="font-bold">Sobre</a>
+                <li className="py-[5px] md:p-x-[5px] md:px-[5px]">
+                    <a href="#sobre" className="font-semibold md:font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]">Sobre</a>
                 </li>
-                <li className="p-4 hover:bg-[--devScheme-softBlue] hover:text-[--devScheme-white] lg:p-0">
-                    <a href="/Thaygle Pre-Moldados - Catalogo.pdf" className="font-bold" download>Download Catálogo</a>
+                <li className="py-[5px] md:p-x-[5px] md:px-[5px]">
+                    <a href="/Thaygle Pre-Moldados - Catalogo.pdf" className="font-semibold md:font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]" download>Download Catálogo</a>
                 </li>
             </ul>
         </div>

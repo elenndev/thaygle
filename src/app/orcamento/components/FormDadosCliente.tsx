@@ -42,7 +42,7 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
             name="nome"
             value={dadosCliente.nome}
             onChange={handleChange}
-            minLength="2"
+            minLength={2}
             className="mt-1 block w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Digite seu nome"
             required
@@ -57,7 +57,7 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
             name="sobrenome"
             value={dadosCliente.sobrenome}
             onChange={handleChange}
-            minLength="5"
+            minLength={5}
             className="mt-1 block w-full px-3 py-2 border text-gray-700 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Digite seu sobrenome"
             required
@@ -72,7 +72,7 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
             name="cpf"
             value={dadosCliente.cpf}
             onChange={handleChange}
-            minLength="11"
+            minLength={11}
             className="mt-1 block w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Digite seu CPF"
             required
@@ -86,7 +86,7 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
             id="telefone"
             name="telefone"
             value={dadosCliente.telefone}
-            minLength="10"
+            minLength={10}
             onChange={handleChange}
             className="mt-1 block w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Digite seu telefone"
