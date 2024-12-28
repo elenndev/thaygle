@@ -6,7 +6,7 @@ export default function GerarPdfOrcamento(dadosCliente: TypeDadosCliente | null,
     const doc = new jsPDF();
 
     doc.setFontSize(20);
-    doc.addImage("/logo.webp", "webp", 10, 5, 30, 30);
+    doc.addImage("/logo_png.png", "PNG", 10, 5, 30, 30);
     doc.text('Thaygle Pré-Moldados', 50, 10);
     doc.setFontSize(17);
     doc.text(`Orçamento: ${orcamento.produto}`, 10, 30);
@@ -40,18 +40,22 @@ export default function GerarPdfOrcamento(dadosCliente: TypeDadosCliente | null,
 
 
     if (orcamento.desconto > 0) {
-        doc.setFontSize(12);  
-        // doc.setFont("helvetica", "strike");  
-        doc.text(`Valor sem desconto: R$ ${orcamento.soma.toFixed(2)}`, 20, 145);
         doc.setFontSize(14);  
         doc.setFont("helvetica", "normal");  
-        doc.text(`Desconto: R$ ${orcamento.desconto.toFixed(2)}`, 10, 155);
+        doc.text(`Desconto: R$ ${orcamento.desconto.toFixed(2)}`, 10, 145);
+        doc.setFontSize(12);  
+        doc.text(`Valor sem desconto: R$ ${orcamento.soma.toFixed(2)}`, 20, 155);
+        doc.setFontSize(14);  
         doc.text(`Valor total: R$ ${orcamento.total.toFixed(2)}`, 10, 165);
-    } else {
-        doc.text(`Valor total: R$ ${orcamento.total.toFixed(2)}`, 10, 145);
+    } else{
+        doc.setFont("helvetica", "bold");
+        if(orcamento.modulos.qt >= 1){
+            doc.text(`Valor total: R$ ${orcamento.total.toFixed(2)}`, 10, 145);
+        } else{
+            doc.text(`Valor total: R$ ${orcamento.total.toFixed(2)}`, 10, 135);
+        }
     }
 
-    // Gera o PDF
     doc.save("orcamento_finalizado.pdf");
 
 }
