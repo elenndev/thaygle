@@ -12,7 +12,7 @@ import gsap from 'gsap';
 
 
 
-const Catalogo = () =>{
+const SectionCatalogo = () =>{
     const sectionCatalogo = useRef<HTMLDivElement>(null)
     const miniCardsProduto = useRef(null)
     //animacoes
@@ -344,4 +344,5 @@ const Catalogo = () =>{
         </section>
     )
 }
-export default Catalogo
+
+export default SectionCatalogo

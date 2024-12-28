@@ -1,14 +1,132 @@
+'use client'
 import Image from 'next/image'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap';
 
-const Sobre = () => {
+
+const SectionSobre = () => {
+    const sectionSobre = useRef<HTMLDivElement>(null)
+    const titulo = useRef(null)
+    const imagem = useRef(null)
+    const textoSobre = useRef(null)
+    const redesSociais = useRef(null)
+
+    function entradaSection(){
+        const animacaoTitulo = ()=>{gsap.context(()=>{
+            gsap.fromTo(titulo.current,{
+                x: 100,
+                opacity: 0,
+            },
+            {x: 0,
+            opacity: 1,
+            duration: 1
+            })
+        }, titulo)}
+        const animacaoImagem = () =>{gsap.context(()=>{
+            gsap.fromTo(imagem.current,{
+                x: -100,
+                opacity: 0,
+            },
+            {x: 0,
+            opacity: 1,
+            duration: 1
+            })
+        }, imagem)}
+        const animacaoTextoSobre = ()=>{gsap.context(()=>{
+            gsap.fromTo(textoSobre.current,{
+                x: 100,
+                opacity: 0,
+            },
+            {x: 0,
+            opacity: 1,
+            duration: 1
+            })
+        }, textoSobre)}
+        const animacaoRedesSociais = () =>{gsap.context(()=>{
+            gsap.fromTo(redesSociais.current,{
+                x: -100,
+                opacity: 0,
+            },
+            {x: 0,
+            opacity: 1,
+            duration: 1
+            })
+        }, redesSociais)}
+
+        animacaoTitulo()
+        animacaoImagem()
+        animacaoTextoSobre()
+        animacaoRedesSociais()
+    }
+    function saidaSection(){
+        const animacaoTitulo = () =>{gsap.context(()=>{
+            gsap.fromTo(titulo.current,{
+                x: 0,
+                opacity: 1,
+            },
+            {x: -100,
+            opacity: 0,
+            duration: 1
+            })
+        }, titulo)}
+        const animacaoImagem = () =>{gsap.context(()=>{
+            gsap.fromTo(imagem.current,{
+                x: 0,
+                opacity: 1,
+            },
+            {x: 100,
+            opacity: 0,
+            duration: 1
+            })
+        }, imagem)}
+        const animacaoTextoSobre = () =>{gsap.context(()=>{
+            gsap.fromTo(textoSobre.current,{
+                x: 0,
+                opacity: 1,
+            },
+            {x: -100,
+            opacity: 0,
+            duration: 1
+            })
+        }, textoSobre)}
+        const animacaoRedesSociais = () =>{gsap.context(()=>{
+            gsap.fromTo(redesSociais.current,{
+                x: 0,
+                opacity: 1,
+            },
+            {x: 100,
+            opacity: 0,
+            duration: 1
+            })
+        }, redesSociais)}
+
+        animacaoTitulo()
+        animacaoImagem()
+        animacaoTextoSobre()
+        animacaoRedesSociais()
+    }
+    
+    useEffect(()=>{
+        const observer = new IntersectionObserver((observar)=> {
+            observar.forEach((elementoVisivel)=>{
+                if(elementoVisivel.isIntersecting){ entradaSection()
+                } else { saidaSection() }
+            })
+        }, {threshold: 0.4})
+
+        if(sectionSobre.current){
+            observer.observe(sectionSobre.current)
+        }
+
+    },[])
     return(<>
-        <section id="sobre" className="sobre relative flex overflow-x-hidden flex-col items-center justify-start gap-[15px] h-fit w-full bg-[--devScheme-orange] text-[--devScheme-white] md:text-[1.85rem] pb-[20px]">
-            <h2 className="text-[--devScheme-white] text-[2.5rem] md:text-[4rem] mb-[10px] font-gothic font-medium uppercase tracking-widest text-center">Sobre</h2>
-            <span className="foto-empresa w-fit h-fit relative mb-[10px]">
+        <section ref={sectionSobre} id="sobre" className="sobre relative flex overflow-x-hidden flex-col items-center justify-start gap-[15px] h-fit w-full bg-[--devScheme-orange] text-[--devScheme-white] md:text-[1.85rem] pb-[20px]">
+            <h2 ref={titulo} className="text-[--devScheme-white] text-[2.5rem] md:text-[4rem] mb-[10px] font-gothic font-medium uppercase tracking-widest text-center">Sobre</h2>
+            <span ref={imagem} className="foto-empresa w-fit h-fit relative mb-[10px]">
                 <Image className="foto-empresa relative z-[2]" loading="lazy" height={500} width={200} alt="Logo da Thaygle pré-moldados"  src="/sobre.webp" />
             </span>
-            <p className="w-[95%]">Loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren</p>
-            <div className="links justify-center flex flex-col w-[95%] gap-[5px]">
+            <p ref={textoSobre} className="w-[95%]">Loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren</p>
+            <div ref={redesSociais} className="links justify-center flex flex-col w-[95%] gap-[5px]">
                 <h3 className="w-full text-[1.5rem] md:text-[2rem] text-center font-medium">Redes sociais:</h3>
                 <span className="w-full justify-center flex flex-row gap-[2rem]">
                     <a href="#"  aria-label='Ir para o Instagram da Thaygle Pré Moldados' className="flex flex-row items-center gap-[5px]">
@@ -69,4 +187,4 @@ const Sobre = () => {
     </>)
 }
 
-export default Sobre
+export default SectionSobre
