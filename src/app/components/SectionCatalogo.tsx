@@ -282,14 +282,14 @@ const SectionCatalogo = () =>{
                     <button type="button" className="bg-[--devScheme-softBlue] text-[--devScheme-white] font-bold rounded-[2rem] py-[3px] px-[15px]" onClick={handleFecharCard}>Voltar pro catálogo</button>
                     <span className={`galeria items-center justify-center ${variacoes.length >= 3 ? "grid grid-cols-3 grid-rows-1" : "flex flex-row"}`}>
                         {variacoes.length >= 3 ? (<>
-                            <span className="imagem-esquerda flex items-center justify-center flex-col w-full overflow-hidden">
-                                <Image ref={containerEsquerdo} width={100} height={100} className={`esquerdo`} alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao} onClick={() => controleGaleria("anterior",imagemEsquerda)}/>
+                            <span className="imagem-esquerda relative cursor-pointer flex items-center justify-center flex-col w-full overflow-hidden" onClick={() => controleGaleria("anterior",imagemEsquerda)}>
+                                <Image ref={containerEsquerdo} width={100} height={100} className="esquerdo" alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao}/>
                             </span>
                             <span className="imagem-centro overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]">
                                 <Image ref={containerCentro} width={400} height={400} className={`centro`} alt={`Imagem da variação do produto`} src={imagemCentro.imagem_variacao}/>
                                 <p className={`centro text-center md:text-[1.50rem] px-[10px] rounded-[20px] text-[${paragrafo_nomeVariacao.color}] bg-[${paragrafo_nomeVariacao.background == '--devScheme-champanhe'? "gray" : "white"}]`} ref={nomeVariacaoFocada}>{imagemCentro.nome_variacao}</p>
                             </span>
-                            <span className="imagem-direita overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]">
+                            <span className="imagem-direita relative cursor-pointer overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]">
                                 <Image ref={containerDireito} width={100} height={100} className={`direito`} alt={`Imagem da variação do produto`} src={imagemDireita.imagem_variacao} onClick={()=> controleGaleria("proxima", imagemDireita)}/>
                             </span>
                         </>): (<>

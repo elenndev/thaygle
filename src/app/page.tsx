@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import SectionCatalogo from "./components/SectionCatalogo";
 import SectionSobre from "./components/SectionSobre";
 import Churrasqueiras from "./components/Churrasqueiras"
-// import Logo from "./"
 
 const Home = () => {
   const logoImageStyle = {
@@ -17,7 +16,7 @@ const Home = () => {
       <Image style={logoImageStyle} loading="lazy" height={200} width={200} alt="Logo da Thaygle pré-moldados"  className="absolute top-[12vh] left-[2vw] md:left-[1%] md:top-[30%] lg:top-[25%] lg:left-[8%]" src="/logo.webp" />
       <h1 className="text-[--devScheme-orange] mt-[26%] md:mt-[0] md:ml-[20%] text-[3.25rem] md:text-[5.5rem] lg:ml-[28%] lg:text-[6rem] font-gothic font-normal uppercase tracking-wider text-center">Churrasqueiras<br></br>pré-moldadas</h1>
       <span className="w-fit bg-[--devScheme-white] text-[--devScheme-gray] md:ml-[20%] lg:ml-[28%] mb-[0%] py-[5px] px-[20px] rounded-[5px]">
-        <a className="localizacao font-gothic text-[1.25rem] lg:text-[2rem] tracking-wider">Em Itumbiara - GO e proximidades</a>
+        <a className="localizacao cursor-pointer font-gothic text-[1.25rem] lg:text-[2rem] tracking-wider" href="https://www.google.com/maps?q=Itumbiara,+Goi%C3%A1s" target="_blank">Em Itumbiara - GO</a>
       </span>
     </section>
   </>)

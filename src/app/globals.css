@@ -17,6 +17,10 @@
   --devScheme-chocolate: #66453b;
   --devScheme-amadeirada: #a84912;
 }
+html{
+  scroll-behavior: smooth;
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -134,6 +138,35 @@ button.calcular{
   .smallCard-produto{
     img{
       max-width: fit-content;
+    }
+  }
+}
+
+#catalogo{
+  .bigCard-produto{
+    .galeria{
+      .imagem-esquerda::after, .imagem-direita::after{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        padding-top: 0.5rem;
+        font-weight: 300;
+        mix-blend-mode: multiply;
+        width: 40px;
+        height: 40px;
+        opacity: 0.5;
+        background: rgba(0, 0, 0, 0.733);
+        border-radius: 50%;
+      }
+      .imagem-esquerda::after{
+        content: "<";
+      }
+      .imagem-direita::after{
+        content: ">";
+      }
     }
   }
 }
