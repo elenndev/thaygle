@@ -5,20 +5,6 @@ import OrcamentoFinalizado from "./Orcamento";
 import Link from "next/link";
 import TypeDadosCliente from "@/app/components/Type_dadosCliente";
 
-// valores pra teste
-    // pra ter m primeiro resultado que equivale a 0,(>5) 
-        // #1 3 | 4.4 | deve arredondar pra 4 dutos
-        // #2 3.70 | 7.2 | deve arredondar pra 7 dutos
-        // #3 2.7 | 3.2 | deve arredondar pra 3 dutos
-    // pra ter m primeiro resultado que equivale a 0,(<5 && >9) 
-        // #1 3.60 - no caso x.799999
-        // #2 5.30 | 13.6 | deve arredondar para 13.5 dutos
-    // pra ter m primeiro resultado que equivale a 0,(<9) 
-    // #1 2.12500000000006
-    // [ 2.12500000000006, 2.3750000000005875, 2.625000000001115 ]
-
-// const wallHeight_meters = 5.53
-
 
 const FormQuote: React.FC<({
     produto_nome: string,
@@ -27,7 +13,6 @@ const FormQuote: React.FC<({
     isLaje: boolean,
     dadosCliente: TypeDadosCliente | null})> = ({produto_nome, produto, produto_tipo, isLaje, dadosCliente}) =>{
 
-    // let orcamento: TypeOrcamento | undefined
     const [orcamento, setOrcamento] = useState<TypeOrcamento | undefined>(undefined)
     const [isOrcamento_concluido, setIsOrcamento_concluido] = useState(false)
     const [orcamentoErro, setOrcamentoErro] = useState<boolean | string>(false)

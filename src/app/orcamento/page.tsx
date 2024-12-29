@@ -65,9 +65,9 @@ const Orcamento = () => {
 
     return(<>
         <Navbar isHome={false}/>
-        <main className="orcamento h-full text-[1.25rem] md:text-[1.85rem] relative m-0  mt-[60px] w-screen flex flex-col items-center justify-center">
+        <main className="orcamento h-full text-[1.25rem] md:text-[1.85rem] relative m-0 gap-y-[20px]  mt-[60px] w-screen flex flex-col items-center justify-start">
             <h1 className="mt-[15px] font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[2rem] md:text-[3rem]">Orcamento: {produto_nome}</h1>
-            <div className="quote-container relative flex flex-col items-center justify-center min-h-[fit-content] h-[90%] w-[90%] gap-y-[30px]">
+            <div className="quote-container relative flex flex-col items-center justify-start min-h-[fit-content] h-[90%] w-[90%] gap-y-[30px]">
                 {!pergunta_dadosCliente && (
                     <Pergunta_DadosCliente />
                 )}

@@ -7,10 +7,10 @@ const Navbar:React.FC <{isHome: boolean}> = ({isHome}) => {
     const [isOpen, setIsOpen] = useState(false);
     
     return(<>
-    <header className="fixed md:flex md:flex-row md:justify-between shadow-md z-[5] w-[100%] top-[0] bg-[--devScheme-white] text-[--devScheme-gray] text-[1.5rem] uppercase">
+    <header className="fixed max-w-full md:flex md:flex-row md:justify-between shadow-md z-[5] w-[100%] top-[0] bg-[--devScheme-white] text-[--devScheme-gray] text-[1.5rem] uppercase">
         <Image className={`logo ml-1`} width={50} height={50} alt={`logo da empresa Thaygle Pre-moldados`} src="/logo.webp" />
 
-    <nav className="md:flex md:flex-row md:justify-between z-[5] w-fite">
+    <nav className="md:flex md:flex-row md:justify-between z-[5] w-fit">
         <div className="flex absolute z-[7] top-1 right-5 items-center justify-between p-4 md:hidden lg:hidden">
         <button
             aria-label="Toggle Navigation"
