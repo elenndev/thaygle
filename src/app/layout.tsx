@@ -8,6 +8,10 @@ const pageColor = "--devScheme-white"
 export const metadata: Metadata = {
   title: "Thaygle - Pré-Moldados",
   description: "Churrasqueiras Pré-moldadas em Itumbiara - Go e proximidades.",
+  robots:{
+    follow: true,
+    index: true
+  }
 };
 
 export default function RootLayout({

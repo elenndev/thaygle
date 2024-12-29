@@ -23,7 +23,7 @@ const Navbar:React.FC <{isHome: boolean}> = ({isHome}) => {
         </div>
 
         <div className={`md:flex md:items-center md:justify-between md:mr-[100px] font-gothic ${ isOpen ? "block" : "hidden"}`}>
-            <ul className="py-[10px] px-[5px] bg-[--devScheme-white] sm:shadow md:shadow-none flex absolute right-[0] top-0 z-[6] flex-col md:relative md:flex-row md:gap-8 text-center pt-[70px] md:pt-[10px]">
+            <ul className="py-[10px] px-[5px] bg-[--devScheme-white] sm:shadow-md md:shadow-none flex absolute right-[0] top-0 z-[6] flex-col md:relative md:flex-row md:gap-8 text-center pt-[70px] md:pt-[10px]">
                 <li className="py-[5px] md:p-x-[5px] md:px-[5px]">
                     <a href={isHome? "#hero" : "/"} className="font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]">Inicio</a>
                 </li>
