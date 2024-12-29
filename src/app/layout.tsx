@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`bg-[${pageColor}] h-screen w-screen`}
+        className={`bg-[${pageColor}] h-screen w-screen max-w-[100vw] overflow-x-hidden`}
       >
         {children}
       </body>
