@@ -1,19 +1,29 @@
 'use client'
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import FormQuote from "./components/Form"
-import "../globals.css"
-import '../components/style.css'
-import TypeDadosCliente from "../components/Type_dadosCliente"
-import FormDadosCliente from "./components/FormDadosCliente"
-import Navbar from "../components/Navbar"
+import FormQuote from "../components/Form"
+import "@/app/globals.css"
+import '@/app/components/style.css'
+import TypeDadosCliente from "@/app/components/Type_dadosCliente"
+import FormDadosCliente from "../components/FormDadosCliente"
+import Navbar from "@/app/components/Navbar"
+import Churrasqueiras from "@/app/components/Churrasqueiras"
 
 
 const Orcamento = () => {
+    type TypeVariacao = {
+        id: number,
+        nome_variacao: string,
+        imagem_variacao: string
+    }
     const searchParams = useSearchParams()
-    const produto = searchParams.get('produto') ?? 'default_value'
-    const produto_tipo = searchParams.get('tipo') ?? 'default_value'
-    const produto_nome = searchParams.get('nome') ?? 'default_value'
+    const produtoId = searchParams.get('id') ?? '0'
+    const buscarProduto = Churrasqueiras.find((e)=> e.id == parseFloat(produtoId))
+    const produto = buscarProduto?.infos.produto ?? 'undefined'
+    const produto_tipo = buscarProduto?.infos.tipo ?? 'undefined'
+    const produto_nome = buscarProduto?.nome ?? 'undefined'
+    const produto_variacoes: TypeVariacao[] | undefined = buscarProduto?.detalhes.variacoes
+
     const [paramsError, setErro] = useState(false)
     const [isLaje, setIsLaje] = useState<boolean | undefined>(undefined)
     const [dadosCliente, setDadosCliente] = useState<TypeDadosCliente | null>(null)
@@ -35,6 +45,11 @@ const Orcamento = () => {
         return(
             <p>Erro nos parâmetros</p>
         )
+    }
+
+
+    if (!produto_variacoes || produto_variacoes.length === 0) {
+        return <div>Erro ao acessar variações</div>;
     }
 
 
@@ -75,7 +90,7 @@ const Orcamento = () => {
                     <Pergunta_PossuiLaje />
                 </>)}
                 {pergunta_dadosCliente && pergunta_possuiLaje && (<>
-                    <FormQuote produto_nome = {produto_nome} produto = {produto} produto_tipo={produto_tipo} isLaje={isLaje != undefined} dadosCliente={dadosCliente}/>
+                    <FormQuote produto_nome = {produto_nome} produto = {produto} produto_tipo={produto_tipo} isLaje={isLaje != undefined} dadosCliente={dadosCliente} variacoes={produto_variacoes}/>
                 </>)}
 
 

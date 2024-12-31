@@ -2,14 +2,15 @@ import TypeOrcamento from "@/app/components/Type_orcamento";
 import TypeDadosCliente from "@/app/components/Type_dadosCliente";
 import { jsPDF } from "jspdf";
 
-export default function GerarPdfOrcamento(dadosCliente: TypeDadosCliente | null,orcamento: TypeOrcamento, alturaParede: number){
+export default function GerarPdfOrcamento(dadosCliente: TypeDadosCliente | null,orcamento: TypeOrcamento, alturaParede: number, produtoVariacao: string | undefined){
     const doc = new jsPDF();
 
     doc.setFontSize(20);
-    doc.addImage("/logo_png.png", "PNG", 10, 2, 30, 25);
+    doc.addImage("/logo_png.png", "PNG", 10, 2, 25, 25);
     doc.text('Thaygle Pré-Moldados', 50, 10);
     doc.setFontSize(17);
-    doc.text(`Orçamento: ${orcamento.produto}`, 10, 30);
+    doc.text(`Orçamento: ${orcamento.produto} ${produtoVariacao != undefined ? `| ${produtoVariacao}` : ''}`, 10, 30);
+
 
     doc.setFontSize(14);
     if (dadosCliente) {

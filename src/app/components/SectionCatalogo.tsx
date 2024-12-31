@@ -286,7 +286,7 @@ const SectionCatalogo = () =>{
                                 <Image ref={containerEsquerdo} width={100} height={100} className="esquerdo" alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao}/>
                             </span>
                             <span className="imagem-centro overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]">
-                                <Image ref={containerCentro} width={400} height={400} className={`centro`} alt={`Imagem da variação do produto`} src={imagemCentro.imagem_variacao}/>
+                                <Image ref={containerCentro} width={400} height={400} className={`centro lg:w-[auto] lg:h-[300px]`} alt={`Imagem da variação do produto`} src={imagemCentro.imagem_variacao}/>
                                 <p className={`centro text-center md:text-[1.50rem] px-[10px] rounded-[20px] text-[${paragrafo_nomeVariacao.color}] bg-[${paragrafo_nomeVariacao.background == '--devScheme-champanhe'? "gray" : "white"}]`} ref={nomeVariacaoFocada}>{imagemCentro.nome_variacao}</p>
                             </span>
                             <span className="imagem-direita relative cursor-pointer overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]" onClick={()=> controleGaleria("proxima", imagemDireita)}>
@@ -310,12 +310,9 @@ const SectionCatalogo = () =>{
                         </ul>
                     ))}
                     <Link key={produto.id + 10} className="fazer-orcamento bg-[--devScheme-orange] px-[20px] py-[5px] text-white text-center rounded-[10px]"
-                        href={{pathname:'/orcamento', 
+                        href={{pathname:`/orcamento/${produto.nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-")}`, 
                         query: {
-                            produto_nome: produto.nome,
-                            produto: produto.infos.produto, 
-                            tipo: produto.infos.tipo,
-                            nome: produto.nome
+                            id: produto.id,
                         }}}>Fazer orçamento</Link>
                 </div>
             </>)
@@ -323,11 +320,11 @@ const SectionCatalogo = () =>{
     
         return(<>
             <CardProdutoAberto produto={produto}/>
-            <div ref={miniCardsProduto} id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-[95%] flex flex-row lg:flex-col lg:h-full items-center justify-between `}>
+            <div ref={miniCardsProduto} id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-[95%] lg:w-[30%] flex flex-row lg:flex-col lg:h-full items-center justify-between `}>
                 <Image width={170} height={170} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"
                 className="md:w-[200px] md:h-[auto]"/>
-                <div className="produtos-info pl-[10px] flex flex-col w-[100%] text-[--devScheme-gray] sm:text-[1.5rem] md:text-[1.85rem]">
-                    <p className="font-bold md:text-[2.25rem] md:font-medium nome-produto">{produto.nome}</p>
+                <div className="produtos-info pl-[10px] flex flex-col w-[100%] text-[--devScheme-gray] sm:text-[1.5rem] md:text-[1.5rem]">
+                    <p className="font-bold md:text-[2rem] md:font-medium nome-produto">{produto.nome}</p>
                     <p>Variações</p>
                     <ListaVariacoes variacoes={produto.detalhes.variacoes} />
                     <button type="button" onClick={() => handleAbrirCard()} className="ver-produto mt-[5px] bg-[--devScheme-orange] px-[10px] py-[2px] text-white rounded-[10px] md:text-[1.70rem]">Ver produto</button>
@@ -336,14 +333,13 @@ const SectionCatalogo = () =>{
     
             </div> 
     </>)
-    }
+    } 
     const ListaProdutos = () =>{
         const principaisProdutos = Churrasqueiras
     
-    
         const Principais = () => {
             return(<>
-                <div className="produtos-principais flex flex-col lg:flex-row gap-y-[20px] gap-x-[10px] w-fit items-center justify-center">
+                <div className="produtos-principais flex flex-col lg:w-[95%] lg:flex-row gap-y-[20px] gap-x-[10px] w-fit items-center justify-center">
                     {principaisProdutos.map((produto) => (
                         <CardProduto key={produto.id} produto={produto}/>                    
                     ))}
@@ -352,7 +348,7 @@ const SectionCatalogo = () =>{
         }
     
         return(
-            <><div className="catalogo bg-[--devScheme-white] min-h-[fit] flex flex-col w-full items-center flex-wrap justify-center gap-y-[30px]">
+            <><div className="catalogo bg-[--devScheme-white] lg:w-sreen min-h-[fit] flex flex-col w-full items-center flex-wrap justify-center gap-y-[30px]">
                 <Principais />
                 <a className="bg-[--devScheme-softBlue] text-[1.25rem] md:text-[1.70rem] lg:text-[2rem] px-[10px] lg:px-[15px] py-[2px] mb-[10px] text-white rounded-[2rem]" href="/Thaygle Pre-Moldados - Catalogo.pdf" download>Baixar catálogo</a>
             </div>

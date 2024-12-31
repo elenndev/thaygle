@@ -8,7 +8,7 @@ import TypeDadosCliente from "@/app/components/Type_dadosCliente";
 
 
 
-const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOrcamento: TypeOrcamento, alturaParede: number, produtoInfo: string}> = ({getOrcamento, alturaParede, produtoInfo, dadosCliente}) => {
+const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOrcamento: TypeOrcamento, alturaParede: number, produtoInfo: string, produtoVariacao: string | undefined}> = ({getOrcamento, alturaParede, produtoInfo, dadosCliente, produtoVariacao}) => {
     const [isDesconto, setIsDesconto] = useState(false)
     const [orcamento, setOrcamento] = useState<TypeOrcamento>(getOrcamento)
     const [salvarOrcamento, setSalvarOrcamento] = useState(false)
@@ -33,7 +33,7 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
     }
 
     function finalizarOrcamento(){
-        GerarPdfOrcamento(dadosCliente, orcamento, alturaParede)
+        GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao)
         setSalvarOrcamento(true)
         setOrcamentoEnviado(true)
         
@@ -74,7 +74,7 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
     const BaixarOrcamento = () => {
         return(<div className="flex flex-col text-[--devScheme-gray] w-[80%] h-full items-center justify-start">
             <p>Baixando orçamento...</p>
-            <p onClick={()=> GerarPdfOrcamento(dadosCliente, orcamento, alturaParede)}>Download não iniciou? <strong>Clique aqui para tentar novamente</strong></p>
+            <p className="cursor-pointer" onClick={()=> GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao)}>Download não iniciou? <strong>Clique aqui para tentar novamente</strong></p>
             <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" type="button" onClick={handleVoltarHomepage}>Voltar ao inicio</button>
         </div>)
     }
@@ -95,6 +95,7 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
     {salvarOrcamento?(<BaixarOrcamento/>):(<>
         <div className="orcamento-concluido mt-[20px] flex flex-col w-[97%] text-black items-center justify-center">
             {produtoInfo == 'churrasqueira' && (<> 
+                {produtoVariacao != undefined && (<p>Cor do produto: {produtoVariacao}</p>)}
                 <p>Altura da parede: {alturaParede}m</p>
                 <p>Quantidade de dutos: {orcamento.dutos.qt}</p>
                 <p>Valor dos dutos: R${orcamento.dutos.valor}</p>

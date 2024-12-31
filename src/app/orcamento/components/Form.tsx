@@ -4,18 +4,24 @@ import { useState } from "react"
 import OrcamentoFinalizado from "./Orcamento";
 import Link from "next/link";
 import TypeDadosCliente from "@/app/components/Type_dadosCliente";
-
+type TypeVariacao = {
+    id: number,
+    nome_variacao: string,
+    imagem_variacao: string
+}
 
 const FormQuote: React.FC<({
     produto_nome: string,
     produto: string, 
     produto_tipo: string, 
     isLaje: boolean,
-    dadosCliente: TypeDadosCliente | null})> = ({produto_nome, produto, produto_tipo, isLaje, dadosCliente}) =>{
+    dadosCliente: TypeDadosCliente | null
+    variacoes: TypeVariacao[] | null})> = ({produto_nome, produto, produto_tipo, isLaje, dadosCliente, variacoes}) =>{
 
     const [orcamento, setOrcamento] = useState<TypeOrcamento | undefined>(undefined)
     const [isOrcamento_concluido, setIsOrcamento_concluido] = useState(false)
     const [orcamentoErro, setOrcamentoErro] = useState<boolean | string>(false)
+    const [variacao, setVariacao] = useState<string | undefined>(undefined)
     const [qtProdutos, setQtProdutos] = useState(1)
     const valorUn_produto = getValue(produto, produto_tipo, 1)
         if (valorUn_produto == 0){
@@ -23,6 +29,7 @@ const FormQuote: React.FC<({
     const [tamParede_metros, setTamParede_metros] = useState(0)
     const [tamLaje_metros, setTamLaje_metros] = useState(0)
     const alturaParede = (tamParede_metros * 100)  + (tamLaje_metros * 100) // cliente informa altura em metros mas pros calculos usamos sempre em cm
+
     
     function getValorDecimal(number: number){
         const string = number.toString()
@@ -67,15 +74,11 @@ const FormQuote: React.FC<({
         }       
         return getModulos(base)
     }
-    function valorTotal(){
-        console.log("aa", alturaParede)
+    function valorTotal(e: React.FormEvent){
+        e.preventDefault()
         const perguntaLaje = document.querySelector('.perguntaLaje')
         perguntaLaje?.classList.remove('flex')
         perguntaLaje?.classList.add('hidden')
-        if (tamParede_metros<2.24 && produto =='churrasqueira'){
-            window.alert("Por favor informe um valor válido para o tamanho da parede")
-            return
-        }
         const qtDutos = calcDutos()
         let valorDutos = 0
         let qtModulos = 0
@@ -124,6 +127,37 @@ const FormQuote: React.FC<({
     if (orcamentoErro){
         window.alert(orcamentoErro)
     }
+
+    const EscolherVariacao = ()=>{
+        const handleEscolherVariacao = (event: React.ChangeEvent<HTMLSelectElement>) => {
+            setVariacao(event.target.value)
+        };
+
+        if (!variacoes || variacoes.length <= 1) {
+            return <div><p>Variação padrão</p></div>;
+        }
+        return(<>
+            <div className="flex py-[10px]">
+                <label htmlFor="variacao">Escolha a variação:</label>
+                <select className="px-[10px] py-[5px] rounded-[10px]"
+                    id="variacao"
+                    value={variacao}
+                    onChange={handleEscolherVariacao}
+                    required
+                >
+                    <option value="">Selecione uma variação</option>
+
+                    {variacoes.map((variacaoItem) => (
+                    <option key={variacaoItem.id} value={variacaoItem.nome_variacao}>
+                        {variacaoItem.nome_variacao}
+                    </option>
+                    ))}
+                </select>
+                </div>
+        </>)
+    }
+
+
     const QuantProdutos = () =>{
         return(<>
                 <div className="set_qtProduto w-full mt-[10px] flex flex-wrap items-center justify-center">
@@ -141,31 +175,36 @@ const FormQuote: React.FC<({
     return(<>
         
         {isOrcamento_concluido && orcamento ? (
-            <OrcamentoFinalizado dadosCliente={dadosCliente} getOrcamento={orcamento} alturaParede={alturaParede / 100} produtoInfo={produto}/>
+            <OrcamentoFinalizado dadosCliente={dadosCliente} getOrcamento={orcamento} alturaParede={alturaParede / 100} produtoInfo={produto} produtoVariacao={variacao}/>
         ) : (<>
             <div className=" w-fit px-[20px] flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[95%]">
             
-            <form className="form-orcamento relative flex flex-col items-center gap-x-[10px] justify-evenly p-[20px]w-full">
+            <form onSubmit={valorTotal} className="form-orcamento relative flex flex-col items-center gap-x-[10px] justify-evenly p-[20px]w-full">
                 {produto == 'churrasqueira' ? (<>
                     {produto_tipo == 'predial' && isLaje ? (
                         <>
                         <label htmlFor="alturaParede">Por favor informe a altura em <strong>metros</strong> do chão até a laje da área em que será instalada a churrasqueira:</label>
-                        <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaParede"></input>
+                        <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaParede" required min={1}></input>
                         <label htmlFor="alturaLaje">Por favor informe a altura em <strong>metros</strong> da laje até o telhado:</label>
-                        <input onChange={(e) => {setTamLaje_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-laje border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaLaje"></input>
+                        <input onChange={(e) => {setTamLaje_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-laje border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaLaje" required min={1}></input>
                         </>
                     ):(
                         <>
                             <label htmlFor="alturaParede" className="block">Por favor informe a altura em <strong>metros</strong> do chão até o telhado da área em que será instalada a churrasqueira</label>
-                            <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaParede"></input>
+                            <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaParede" required min={1}></input>
                         </>
-                    )}                    
+                    )}
+                    {variacoes != null && variacoes?.length > 1 && (
+                        <EscolherVariacao />
+                    )}
                     <QuantProdutos />
                 </>): (
-                    <QuantProdutos />
+                    <>
+                        <QuantProdutos />
+                    </>
                 )}
+                <button type="submit" className="calcular w-fit py-[3px] px-[30px] rounded-[30px] bg-[--devScheme-orange] text-white">calcular</button>
             </form>
-            <button type="button" onClick={valorTotal} className="calcular w-fit py-[3px] px-[30px] rounded-[30px] bg-[--devScheme-orange] text-white">calcular</button>
             <Link href="/" aria-label="Voltar a página inicial" className="w-fit py-[3px] px-[20px] rounded-[30px] bg-[--devScheme-gray] text-white p-2">Voltar</Link>
             </div>
         </>)}

@@ -167,6 +167,9 @@ button.calcular{
       .imagem-direita::after{
         content: ">";
       }
+      .imagem-esquerda:hover::after, .imagem-direita:hover::after{
+        background: var(--devScheme-orange);
+      }
     }
   }
 }
