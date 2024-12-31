@@ -8,8 +8,8 @@ const Churrasqueiras: TypeChurrasqueira[] = [
         infos: {
             produto: 'churrasqueira',
             tipo: 'tijolinho',
-            breve_descricao: 'loren loren loren loren loren loren',
-            descricao_completa: 'loren loren loren loren loren loren',
+            breve_descricao: 'Design rústico e alvenaria em alto relevo.',
+            descricao_completa: 'Com um design único nossas churrasqueiras desenhadas simulam o formato de tijolinho de alvenaria em alto relevo que com seu estilo rústico combina com qualquer espaço. Trabalhamos com uma variedade de cores para você escolher a que melhor combina com o seu espaço.',
             imagem: imagemUrl,
             valor: 800},
         detalhes: {
@@ -28,8 +28,8 @@ const Churrasqueiras: TypeChurrasqueira[] = [
                 itens_lista: [
                     "Largura Interna   55cm",
                     "Largura Externa   65cm",
-                    "Profundidade Interna?   42cm",
-                    "Profundidade Interna?   47cm",
+                    "Profundidade Interna   42cm",
+                    "Profundidade Interna   47cm",
                     "Altura   200cm",
                 ]
             }
@@ -58,8 +58,8 @@ const Churrasqueiras: TypeChurrasqueira[] = [
         infos: {
             produto: 'churrasqueira',
             tipo: 'tijolinho balcao',
-            breve_descricao: 'loren loren loren loren loren loren',
-            descricao_completa: 'loren loren loren loren loren loren',
+            breve_descricao: 'Design rústico e alvenaria em alto relevo e com bancada auxiliar.',
+            descricao_completa: 'Além do design único que simula o formato de tijolinho de alvenaria em alto relevo e diversas opções de cores, atende a necessidade de um espaço sem a existência de bancadads, nossa churrasqueira com bancada auxiliar é o melhor custo benéfico, permitindo que você escolha a localização da bancada, seja no lado direito quanto esquerdo.',
             imagem: imagemUrl,
             valor: 1300},
         detalhes: {
@@ -73,8 +73,8 @@ const Churrasqueiras: TypeChurrasqueira[] = [
                 itens_lista: [
                     "Largura Interna   55cm",
                     "Largura Externa   65cm",
-                    "Profundidade Interna?   42cm",
-                    "Profundidade Inerna?.   47cm",
+                    "Profundidade Interna   42cm",
+                    "Profundidade Inerna   47cm",
                     "Altura   200cm",
                 ]},
                 {nome_lista: "Bancada",
@@ -109,8 +109,8 @@ const Churrasqueiras: TypeChurrasqueira[] = [
         infos: {
             produto: 'churrasqueira',
             tipo: 'predial',
-            breve_descricao: 'loren loren loren loren loren loren',
-            descricao_completa: 'loren loren loren loren loren loren',
+            breve_descricao: 'Customizável, moderna e prática.',
+            descricao_completa: 'Projetada para combinar com qualquer ambiente, nossa churrasqueira predial abre um leque de possibilidades para que sua imaginação flua e a customize como você sempre sonhou.',
             imagem: imagemUrl,
             valor: 800},
         detalhes: {
@@ -119,8 +119,8 @@ const Churrasqueiras: TypeChurrasqueira[] = [
                 itens_lista: [
                     "Largura Interna   55cm",
                     "Largura Externa   65cm",
-                    "Profundidade Interna?   42cm",
-                    "Profundidade Inerna?.   47cm",
+                    "Profundidade Interna   42cm",
+                    "Profundidade Interna   47cm",
                     "Altura   200cm",
                 ]
                 },
@@ -138,7 +138,19 @@ const Churrasqueiras: TypeChurrasqueira[] = [
             }],
             variacoes:[
                 {id: 0,
-                nome_variacao: "Padrão",
+                nome_variacao: "Porcelanatos",
+                imagem_variacao: imagemUrl},
+                {id: 1,
+                nome_variacao: "Cerâmicas",
+                imagem_variacao: imagemUrl},
+                {id: 2,
+                nome_variacao: "Pastilhas",
+                imagem_variacao: imagemUrl},
+                {id: 3,
+                nome_variacao: "Texturas",
+                imagem_variacao: imagemUrl},
+                {id: 4,
+                nome_variacao: "Pinturas",
                 imagem_variacao: imagemUrl},
             ]
         }

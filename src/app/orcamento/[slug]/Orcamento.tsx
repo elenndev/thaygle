@@ -1,7 +1,7 @@
 'use client'
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import FormQuote from "../components/Form"
+import FormQuote from "../components/FormOrcamento"
 import "@/app/globals.css"
 import '@/app/components/style.css'
 import TypeDadosCliente from "@/app/components/Type_dadosCliente"
@@ -23,9 +23,8 @@ const Orcamento = () => {
     const produto_tipo = buscarProduto?.infos.tipo ?? 'undefined'
     const produto_nome = buscarProduto?.nome ?? 'undefined'
     const produto_variacoes: TypeVariacao[] | undefined = buscarProduto?.detalhes.variacoes
-
     const [paramsError, setErro] = useState(false)
-    const [isLaje, setIsLaje] = useState<boolean | undefined>(undefined)
+    const [isLaje, setIsLaje] = useState(false)
     const [dadosCliente, setDadosCliente] = useState<TypeDadosCliente | null>(null)
     // Perguntas pro orcamento
     const [pergunta_dadosCliente, setPergunta_dadosCliente] = useState(false)
@@ -90,7 +89,7 @@ const Orcamento = () => {
                     <Pergunta_PossuiLaje />
                 </>)}
                 {pergunta_dadosCliente && pergunta_possuiLaje && (<>
-                    <FormQuote produto_nome = {produto_nome} produto = {produto} produto_tipo={produto_tipo} isLaje={isLaje != undefined} dadosCliente={dadosCliente} variacoes={produto_variacoes}/>
+                    <FormQuote produto_nome = {produto_nome} produto = {produto} produto_tipo={produto_tipo} isLaje={isLaje} dadosCliente={dadosCliente} variacoes={produto_variacoes}/>
                 </>)}
 
 

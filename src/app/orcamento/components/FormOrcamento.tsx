@@ -1,7 +1,7 @@
 import getValue from "@/app/components/FunctionProductValue"
 import TypeOrcamento from "@/app/components/Type_orcamento"
 import { useState } from "react"
-import OrcamentoFinalizado from "./Orcamento";
+import OrcamentoFinalizado from "./OrcamentoFinalizado";
 import Link from "next/link";
 import TypeDadosCliente from "@/app/components/Type_dadosCliente";
 type TypeVariacao = {
@@ -29,7 +29,6 @@ const FormQuote: React.FC<({
     const [tamParede_metros, setTamParede_metros] = useState(0)
     const [tamLaje_metros, setTamLaje_metros] = useState(0)
     const alturaParede = (tamParede_metros * 100)  + (tamLaje_metros * 100) // cliente informa altura em metros mas pros calculos usamos sempre em cm
-
     
     function getValorDecimal(number: number){
         const string = number.toString()
@@ -137,22 +136,24 @@ const FormQuote: React.FC<({
             return <div><p>Variação padrão</p></div>;
         }
         return(<>
-            <div className="flex py-[10px]">
+            <div className="flex flex-col py-[10px]">
                 <label htmlFor="variacao">Escolha a variação:</label>
-                <select className="px-[10px] py-[5px] rounded-[10px]"
-                    id="variacao"
-                    value={variacao}
-                    onChange={handleEscolherVariacao}
-                    required
-                >
-                    <option value="">Selecione uma variação</option>
+                <span className="flex">
+                    <select className="px-[10px] py-[2px] rounded-[10px]"
+                        id="variacao"
+                        value={variacao}
+                        onChange={handleEscolherVariacao}
+                        required
+                    >
+                        <option value="">Selecione uma variação</option>
 
-                    {variacoes.map((variacaoItem) => (
-                    <option key={variacaoItem.id} value={variacaoItem.nome_variacao}>
-                        {variacaoItem.nome_variacao}
-                    </option>
-                    ))}
-                </select>
+                        {variacoes.map((variacaoItem) => (
+                        <option key={variacaoItem.id} value={variacaoItem.nome_variacao}>
+                            {variacaoItem.nome_variacao}
+                        </option>
+                        ))}
+                    </select>
+                </span>
                 </div>
         </>)
     }
@@ -203,7 +204,7 @@ const FormQuote: React.FC<({
                         <QuantProdutos />
                     </>
                 )}
-                <button type="submit" className="calcular w-fit py-[3px] px-[30px] rounded-[30px] bg-[--devScheme-orange] text-white">calcular</button>
+                <button type="submit" className="calcular w-fit py-[3px] mb-[10px] px-[30px] rounded-[30px] bg-[--devScheme-orange] text-white">calcular</button>
             </form>
             <Link href="/" aria-label="Voltar a página inicial" className="w-fit py-[3px] px-[20px] rounded-[30px] bg-[--devScheme-gray] text-white p-2">Voltar</Link>
             </div>

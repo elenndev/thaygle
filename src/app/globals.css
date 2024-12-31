@@ -167,9 +167,6 @@ button.calcular{
       .imagem-direita::after{
         content: ">";
       }
-      .imagem-esquerda:hover::after, .imagem-direita:hover::after{
-        background: var(--devScheme-orange);
-      }
     }
   }
 }
@@ -223,6 +220,11 @@ button.calcular{
     img{
       height: 380;
       width: auto;
+    }
+  }
+  body>#catalogo>.bigCard-produto>.galeria{
+    .imagem-esquerda:hover::after, .imagem-direita:hover::after{
+      background: var(--devScheme-orange);
     }
   }
 }

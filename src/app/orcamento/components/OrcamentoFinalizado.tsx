@@ -32,8 +32,8 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
         console.log(event)
     }
 
-    function finalizarOrcamento(){
-        GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao)
+    function finalizarOrcamento(enviarMensagem: boolean){
+        GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao, enviarMensagem)
         setSalvarOrcamento(true)
         setOrcamentoEnviado(true)
         
@@ -74,7 +74,7 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
     const BaixarOrcamento = () => {
         return(<div className="flex flex-col text-[--devScheme-gray] w-[80%] h-full items-center justify-start">
             <p>Baixando orçamento...</p>
-            <p className="cursor-pointer" onClick={()=> GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao)}>Download não iniciou? <strong>Clique aqui para tentar novamente</strong></p>
+            <p className="cursor-pointer" onClick={()=> GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao, false)}>Download não iniciou? <strong>Clique aqui para tentar novamente</strong></p>
             <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" type="button" onClick={handleVoltarHomepage}>Voltar ao inicio</button>
         </div>)
     }
@@ -114,7 +114,7 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
                     <p>Valor total: R${orcamento.total.toFixed(2).replace(".",",")}</p>
                 </>)}
             </div>
-            <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" type="button" onClick={() => {finalizarOrcamento()}}>Finalizar orçamento!</button>
+            <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" type="button" onClick={() => {finalizarOrcamento(true)}}>Finalizar orçamento!</button>
             <button className="bg-[--devScheme-gray] text-white rounded-[2rem] mt-[10px] px-[15px]  py-2" type="button" onClick={()=>{handleVoltarHomepage()}}>Voltar</button>
 
         </div>

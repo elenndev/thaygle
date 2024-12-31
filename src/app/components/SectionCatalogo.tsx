@@ -86,7 +86,7 @@ const SectionCatalogo = () =>{
                 case "Amadeirada":
                     cor = "--devScheme-amadeirada"
                     break
-                case "Padrão":
+                default:
                     cor = "--devScheme-gray"
                     break
             }
