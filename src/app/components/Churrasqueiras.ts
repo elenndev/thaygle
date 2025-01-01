@@ -138,20 +138,8 @@ const Churrasqueiras: TypeChurrasqueira[] = [
             }],
             variacoes:[
                 {id: 0,
-                nome_variacao: "Porcelanatos",
-                imagem_variacao: imagemUrl},
-                {id: 1,
-                nome_variacao: "Cerâmicas",
-                imagem_variacao: imagemUrl},
-                {id: 2,
-                nome_variacao: "Pastilhas",
-                imagem_variacao: imagemUrl},
-                {id: 3,
-                nome_variacao: "Texturas",
-                imagem_variacao: imagemUrl},
-                {id: 4,
-                nome_variacao: "Pinturas",
-                imagem_variacao: imagemUrl},
+                nome_variacao: "Natural",
+                imagem_variacao: imagemUrl}
             ]
         }
     },

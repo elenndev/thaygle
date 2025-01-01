@@ -22,6 +22,9 @@ const FormQuote: React.FC<({
     const [isOrcamento_concluido, setIsOrcamento_concluido] = useState(false)
     const [orcamentoErro, setOrcamentoErro] = useState<boolean | string>(false)
     const [variacao, setVariacao] = useState<string | undefined>(undefined)
+        if(produto_tipo = 'predial'){
+            setVariacao('Natural')
+        }
     const [qtProdutos, setQtProdutos] = useState(1)
     const valorUn_produto = getValue(produto, produto_tipo, 1)
         if (valorUn_produto == 0){

@@ -138,7 +138,7 @@ const SectionCatalogo = () =>{
             const variacoes = produto.detalhes.variacoes
             const [imagemEsquerda, setImagemEsquerda] = useState<listaVariacao>(variacoes[0])
             const [imagemCentro, setImagemCentro] = useState<listaVariacao>(variacoes[1])
-            const [imagemDireita, setImagemDireita] = useState<listaVariacao>(variacoes[3])
+            const [imagemDireita, setImagemDireita] = useState<listaVariacao>(variacoes[2])
             const [paragrafo_nomeVariacao, setParagrafo] = useState({background: "transparent", color: "--devScheme-gray"})
             useEffect(()=>{
                 if (variacoes.length >= 3){
@@ -153,10 +153,10 @@ const SectionCatalogo = () =>{
             const containerDireito = useRef(null)
             const nomeVariacaoFocada = useRef(null)
             const durationAnimation = 0.5
-            const fromX_proxima = -100
-            const fromX_anterior = 100
-            const toX_proxima = 100
-            const toX_anterior = -100
+            const fromX_esquerda = -100
+            const fromX_direita = 100
+            const toX_direita = 100
+            const toX_esquerda = -100
 
             function mudarCor(variacaoProduto: string){
                 const cor = obterCorVariacao(variacaoProduto)
@@ -171,17 +171,17 @@ const SectionCatalogo = () =>{
                 }, nomeVariacaoFocada)
                 
             }
-            function movEsquerda(isProxima: boolean){
+            function movEsquerda(isAnterior: boolean){
                 gsap.context(() => {
                     gsap.to(containerEsquerdo.current, {
-                        x: isProxima? toX_proxima : toX_anterior,
-                        delay: isProxima? 0.28 : 0.05,
+                        x: isAnterior? toX_direita : toX_esquerda,
+                        delay: isAnterior? 0.28 : 0.05,
                         duration: durationAnimation,
                         ease: "sine.in",
                         onComplete: (() => {
                             gsap.context(() => {
                                 gsap.fromTo(containerEsquerdo.current, {
-                                    x: isProxima? fromX_proxima : fromX_anterior,
+                                    x: isAnterior? fromX_esquerda : fromX_direita,
                                 },
                                 {
                                     x: 0,
@@ -193,16 +193,16 @@ const SectionCatalogo = () =>{
                     });
                 }, containerEsquerdo);             
             }        
-            function movCentro(isProxima: boolean, variacao: listaVariacao){
+            function movCentro(isAnterior: boolean, variacao: listaVariacao){
                 gsap.context(()=> {
                     gsap.to(containerCentro.current, {
-                        x: isProxima? toX_proxima : toX_anterior,
+                        x: isAnterior? toX_direita : toX_esquerda,
                         delay: 0.25,
                         duration: durationAnimation,
                         ease: "sine.in",
                         onComplete: (()=>{
                             gsap.fromTo(containerCentro.current, {
-                                x: isProxima? fromX_proxima : fromX_anterior
+                                x: isAnterior? fromX_esquerda : fromX_direita
                             },{
                                 x: 0,
                                 duration: durationAnimation,
@@ -213,16 +213,16 @@ const SectionCatalogo = () =>{
                 }, containerCentro)
                 mudarCor(variacao.nome_variacao)
             }
-            function movDireita(isProxima: boolean){
+            function movDireita(isAnterior: boolean){
                 gsap.context(()=> {
                     gsap.to(containerDireito.current, {
-                        x: isProxima? toX_proxima : toX_anterior,
-                        delay: isProxima? 0.05 : 0.28,
+                        x: isAnterior? toX_direita : toX_esquerda,
+                        delay: isAnterior? 0.05 : 0.28,
                         duration: durationAnimation,
                         ease: "sine.in",
                         onComplete: (()=>{
                             gsap.fromTo(containerDireito.current, {
-                                x: isProxima? fromX_proxima : fromX_anterior,
+                                x: isAnterior? fromX_esquerda : fromX_direita,
                             },{
                                 x: 0,
                                 duration: durationAnimation,
@@ -238,31 +238,12 @@ const SectionCatalogo = () =>{
                 controlCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)
             }
             function controleGaleria(acao: string,imagemAtual: listaVariacao){
-                
                 if (acao == "proxima"){
                     movEsquerda(false)
                     movCentro(false, imagemAtual)
                     movDireita(false)
     
-                    const imagemEsquerdaAtual = imagemAtual
-                    const imagemCentroAtual = imagemCentro
-                    if(imagemEsquerdaAtual.nome_variacao == "Champanhe"){
-                        setParagrafo({background: paragrafo_nomeVariacao.background, color: "--devScheme-gray"})
-                    }
-                    
-                    if(imagemEsquerdaAtual.id == 0){
-                        setImagemEsquerda(variacoes[(variacoes.length - 1)])
-                    } else{
-                        setImagemEsquerda(variacoes[(imagemEsquerdaAtual.id - 1)])
-                    }
-                    setImagemDireita(imagemCentroAtual)
-                    setImagemCentro(imagemEsquerdaAtual)
-                } else if (acao == "anterior"){
-                    movDireita(true)
-                    movCentro(true, imagemAtual)
-                    movEsquerda(true)
-                    
-                    const imagemDireitaAtual = imagemAtual
+                    const imagemDireitaAtual = imagemDireita
                     const imagemCentroAtual = imagemCentro
                     if(imagemDireitaAtual.nome_variacao == "Champanhe"){
                         setParagrafo({background: paragrafo_nomeVariacao.background, color: "--devScheme-gray"})
@@ -270,11 +251,29 @@ const SectionCatalogo = () =>{
                     
                     if(imagemDireitaAtual.id == variacoes.length - 1){
                         setImagemDireita(variacoes[0])
-                    }else{
+                    } else{
                         setImagemDireita(variacoes[(imagemDireitaAtual.id + 1)])
                     }
-                    setImagemCentro(imagemDireitaAtual)
                     setImagemEsquerda(imagemCentroAtual)
+                    setImagemCentro(imagemDireitaAtual)
+                } else if (acao == "anterior"){
+                    movDireita(true)
+                    movCentro(true, imagemAtual)
+                    movEsquerda(true)
+                    
+                    const imagemEsquerdaAtual = imagemEsquerda
+                    const imagemCentroAtual = imagemCentro
+                    if(imagemEsquerdaAtual.nome_variacao == "Champanhe"){
+                        setParagrafo({background: paragrafo_nomeVariacao.background, color: "--devScheme-gray"})
+                    }
+                    
+                    if(imagemEsquerdaAtual.id == 0){
+                        setImagemEsquerda(variacoes[variacoes.length - 1])
+                    }else{
+                        setImagemEsquerda(variacoes[(imagemEsquerdaAtual.id - 1)])
+                    }
+                    setImagemCentro(imagemEsquerdaAtual)
+                    setImagemDireita(imagemCentroAtual)
                 }
             }
             return(<>

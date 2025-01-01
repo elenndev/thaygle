@@ -131,7 +131,7 @@ const SectionSobre = () => {
                     <div ref={redesSociais} className="links justify-center flex flex-col w-[95%] gap-[5px]">
                         <h3 className="w-full text-[1.5rem] md:text-[2rem] text-center font-medium">Redes sociais:</h3>
                         <span className="w-full justify-center flex flex-row gap-[2rem]">
-                            <a href="#"  aria-label='Ir para o Instagram da Thaygle Pré Moldados' className="flex flex-row items-center gap-[5px]">
+                            <a href="https://www.instagram.com/thaygle.premoldados/?locale=no&hl=en" target="_blank" aria-label='Ir para o Instagram da Thaygle Pré Moldados' className="flex flex-row items-center gap-[5px]">
                             <svg width="40px" height="40px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             {/* svg by: Garuda Technology | collection: Colored Interface And Logo Icons */}
                                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
