@@ -16,8 +16,9 @@ export default function enviarOrcamentoWhatsapp(
     }
     // const numero = "556493379951"
     let mensagem = `-- Orçamento --\n`;
-    mensagem += `Nome: ${dadosCliente.nome} ${dadosCliente.sobrenome}\n`;
+    mensagem += `Nome: ${dadosCliente.nome}\n`;
     mensagem += `Cpf: ${dadosCliente.cpf}\n`;
+    mensagem += `Endereço: ${dadosCliente.endereco}\n`;
     mensagem += `Contato: ${dadosCliente.telefone}\n`;
     mensagem += `-------------\n`;
     mensagem += `Produto: ${orcamento.produto || produtoVariacao}\n`;

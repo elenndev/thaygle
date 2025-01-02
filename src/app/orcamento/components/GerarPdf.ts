@@ -19,8 +19,8 @@ export default function GerarPdfOrcamento(dadosCliente: TypeDadosCliente | null,
             doc.text('Dados do cliente:', 10, 40);
             doc.setFont("helvetica", "normal");  
             
-            doc.text(`Nome: ${dadosCliente.nome} ${dadosCliente.sobrenome}`, 10, 50);
-        doc.text(`Contato: ${dadosCliente.telefone}`, 10, 60);
+        doc.text(`Nome: ${dadosCliente.nome}`, 10, 50);
+        doc.text(`Contato: ${dadosCliente.telefone} | Endereço: ${dadosCliente.endereco}`, 10, 60);
         doc.text(`CPF: ${dadosCliente.cpf}`, 10, 70);
 
 

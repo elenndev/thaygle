@@ -12,7 +12,7 @@ interface FormularioProps {
 const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
   const [dadosCliente, setDadosCliente] = useState<TypeDadosCliente>({
     nome: '',
-    sobrenome: '',
+    endereco: '',
     cpf: '',
     telefone: '',
   });
@@ -50,16 +50,16 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="sobrenome" className="block text-sm font-medium text-gray-700">Sobrenome</label>
+          <label htmlFor="endereco" className="block text-sm font-medium text-gray-700">Endereço</label>
           <input
             type="text"
-            id="sobrenome"
-            name="sobrenome"
-            value={dadosCliente.sobrenome}
+            id="endereco"
+            name="endereco"
+            value={dadosCliente.endereco}
             onChange={handleChange}
             minLength={5}
             className="mt-1 block w-full px-3 py-2 border text-gray-700 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Digite seu sobrenome"
+            placeholder="Digite seu endereço"
             required
           />
         </div>

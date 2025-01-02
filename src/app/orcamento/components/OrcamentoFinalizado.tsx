@@ -37,7 +37,6 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
         setSalvarOrcamento(true)
         setOrcamentoEnviado(true)
         
-        // redirect('/')
     }
 
     function handleVoltarHomepage(){

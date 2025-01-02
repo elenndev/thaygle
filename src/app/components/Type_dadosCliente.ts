@@ -1,6 +1,6 @@
 type TypeDadosCliente = {
     nome: string;
-    sobrenome: string;
+    endereco: string;
     cpf: string;
     telefone: string;
 }
