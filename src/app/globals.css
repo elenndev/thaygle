@@ -45,7 +45,7 @@ body {
 
 .homepage{
   #hero{
-    background-image: url("./midia/cover.webp");
+    background-image: url("/cover.webp");
     background-size: cover;
     background-color: #131143d4;
     background-blend-mode: multiply;
