@@ -1,6 +1,6 @@
 import getValue from "@/app/components/FunctionProductValue"
 import TypeOrcamento from "@/app/components/Type_orcamento"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import OrcamentoFinalizado from "./OrcamentoFinalizado";
 import Link from "next/link";
 import TypeDadosCliente from "@/app/components/Type_dadosCliente";
@@ -22,9 +22,11 @@ const FormQuote: React.FC<({
     const [isOrcamento_concluido, setIsOrcamento_concluido] = useState(false)
     const [orcamentoErro, setOrcamentoErro] = useState<boolean | string>(false)
     const [variacao, setVariacao] = useState<string | undefined>(undefined)
-        if(produto_tipo = 'predial'){
-            setVariacao('Natural')
+    useEffect(() => {
+        if (produto_tipo === 'predial') {
+            setVariacao('Natural');
         }
+    }, [produto_tipo]);
     const [qtProdutos, setQtProdutos] = useState(1)
     const valorUn_produto = getValue(produto, produto_tipo, 1)
         if (valorUn_produto == 0){
@@ -94,6 +96,8 @@ const FormQuote: React.FC<({
             } else if (produto_tipo == 'tijolinho' || produto_tipo == 'tijolinho balcao'){
                 valorDutos = getValue('duto', 'tijolinho', qtDutos) ?? 0
             }
+
+
             const valorProduto = qtProdutos * valorUn_produto
             console.log("valor calculado do produto: ", valorProduto)
             const soma = valorDutos + valorModulos + valorProduto
@@ -184,7 +188,6 @@ const FormQuote: React.FC<({
             <div className=" w-fit px-[20px] flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[95%]">
             
             <form onSubmit={valorTotal} className="form-orcamento relative flex flex-col items-center gap-x-[10px] justify-evenly p-[20px]w-full">
-                {produto == 'churrasqueira' ? (<>
                     {produto_tipo == 'predial' && isLaje ? (
                         <>
                         <label htmlFor="alturaParede">Por favor informe a altura em <strong>metros</strong> do chão até a laje da área em que será instalada a churrasqueira:</label>
@@ -202,11 +205,6 @@ const FormQuote: React.FC<({
                         <EscolherVariacao />
                     )}
                     <QuantProdutos />
-                </>): (
-                    <>
-                        <QuantProdutos />
-                    </>
-                )}
                 <button type="submit" className="calcular w-fit py-[3px] mb-[10px] px-[30px] rounded-[30px] bg-[--devScheme-orange] text-white">calcular</button>
             </form>
             <Link href="/" aria-label="Voltar a página inicial" className="w-fit py-[3px] px-[20px] rounded-[30px] bg-[--devScheme-gray] text-white p-2">Voltar</Link>

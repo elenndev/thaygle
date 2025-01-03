@@ -14,7 +14,7 @@ export default function enviarOrcamentoWhatsapp(
     if (!dadosCliente){
         return console.log("erro ao acessar dados do cliente")
     }
-    // const numero = "556493379951"
+    const admTel = process.env.NEXT_PUBLIC_TEL;
     let mensagem = `-- Orçamento --\n`;
     mensagem += `Nome: ${dadosCliente.nome}\n`;
     mensagem += `Cpf: ${dadosCliente.cpf}\n`;
@@ -39,7 +39,7 @@ export default function enviarOrcamentoWhatsapp(
       mensagem += `Valor Total: R$ ${orcamento.total.toFixed(2)}\n`;
     }
   
-    const whatsappUrl = `https://wa.me/556493379951?text=${encodeURIComponent(mensagem)}`;
+    const whatsappUrl = `https://wa.me/${admTel}?text=${encodeURIComponent(mensagem)}`;
   
     window.open(whatsappUrl, "_blank");
   }

@@ -66,24 +66,8 @@ export default function GerarPdfOrcamento(dadosCliente: TypeDadosCliente | null,
         }
     }
 
-    // "-- Orçamento --
-    // Nome: dadosCliente.nome + dadosCliente?.sobrenome
-    // Cpf: dadosCliente?.cpf
-    // Contato: dadosCliente?.telefone
-    // -------------
-    // Produto: orcamento.produto | produtoVariacao
-    // Altura total da parede: alturaParede
-    // Quantidade de dutos: orcamento.dutos.qt
-    // Valor dos dutos: R$ orcamento.dutos.valor.toFixed(2)
-    // -- se orcamento.modulos.qt > 0:
-    //     Quantidade de módulos; orcamento.modulos.qt
-    //     Valor dos módulos: R$ orcamento.modulos.valor.toFixed(2)
-    // -- se orcamento.desconto > 0:
-    //     Valor sem desconto: R$ orcamento.soma.toFixed(2)
-    //     Desconto: R$ orcamento.desconto.toFixed(2)
-    //     Valor Total: R$ orcamento.total.toFixed(2)
-    // -- se orcamento.desconto<= 0:
-    //     Valor Total: R$ orcamento.total.toFixed(2)"
+
+
 
     doc.save("orcamento_finalizado.pdf");
     if(enviarMensagem){

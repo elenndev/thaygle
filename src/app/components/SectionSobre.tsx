@@ -165,7 +165,7 @@ const SectionSobre = () => {
                             </svg>
                                 Instagram
                             </a>
-                            <a href="#" aria-label='Ir para o Facebook da Thaygle Pré Moldados' className="flex flex-row items-center gap-[5px]">
+                            <a href="https://www.facebook.com/people/Thaygle-Pré-moldados/100089755825803/?sk=reels_tab" aria-label='Ir para o Facebook da Thaygle Pré Moldados' className="flex flex-row items-center gap-[5px]">
                                 <svg width="40px" height="40px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 {/* svg by: Garuda Technology | collection: Colored Interface And Logo Icons */}
                                     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
