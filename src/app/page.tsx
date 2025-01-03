@@ -72,11 +72,6 @@ const Sobre = () => {
 
 
 export default function HomePage() {
-  if (typeof window === "undefined"){
-    console.log("server")
-  }else{
-    console.log("client")
-  }
 
   return (
     <>

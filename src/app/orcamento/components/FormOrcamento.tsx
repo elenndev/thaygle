@@ -46,14 +46,10 @@ const FormQuote: React.FC<({
     }
     function arredondarResultado(dec: number, base: number){
         if(dec < 5){
-            console.log(`valor da parede em cm ${alturaParede} | resultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.0`)
             return Math.floor(base)
         } else if (dec >= 5 && dec < 9){
-            console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pra x.5`)
             return parseFloat(`${base.toString().split('.')[0]}.5`)
         } else if (dec > 9){
-            console.log(dec, " vai arredonda pro proximo numero inteiro")
-            console.log(`valor da parede em cm ${alturaParede} | reesultado inicial: ${base} | valor do decimal: ${dec} | ou seja arredondar pro inteiro seguinte`)
             return Math.ceil(base)
         } else{
             return 0
@@ -73,7 +69,6 @@ const FormQuote: React.FC<({
         const base = ( alturaParede - 200) / 50
         function getModulos(base: number): number {
             const dec = getValorDecimal(base)
-            console.log("anted de verificar dec ta como: ", dec)
             return arredondarResultado(dec, base)            
         }       
         return getModulos(base)
@@ -99,7 +94,6 @@ const FormQuote: React.FC<({
 
 
             const valorProduto = qtProdutos * valorUn_produto
-            console.log("valor calculado do produto: ", valorProduto)
             const soma = valorDutos + valorModulos + valorProduto
             setOrcamento({
                 produto: produto_nome,

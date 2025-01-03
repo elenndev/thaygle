@@ -15,6 +15,7 @@ export default function enviarOrcamentoWhatsapp(
         return console.log("erro ao acessar dados do cliente")
     }
     const admTel = process.env.NEXT_PUBLIC_TEL;
+    console.log(admTel)
     let mensagem = `-- Orçamento --\n`;
     mensagem += `Nome: ${dadosCliente.nome}\n`;
     mensagem += `Cpf: ${dadosCliente.cpf}\n`;
