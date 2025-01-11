@@ -1,21 +1,18 @@
 'use client'
 import Link from "next/link"
-import './style.css'
-import Image from "next/image"
-import controlCard from "./controlCard"
-import Churrasqueiras from "./Churrasqueiras"
-import TypeChurrasqueira from "./Type_churrasqueira"
-import { useEffect, useRef, useState } from "react"
 import gsap from 'gsap';
+import Image from "next/image"
+import { useEffect, useRef, useState } from "react"
 
+import TypeChurrasqueira from "./types/Type_churrasqueira"
+import Churrasqueiras from "./utilities/Churrasqueiras"
 
-
-
+import controlarCard from "./functions/controlarCard"
 
 const SectionCatalogo = () =>{
+    // animacoes do catalogo geral
     const sectionCatalogo = useRef<HTMLDivElement>(null)
     const miniCardsProduto = useRef(null)
-    //animacoes
     function entradaCards(){
         const cards = sectionCatalogo.current?.querySelectorAll('.smallCard-produto')
         let delay = 0.0
@@ -46,8 +43,6 @@ const SectionCatalogo = () =>{
             },card)
         })        
     }
-    
-
     useEffect(()=>{
         const observer = new IntersectionObserver((observar)=> {
             observar.forEach((elementoVisivel)=>{
@@ -94,7 +89,7 @@ const SectionCatalogo = () =>{
     
         }
         
-        //animacoes
+        //animacoes para abrir/expandir o card
         const bigCard = useRef(null)
             function abrirCard(){
                 gsap.context(()=>{
@@ -108,10 +103,8 @@ const SectionCatalogo = () =>{
                     })
                 }, bigCard)
             }
-            
-    
         function handleAbrirCard(){
-            controlCard('open',`bigCard_${produto.infos.produto}_${produto.infos.tipo}`)
+            controlarCard('open',`bigCard_${produto.infos.produto}_${produto.infos.tipo}`)
             abrirCard()
         }
 
@@ -122,13 +115,17 @@ const SectionCatalogo = () =>{
                 cssBackground: obterCorVariacao(variacao.nome_variacao),
                 cssColor: variacao.nome_variacao == "Champanhe"? "--devScheme-gray" : "--devScheme-white"
             }))
-            return(<span className="lista-variacoes flex flex-row items-center justify-start md:gap-x-[10px] lg:gap-x-[5px] gap-[3px] mb-[5px] flex-wrap w-[90%]">
-                {listaFormatada.map((variacao, index) => (
-                    <p style={{background: `var(${variacao.cssBackground})`}} className={`px-[5px] rounded-[20px] text-[${variacao.cssColor}] text-[0.90rem] md:text-[1rem]`} key={index}>{variacao.nome_variacao}</p>
-                ))}
-            </span>)
+            return(
+                <span className="lista-variacoes flex flex-row items-center justify-start md:gap-x-[10px] lg:gap-x-[5px] gap-[3px] mb-[5px] flex-wrap w-[90%]">
+                    {listaFormatada.map((variacao, index) => (
+                        <p style={{background: `var(${variacao.cssBackground})`}} 
+                        className={`px-[5px] rounded-[20px] text-[${variacao.cssColor}] text-[0.90rem] md:text-[1rem]`} 
+                        key={index}>
+                            {variacao.nome_variacao}
+                        </p>
+                    ))}</span>
+                )
         }
-    
         const CardProdutoAberto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) => {
             type listaVariacao = {
                 id: number;
@@ -147,7 +144,7 @@ const SectionCatalogo = () =>{
             },[])
             
             
-            // ANIMACOES
+            // animacoes da galeria de variacoes
             const containerEsquerdo = useRef(null)
             const containerCentro = useRef(null)
             const containerDireito = useRef(null)
@@ -231,11 +228,10 @@ const SectionCatalogo = () =>{
                         })
                     })
                 }, containerCentro)
-            }
-            
+            }      
             
             function handleFecharCard(){
-                controlCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)
+                controlarCard('close', `bigCard_${produto.infos.produto}_${produto.infos.tipo}`)
             }
             function controleGaleria(acao: string,imagemAtual: listaVariacao){
                 if (acao == "proxima"){
@@ -277,34 +273,66 @@ const SectionCatalogo = () =>{
                 }
             }
             return(<>
-                <div ref={bigCard} id={`bigCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`hidden z-[2] bigCard bigCard-produto bg-[--devScheme-white] min-h-[90vh] w-[90vw] flex-col items-center justify-between gap-y-[10px] py-[10px] text-[--devScheme-gray] border-solid border-[--devScheme-orange] border-2 text-[1.25rem] md:text-[1.85rem]`}>
-                    <button type="button" className="bg-[--devScheme-softBlue] text-[--devScheme-white] font-bold rounded-[2rem] py-[3px] px-[15px]" onClick={handleFecharCard}>Voltar pro catálogo</button>
+                <div ref={bigCard} id={`bigCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`hidden z-[2] bigCard bigCard-produto bg-[--devScheme-white] min-h-[90vh] w-[90vw] flex-col items-center justify-between gap-y-[10px] py-[10px] text-[--devScheme-gray] border-solid border-[--devScheme-orange] shadow-md border-2 text-[1.25rem] md:text-[1.85rem]`}>
+                    <button type="button" 
+                    className="bg-[--devScheme-softBlue] text-[--devScheme-white] font-bold rounded-[2rem] py-[3px] px-[15px]" 
+                    onClick={handleFecharCard}>
+                        Voltar pro catálogo
+                    </button>
                     <span className={`galeria items-center justify-center ${variacoes.length >= 3 ? "grid grid-cols-3 grid-rows-1" : "flex flex-row"}`}>
                         {variacoes.length >= 3 ? (<>
-                            <span className="imagem-esquerda relative cursor-pointer flex items-center justify-center flex-col w-full overflow-hidden" onClick={() => controleGaleria("anterior",imagemEsquerda)}>
-                                <Image ref={containerEsquerdo} width={100} height={100} className="esquerdo" alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao}/>
+                            <span className="imagem-esquerda relative cursor-pointer flex items-center justify-center flex-col w-full overflow-hidden" 
+                            onClick={() => controleGaleria("anterior",imagemEsquerda)}>
+                                <Image ref={containerEsquerdo} 
+                                width={100} height={100} 
+                                className="esquerdo" 
+                                alt={`Imagem da variação do produto`} 
+                                src={imagemEsquerda.imagem_variacao}/>
                             </span>
                             <span className="imagem-centro overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]">
-                                <Image ref={containerCentro} width={400} height={400} className={`centro lg:w-[auto] lg:h-[300px]`} alt={`Imagem da variação do produto`} src={imagemCentro.imagem_variacao}/>
-                                <p className={`centro text-center md:text-[1.50rem] px-[10px] rounded-[20px] text-[${paragrafo_nomeVariacao.color}] bg-[${paragrafo_nomeVariacao.background == '--devScheme-champanhe'? "gray" : "white"}]`} ref={nomeVariacaoFocada}>{imagemCentro.nome_variacao}</p>
+                                <Image ref={containerCentro} 
+                                width={400} 
+                                height={400} 
+                                className={`centro lg:w-[auto] lg:h-[300px]`} alt={`Imagem da variação do produto`} src={imagemCentro.imagem_variacao}/>
+                                <p className={`centro text-center md:text-[1.50rem] px-[10px] rounded-[20px] text-[${paragrafo_nomeVariacao.color}] bg-[${paragrafo_nomeVariacao.background == '--devScheme-champanhe'? "gray" : "white"}]`} 
+                                ref={nomeVariacaoFocada}>
+                                    {imagemCentro.nome_variacao}
+                                </p>
                             </span>
-                            <span className="imagem-direita relative cursor-pointer overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]" onClick={()=> controleGaleria("proxima", imagemDireita)}>
-                                <Image ref={containerDireito} width={100} height={100} className={`direito`} alt={`Imagem da variação do produto`} src={imagemDireita.imagem_variacao}/>
+                            <span className="imagem-direita relative cursor-pointer overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]" 
+                            onClick={()=> controleGaleria("proxima", imagemDireita)}>
+                                <Image ref={containerDireito} 
+                                width={100} 
+                                height={100} 
+                                className={`direito`} 
+                                alt={`Imagem da variação do produto`} src={imagemDireita.imagem_variacao}/>
                             </span>
                         </>): (<>
                         <span className="imagem-unica overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]">
-                            <Image width={300} height={300} className={`centro`} alt={`Imagem da variação do produto`} src={imagemEsquerda.imagem_variacao}/>
+                            <Image 
+                            width={300} 
+                            height={300} 
+                            className={`centro`} alt={`Imagem da variação do produto`} 
+                            src={imagemEsquerda.imagem_variacao}/>
                             <p className="centro text-center md:text-[1.50rem] px-[10px] rounded-[20px] bg-[--devScheme-gray] text-[--devScheme-white]">Padrão</p>
                         </span>
                         </>)}
                     </span>
-                    <p className="font-bold nome-produto justify-center text-[1.5rem] md:text-[1.85rem] flex w-[90%]">{produto.nome}</p>
-                    <p className="flex w-[90%]">{produto.infos.descricao_completa}</p>
+                    <p className="font-bold nome-produto justify-center text-[1.5rem] md:text-[1.85rem] flex w-[90%]">
+                        {produto.nome}
+                    </p>
+                    <p className="flex w-[90%]">
+                        {produto.infos.descricao_completa}
+                    </p>
                     {produto.detalhes.listas?.map((detalhe, index) => (
-                        <ul key={index} className={`${detalhe.nome_lista} w-[90%]`}>
+                        <ul key={index} 
+                        className={`${detalhe.nome_lista} w-[90%]`}>
                             <p className="font-bold">{detalhe.nome_lista}</p>
                             {detalhe.itens_lista?.map((detalhe_item,index)=> (
-                                <li key={index} className="detalhe">{detalhe_item}</li>)
+                                <li key={index} 
+                                className="detalhe">
+                                    {detalhe_item}
+                                </li>)
                             )}
                         </ul>
                     ))}
@@ -319,21 +347,28 @@ const SectionCatalogo = () =>{
     
         return(<>
             <CardProdutoAberto produto={produto}/>
-            <div ref={miniCardsProduto} id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} className={`smallCard-produto ${produto.nome} relative w-[95%] lg:w-[30%] flex flex-row lg:flex-col lg:h-full items-center justify-between `}>
-                <Image width={170} height={170} alt={`Imagem do produto ${produto.nome}`} src="/logo.webp"
+            <div ref={miniCardsProduto} 
+            id={`smallCard_${produto.infos.produto.replace(" ","_")}_${produto.infos.tipo.replace(" ","_")}`} 
+            className={`smallCard-produto ${produto.nome} relative w-[95%] lg:w-[30%] flex flex-row lg:flex-col lg:h-full items-center justify-between `}>
+                <Image width={170} 
+                height={170} 
+                alt={`Imagem do produto ${produto.nome}`} 
+                src="/logo.webp"
                 className="md:w-[200px] md:h-[auto]"/>
                 <div className="produtos-info pl-[10px] flex flex-col w-[100%] text-[--devScheme-gray] sm:text-[1.5rem] md:text-[1.5rem]">
                     <p className="font-bold md:text-[2rem] md:font-medium nome-produto">{produto.nome}</p>
                     <p>Variações</p>
                     <ListaVariacoes variacoes={produto.detalhes.variacoes} />
-                    <button type="button" onClick={() => handleAbrirCard()} className="ver-produto mt-[5px] bg-[--devScheme-orange] px-[10px] py-[2px] text-white rounded-[10px] md:text-[1.70rem]">Ver produto</button>
-                </div>
-    
-    
+                    <button type="button" 
+                    onClick={() => handleAbrirCard()} 
+                    className="ver-produto mt-[5px] bg-[--devScheme-orange] px-[10px] py-[2px] text-white rounded-[10px] md:text-[1.70rem]">
+                        Ver produto
+                    </button>
+                </div>   
             </div> 
     </>)
     } 
-    const ListaProdutos = () =>{
+    const ListaCardProdutos = () =>{
         const principaisProdutos = Churrasqueiras
     
         const Principais = () => {
@@ -347,17 +382,22 @@ const SectionCatalogo = () =>{
         }
     
         return(
-            <><div className="catalogo bg-[--devScheme-white] lg:w-sreen min-h-[fit] flex flex-col w-full items-center flex-wrap justify-center gap-y-[30px]">
+            <>
+            <div className="catalogo bg-[--devScheme-white] lg:w-sreen min-h-[fit] flex flex-col w-full items-center flex-wrap justify-center gap-y-[30px]">
                 <Principais />
-                <a className="bg-[--devScheme-softBlue] text-[1.25rem] md:text-[1.70rem] lg:text-[2rem] px-[10px] lg:px-[15px] py-[2px] mb-[10px] text-white rounded-[2rem]" href="/Thaygle Pre-Moldados - Catalogo.pdf" download>Baixar catálogo</a>
+                <a className="bg-[--devScheme-softBlue] text-[1.25rem] md:text-[1.70rem] lg:text-[2rem] px-[10px] lg:px-[15px] py-[2px] mb-[10px] text-white rounded-[2rem]" href="/Thaygle Pre-Moldados - Catalogo.pdf" download>
+                    Baixar catálogo
+                </a>
             </div>
             </>
         )
     }
     return(
         <section ref={sectionCatalogo} id="catalogo" className="produtos relative bg-[--devScheme-white] flex min-h-[fit-content] h-screen w-screen items-center justify-center flex-col flex-wrap">
-            <h2 className="text-[--devScheme-gray] tracking-widest md:tracking-wide text-[2.5rem] md:text-[4rem] mb-[10px] font-gothic font-medium">Catálogo</h2>
-            <ListaProdutos />
+            <h2 className="text-[--devScheme-gray] tracking-widest md:tracking-wide text-[2.5rem] md:text-[4rem] mb-[10px] font-gothic font-medium">
+                Catálogo
+            </h2>
+            <ListaCardProdutos />
         </section>
     )
 }

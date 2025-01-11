@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import Orcamento from "./Orcamento";
-import Churrasqueiras from "@/app/components/Churrasqueiras";
-import TypeChurrasqueira from "@/app/components/Type_churrasqueira";
+import PageFazerOrcamento from "./PageFazerOrcamento";
+import Churrasqueiras from "@/app/_components/utilities/Churrasqueiras";
+import TypeChurrasqueira from "@/app/_components/types/Type_churrasqueira";
 
 export const metadata = {
     title: 'Thaygle | Orçamento',
@@ -24,7 +24,7 @@ export default function OrcamentoPage() {
         <Suspense fallback={<div>
             <p>Orçamento Churrasqueira Pré Moldada</p>
         </div>}>
-            <Orcamento />
+            <PageFazerOrcamento />
         </Suspense>
     );
 }

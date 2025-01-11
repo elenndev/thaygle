@@ -1,5 +1,5 @@
-import TypeDadosCliente from "@/app/components/Type_dadosCliente";
-import TypeOrcamento from "@/app/components/Type_orcamento";
+import TypeDadosCliente from "@/app/_components/types/Type_dadosCliente";
+import TypeOrcamento from "@/app/_components/types/Type_orcamento";
 
 export default function enviarOrcamentoWhatsapp(
     dadosCliente: TypeDadosCliente | null,

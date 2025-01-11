@@ -1,9 +1,9 @@
-import getValue from "@/app/components/FunctionProductValue"
-import TypeOrcamento from "@/app/components/Type_orcamento"
+import TypeOrcamento from "@/app/_components/types/Type_orcamento"
 import { useState, useEffect } from "react"
-import OrcamentoFinalizado from "./OrcamentoFinalizado";
+import OrcamentoFinalizado from "./DivOrcamentoFinalizado";
 import Link from "next/link";
-import TypeDadosCliente from "@/app/components/Type_dadosCliente";
+import TypeDadosCliente from "@/app/_components/types/Type_dadosCliente";
+import ObterValorDoProduto from "@/app/_components/functions/ObterValorDoProduto";
 type TypeVariacao = {
     id: number,
     nome_variacao: string,
@@ -28,7 +28,7 @@ const FormQuote: React.FC<({
         }
     }, [produto_tipo]);
     const [qtProdutos, setQtProdutos] = useState(1)
-    const valorUn_produto = getValue(produto, produto_tipo, 1)
+    const valorUn_produto = ObterValorDoProduto(produto, produto_tipo, 1)
         if (valorUn_produto == 0){
             setOrcamentoErro("Erro ao buscar o valor unitário do produto")}
     const [tamParede_metros, setTamParede_metros] = useState(0)
@@ -86,10 +86,10 @@ const FormQuote: React.FC<({
         if(produto == 'churrasqueira'){
             if(produto_tipo == 'predial'){
                 qtModulos = calcModulos()
-                valorModulos = getValue('modulo', 'predial', qtModulos) ?? 0
-                valorDutos = getValue('duto', 'liso', qtDutos) ?? 0
+                valorModulos = ObterValorDoProduto('modulo', 'predial', qtModulos) ?? 0
+                valorDutos = ObterValorDoProduto('duto', 'liso', qtDutos) ?? 0
             } else if (produto_tipo == 'tijolinho' || produto_tipo == 'tijolinho balcao'){
-                valorDutos = getValue('duto', 'tijolinho', qtDutos) ?? 0
+                valorDutos = ObterValorDoProduto('duto', 'tijolinho', qtDutos) ?? 0
             }
 
 

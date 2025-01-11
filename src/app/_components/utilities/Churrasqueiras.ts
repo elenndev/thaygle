@@ -1,5 +1,8 @@
-import TypeChurrasqueira from "./Type_churrasqueira";
+import TypeChurrasqueira from "../types/Type_churrasqueira"
+
 const imagemUrl = "/logo.webp"
+// const url = process.env.NODE_ENV == 'development'? 'http://localhost:3000' : process.env.PRODUCTION_URL
+
 
 
 const Churrasqueiras: TypeChurrasqueira[] = [
@@ -37,19 +40,19 @@ const Churrasqueiras: TypeChurrasqueira[] = [
             variacoes:[
                 {id: 0,
                     nome_variacao: "Prestígio",
-                    imagem_variacao: imagemUrl},
+                    imagem_variacao: `/tijolinho-prestigio.png`},
                     {id: 1,
                     nome_variacao: "Vermelho",
-                    imagem_variacao: imagemUrl},
+                    imagem_variacao: `/tijolinho-vermelho.png`},
                     {id: 2,
                     nome_variacao: "Champanhe",
-                    imagem_variacao: imagemUrl},
+                    imagem_variacao: `/tijolinho-champanhe.png`},
                     {id: 3,
                     nome_variacao: "Chocolate",
-                    imagem_variacao: imagemUrl},
+                    imagem_variacao: `/tijolinho-chocolate.png`},
                     {id: 4,
                     nome_variacao: "Amadeirada",
-                    imagem_variacao: imagemUrl},
+                    imagem_variacao: `/tijolinho-amadeirada.png`},
             ]
         }
     },
@@ -88,19 +91,19 @@ const Churrasqueiras: TypeChurrasqueira[] = [
             variacoes:[
                 {id: 0,
                 nome_variacao: "Prestígio",
-                imagem_variacao: imagemUrl},
+                imagem_variacao: `/tijolinho-balcao-prestigio.png`},
                 {id: 1,
                 nome_variacao: "Vermelho",
-                imagem_variacao: imagemUrl},
+                imagem_variacao: `/tijolinho-balcao-vermelho.png`},
                 {id: 2,
                 nome_variacao: "Champanhe",
-                imagem_variacao: imagemUrl},
+                imagem_variacao: `/tijolinho-balcao-champanhe.png`},
                 {id: 3,
                 nome_variacao: "Chocolate",
-                imagem_variacao: imagemUrl},
+                imagem_variacao: `/tijolinho-balcao-chocolate.png`},
                 {id: 4,
                 nome_variacao: "Amadeirada",
-                imagem_variacao: imagemUrl},
+                imagem_variacao: `/tijolinho-balcao-amadeirada.png`},
             ]
         }
     },
@@ -139,7 +142,7 @@ const Churrasqueiras: TypeChurrasqueira[] = [
             variacoes:[
                 {id: 0,
                 nome_variacao: "Natural",
-                imagem_variacao: imagemUrl}
+                imagem_variacao: `/predial-natural.png`}
             ]
         }
     },

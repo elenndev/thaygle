@@ -1,9 +1,9 @@
-import Navbar from "./components/Navbar";
+import Navbar from "./_components/Navbar";
 import Image from 'next/image'
 import { Suspense } from "react";
-import SectionCatalogo from "./components/SectionCatalogo";
-import SectionSobre from "./components/SectionSobre";
-import Churrasqueiras from "./components/Churrasqueiras"
+import SectionCatalogo from "./_components/SectionCatalogo";
+import SectionSobre from "./_components/SectionSobre";
+import Churrasqueiras from "./_components/utilities/Churrasqueiras";
 
 const Home = () => {
   const logoImageStyle = {

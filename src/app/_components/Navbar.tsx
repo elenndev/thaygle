@@ -25,18 +25,34 @@ const Navbar:React.FC <{isHome: boolean}> = ({isHome}) => {
         <div className={`md:flex md:items-center md:justify-between md:mr-[100px] font-gothic ${ isOpen ? "block" : "hidden"}`}>
             <ul className="py-[10px] px-[5px] bg-[--devScheme-white] shadow-md md:shadow-none flex absolute right-[3px] top-0 z-[6] flex-col md:relative md:flex-row md:gap-8 text-center pt-[70px] md:pt-[10px]">
                 <li className="py-[5px] md:p-x-[5px] md:px-[5px]">
-                    <a href={isHome? "#hero" : "/"} className="font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]">Inicio</a>
+                    <a href={isHome? "#hero" : "/"}
+                    onClick={()=> setIsOpen(false)}
+                    className="font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]">
+                        Inicio
+                    </a>
                 </li>
                 {isHome && (<>
                     <li className="py-[5px] md:p-x-[5px] md:px-[5px]">
-                        <a href="#catalogo" className="font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]">Produtos</a>
+                        <a href="#catalogo"
+                        onClick={()=> setIsOpen(false)}
+                        className="font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]">
+                            Produtos
+                        </a>
                     </li>
                     <li className="py-[5px] md:p-x-[5px] md:px-[5px]">
-                        <a href="#sobre" className="font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]">Sobre</a>
+                        <a href="#sobre"
+                        onClick={()=> setIsOpen(false)}
+                        className="font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]">
+                            Sobre
+                        </a>
                     </li>
                 </>)}
                 <li className="py-[5px] md:p-x-[5px] md:px-[5px]">
-                    <a href="/Thaygle Pre-Moldados - Catalogo.pdf" className="font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]" download>Download Catálogo</a>
+                    <a href="/Thaygle Pre-Moldados - Catalogo.pdf"
+                    onClick={()=> setIsOpen(false)}
+                    className="font-medium tracking-widest md:bg-[--devScheme-white] md:shadow md:px-[10px] md:py-[5px] hover:text-[--devScheme-white] hover:bg-[--devScheme-softBlue]" download>
+                        Download Catálogo
+                    </a>
                 </li>
             </ul>
         </div>

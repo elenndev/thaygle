@@ -1,6 +1,6 @@
 
 
-import TypeDadosCliente from '@/app/components/Type_dadosCliente';
+import TypeDadosCliente from '@/app/_components/types/Type_dadosCliente';
 import { useState } from 'react';
 
 
@@ -13,7 +13,7 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
   const [dadosCliente, setDadosCliente] = useState<TypeDadosCliente>({
     nome: '',
     endereco: '',
-    cpf: '',
+    cpf: '   .   .   -  ',
     telefone: '',
   });
 

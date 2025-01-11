@@ -1,14 +1,21 @@
-import TypeOrcamento from "@/app/components/Type_orcamento";
+import TypeOrcamento from "@/app/_components/types/Type_orcamento";
 import { useState, useEffect } from "react";
-import GerarPdfOrcamento from "./GerarPdf";
+import GerarPdfOrcamento from "./functions/GerarPdf";
 import ConfirmationModal from "./ModalFecharOrcamento";
 import { redirect } from "next/navigation";
-import TypeDadosCliente from "@/app/components/Type_dadosCliente";
-// import controlePergunta from "./controlePergunta";
+import TypeDadosCliente from "@/app/_components/types/Type_dadosCliente";
 
-
-
-const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOrcamento: TypeOrcamento, alturaParede: number, produtoInfo: string, produtoVariacao: string | undefined}> = ({getOrcamento, alturaParede, produtoInfo, dadosCliente, produtoVariacao}) => {
+const OrcamentoFinalizado: React.FC<{
+dadosCliente: TypeDadosCliente | null,
+getOrcamento: TypeOrcamento, 
+alturaParede: number, 
+produtoInfo: string, 
+produtoVariacao: string | undefined}> = ({
+getOrcamento, 
+alturaParede, 
+produtoInfo, 
+dadosCliente, 
+produtoVariacao}) => {
     const [isDesconto, setIsDesconto] = useState(false)
     const [orcamento, setOrcamento] = useState<TypeOrcamento>(getOrcamento)
     const [salvarOrcamento, setSalvarOrcamento] = useState(false)
@@ -16,16 +23,11 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleCloseModal = () => {
         redirect('/')
-        // setIsModalOpen(false)
-        // setOrcamentoEnviado(true)
-        // handleVoltarHomepage()
     }
     const handleConfirmModal = () => {
         setIsModalOpen(false)
         redirect('/')
     }
-
-
 
     function handleControlePergunta(resposta: boolean, event: React.MouseEvent<HTMLButtonElement>){
         setIsDesconto(resposta)
@@ -36,7 +38,6 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
         GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao, enviarMensagem)
         setSalvarOrcamento(true)
         setOrcamentoEnviado(true)
-        
     }
 
     function handleVoltarHomepage(){
@@ -73,8 +74,15 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
     const BaixarOrcamento = () => {
         return(<div className="flex flex-col text-[--devScheme-gray] w-[80%] h-full items-center justify-start">
             <p>Baixando orçamento...</p>
-            <p className="cursor-pointer" onClick={()=> GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao, false)}>Download não iniciou? <strong>Clique aqui para tentar novamente</strong></p>
-            <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" type="button" onClick={handleVoltarHomepage}>Voltar ao inicio</button>
+            <p className="cursor-pointer" 
+            onClick={()=> GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao, false)}>
+                Download não iniciou? <strong>Clique aqui para tentar novamente</strong>
+            </p>
+            <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" 
+            type="button" 
+            onClick={handleVoltarHomepage}>
+                Voltar ao inicio
+            </button>
         </div>)
     }
 
@@ -83,8 +91,14 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
             <span className="bg-[--devScheme-orange] rounded-[20px] justify-center text-[--devScheme-white] p-[10px] perguntaDesconto flex flex-col items-center w-[90%]">
                 <p className=" w-full text-center">O pagamento seria no Pix?</p>
                 <span className="flex w-full flex-row items-center justify-evenly">
-                    <button type="button" className={`perguntaDesconto sim py-[3px] px-[20px] rounded-[20px] ${isDesconto === true ? "on" : "off"}`} onClick={(event)=> handleControlePergunta(true, event)}>Sim</button>
-                    <button type="button" className={`perguntaDesconto nao py-[3px] px-[20px] rounded-[20px] ${isDesconto === true ? "off" : "on"}`}  onClick={(event)=> handleControlePergunta(false, event)}>Não</button>
+                    <button type="button" className={`perguntaDesconto sim py-[3px] px-[20px] rounded-[20px] ${isDesconto === true ? "on" : "off"}`} 
+                    onClick={(event)=> handleControlePergunta(true, event)}>
+                        Sim
+                    </button>
+                    <button type="button" className={`perguntaDesconto nao py-[3px] px-[20px] rounded-[20px] ${isDesconto === true ? "off" : "on"}`}  
+                    onClick={(event)=> handleControlePergunta(false, event)}>
+                        Não
+                    </button>
                 </span>
         </span>    
         </>)
@@ -108,14 +122,21 @@ const OrcamentoFinalizado: React.FC<{dadosCliente: TypeDadosCliente | null,getOr
                 {isDesconto ?(<>
                     <p className="line-through">Valor sem desconto: R${orcamento.soma.toFixed(2).replace(".",",")}</p>
                     <p>Desconto: R${orcamento.desconto.toFixed(2).replace(".",",")}</p>
-                    <p>Valor total: R${orcamento.total.toFixed(2).replace(".",",")}</p>
+                    <p>Valor total da churrasqueira: R${orcamento.total.toFixed(2).replace(".",",")}</p>
                 </>):(<>
-                    <p>Valor total: R${orcamento.total.toFixed(2).replace(".",",")}</p>
+                    <p>Valor total da churrasqueira: R${orcamento.total.toFixed(2).replace(".",",")}</p>
                 </>)}
             </div>
-            <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" type="button" onClick={() => {finalizarOrcamento(true)}}>Finalizar orçamento!</button>
-            <button className="bg-[--devScheme-gray] text-white rounded-[2rem] mt-[10px] px-[15px]  py-2" type="button" onClick={()=>{handleVoltarHomepage()}}>Voltar</button>
-
+            <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" 
+            type="button" 
+            onClick={() => {finalizarOrcamento(true)}}>
+                Finalizar orçamento!
+            </button>
+            <button className="bg-[--devScheme-gray] text-white rounded-[2rem] mt-[10px] px-[15px]  py-2" 
+            type="button" 
+            onClick={()=>{handleVoltarHomepage()}}>
+                Voltar
+            </button>
         </div>
     </>)}
         <ConfirmationModal

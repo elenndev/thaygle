@@ -1,16 +1,15 @@
 'use client'
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
-import FormQuote from "../components/FormOrcamento"
+import FormQuote from "../_components/FormOrcamento"
 import "@/app/globals.css"
-import '@/app/components/style.css'
-import TypeDadosCliente from "@/app/components/Type_dadosCliente"
-import FormDadosCliente from "../components/FormDadosCliente"
-import Navbar from "@/app/components/Navbar"
-import Churrasqueiras from "@/app/components/Churrasqueiras"
+import TypeDadosCliente from "@/app/_components/types/Type_dadosCliente"
+import FormDadosCliente from "../_components/FormDadosCliente"
+import Navbar from "@/app/_components/Navbar"
+import Churrasqueiras from "@/app/_components/utilities/Churrasqueiras"
 
 
-const Orcamento = () => {
+const PageFazerOrcamento = () => {
     type TypeVariacao = {
         id: number,
         nome_variacao: string,
@@ -68,10 +67,17 @@ const Orcamento = () => {
 
         return(<>
             <div className="pergunta-PreOrcamento  md:h-[30vh] bg-[--devScheme-orange] text-[--devScheme-white] w-[90%] flex flex-col gap-x-[10px] items-center justify-center py-[10px] rounded-[20px]">
-                        <p className="w-[90%] text-center">No local da instalação da churrasqueira, tem laje?</p>
+                        <p className="w-[90%] text-center">
+                            No local da instalação da churrasqueira, tem laje?</p>
                         <span className="flex flex-row items-center justify-center gap-x-[10px] w-[90%]">
-                            <button className="perguntaLaje sim text-white py-[3px] px-[20px] rounded-[20px]" type="button" onClick={() => handleResposta(true)}>Sim</button>
-                            <button className="perguntaLaje nao text-white py-[3px] px-[20px] rounded-[20px]" type="button" onClick={() =>handleResposta(false)}>Não</button>
+                            <button className="perguntaLaje sim text-white py-[3px] px-[20px] rounded-[20px]" type="button" 
+                            onClick={() => handleResposta(true)}>
+                                Sim
+                            </button>
+                            <button className="perguntaLaje nao text-white py-[3px] px-[20px] rounded-[20px]" type="button" 
+                            onClick={() =>handleResposta(false)}>
+                                Não
+                            </button>
                         </span>
                     </div>
         </>)
@@ -89,7 +95,12 @@ const Orcamento = () => {
                     <Pergunta_PossuiLaje />
                 </>)}
                 {pergunta_dadosCliente && pergunta_possuiLaje && (<>
-                    <FormQuote produto_nome = {produto_nome} produto = {produto} produto_tipo={produto_tipo} isLaje={isLaje} dadosCliente={dadosCliente} variacoes={produto_variacoes}/>
+                    <FormQuote produto_nome = {produto_nome} 
+                    produto = {produto} 
+                    produto_tipo={produto_tipo} 
+                    isLaje={isLaje} 
+                    dadosCliente={dadosCliente} 
+                    variacoes={produto_variacoes}/>
                 </>)}
 
 
@@ -98,5 +109,5 @@ const Orcamento = () => {
     </>)
 }
 
-export default Orcamento
+export default PageFazerOrcamento
 

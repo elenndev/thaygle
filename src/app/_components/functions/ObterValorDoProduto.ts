@@ -1,13 +1,11 @@
-import Produtos from "./Produtos";
+import Produtos from "../utilities/Produtos";
 
 const produtos = Produtos
-export default function getValue(produto: string, tipo: string, qt:number): number{
-    console.log('chegou aqui')
+export default function ObterValorDoProduto(produto: string, tipo: string, qt:number): number{
     const item = produtos.find((e) => e.infos.produto === produto && e.infos.tipo === tipo);
 
     if (item) {
         const result = item.infos.valor * qt;
-        console.log(result);
         return result; 
     }
 

@@ -1,4 +1,4 @@
-import TypeProduto from "./Type_produto"
+import TypeProduto from "../types/Type_produto"
 // import imagemUrl from "../midia/logo.webp"
 const imagemUrl = "/logo.webp"
 
