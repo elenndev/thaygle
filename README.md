@@ -5,9 +5,16 @@ Website em andamento desenvolvido com Next.JS para um parceiro, que entrega as i
 O projeto esta em andamento, faltando as imagens dos produtos mas as demais funcionalidades já funcionam, por enquanto está sendo hospedada em um domínio provisório na Vervel até o cliente ter o próprio domínio e entregar as imagens necessárias para conclusão.
 
 ## Principais funcionalidades
-Sistema de orçamento que gera um PDF e envia uma mensagem automática para o contato da empresa.
-Tailwind
-Animações com GSAP
-Responsividade
-Rotas estáticas e dinâmicas
-Galeria dos produtos e suas variações
+<ul><li>
+Sistema de orçamento que gera um PDF e envia uma mensagem automática para o contato da empresa.</li>
+<li>
+Tailwind</li>
+<li>
+Animações com GSAP</li>
+<li>
+Responsividade</li>
+<li>
+Rotas estáticas e dinâmicas</li>
+<li>
+Galeria dos produtos e suas variações</li>
+</ul>
