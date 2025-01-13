@@ -76,7 +76,7 @@ export default function HomePage() {
   return (
     <>
     <Navbar isHome={true}/>
-    <main className="homepage relative min-h-[fit-content] bg-gray-900 w-screen h-full flex flex-col items-center justify-end">
+    <main className="homepage relative min-h-[fit-content] bg-gray-900 w-screen min-w-screen h-full flex flex-col items-center justify-end">
       <Home />
       <Catalogo />
       <Sobre />
