@@ -2,7 +2,6 @@ export default function controlarCard(action: string, elementId: string){
     const id = elementId.replace(" ", "_")
     const openCard = document.querySelector(`#${id}`)
     const allMiniCards = document.querySelectorAll('.smallCard-produto')
-    console.log(openCard)
 
     if (action == 'open'){
         openCard?.classList.remove('hidden')

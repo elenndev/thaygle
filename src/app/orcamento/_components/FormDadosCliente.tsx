@@ -1,9 +1,5 @@
-
-
-import TypeDadosCliente from '@/app/_components/types/Type_dadosCliente';
 import { useState } from 'react';
-
-
+import TypeDadosCliente from '@/app/_components/types/Type_dadosCliente';
 
 interface FormularioProps {
   handleResposta: (dados: TypeDadosCliente) => void;
@@ -13,17 +9,35 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
   const [dadosCliente, setDadosCliente] = useState<TypeDadosCliente>({
     nome: '',
     endereco: '',
-    cpf: '   .   .   -  ',
+    cpf: '',
     telefone: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setDadosCliente((prevDados) => ({
-      ...prevDados,
-      [name]: value,
-    }));
-  };
+    if(name == 'cpf'){
+      let cpf = value.replace(/\D/g, '')
+      if (cpf.length <= 3) {
+        cpf = cpf.replace(/(\d{3})(\d*)/, '$1');
+      } else if (cpf.length <= 6) {
+        cpf = cpf.replace(/(\d{3})(\d{1,3})(\d*)/, '$1.$2');
+      } else if (cpf.length <= 9) {
+        cpf = cpf.replace(/(\d{3})(\d{3})(\d*)/, '$1.$2.$3');
+      } else {
+        cpf = cpf.replace(/(\d{3})(\d{3})(\d{1,2})(\d*)/, '$1.$2.$3-$4');
+      }
+      setDadosCliente((prevDados) => ({
+        ...prevDados,
+        [name]: cpf,
+      }));
+
+    } else{
+      setDadosCliente((prevDados) => ({
+        ...prevDados,
+        [name]: value,
+      }));
+    }
+};
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +54,6 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
             type="text"
             id="nome"
             name="nome"
-            value={dadosCliente.nome}
             onChange={handleChange}
             minLength={2}
             className="mt-1 block w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
@@ -72,7 +85,8 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
             name="cpf"
             value={dadosCliente.cpf}
             onChange={handleChange}
-            minLength={11}
+            minLength={14}
+            maxLength={14}
             className="mt-1 block w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Digite seu CPF"
             required
@@ -82,12 +96,13 @@ const FormDadosCliente: React.FC<FormularioProps> = ({ handleResposta }) => {
         <div className="mb-4">
           <label htmlFor="telefone" className="block text-sm font-medium text-gray-700">Telefone</label>
           <input
-            type="tel"
+            type="text"
             id="telefone"
             name="telefone"
             value={dadosCliente.telefone}
-            minLength={10}
             onChange={handleChange}
+            minLength={9}
+            maxLength={14}
             className="mt-1 block w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Digite seu telefone"
             required

@@ -47,7 +47,8 @@ body {
   #hero{
     background-image: url("/cover.webp");
     background-size: cover;
-    background-color: #131143d4;
+    background-color: #373749;
+    /* background-color: #131143d4; */
     background-blend-mode: multiply;
     color: var(--devScheme-orange);
 

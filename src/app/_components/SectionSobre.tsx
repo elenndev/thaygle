@@ -122,12 +122,18 @@ const SectionSobre = () => {
     return(<>
         <section ref={sectionSobre} id="sobre" className="sobre relative flex overflow-x-hidden flex-col items-center justify-start gap-[15px] h-fit w-full bg-[--devScheme-orange] text-[--devScheme-white] md:text-[1.85rem] pb-[20px]">
             <h2 ref={titulo} className="text-[--devScheme-white] text-[2.5rem] md:text-[4rem] mb-[10px] font-gothic font-medium uppercase tracking-widest text-center">Sobre</h2>
-            <div className="conteudo flex flex-col items-center justify-center lg:gap-x-[50px] lg:flex-row w-[95%]">
-                <span ref={imagem} className="foto-empresa w-fit h-fit relative mb-[10px] ">
+            <div className="conteudo flex flex-col items-center justify-center w-[95%] gap-y-[3rem]">
+                <span ref={imagem} className="foto-empresa
+                w-fit h-fit relative mb-[10px] ">
                     <Image className="foto-empresa relative z-[2] lg:h-[300px] lg:w-[auto]" loading="lazy" height={200} width={200} alt="Logo da Thaygle pré-moldados"  src="/sobre.webp" />
                 </span>
-                <div className="informacoes w-[95%] lg:w-[50%] flex  flex-col items-end">
-                    <p ref={textoSobre} className="w-full">Loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren</p>
+                <div className="informacoes w-[95%] flex  flex-col items-center" ref={textoSobre}>
+                    <p className="w-full"><strong>O seu churrasco perfeito começa aqui.</strong></p>
+                    <p className="w-full">Somos especializados na produção e comercialização de churrasqueiras pré-moldadas de alta qualidade, oferecendo uma ampla variedade de modelos e cores para atender a todas as necessidades e preferências dos nossos clientes. Nossa missão é proporcionar a melhor experiência de compra e garantir a satisfação total dos nossos clientes em Itumbiara-Goiás e região.</p>
+                    <p className="w-full">Com um compromisso contínuo com a excelência, buscamos unir funcionalidade e design em cada churrasqueira, para que você tenha o prazer de aproveitar os melhores momentos com amigos e familiares. Seja para uma área de lazer, um ambiente gourmet ou uma churrasqueira compacta, temos o modelo ideal para o seu espaço.</p>
+                    <p className="w-full"><strong>Nossa prioridade é oferecer produtos duráveis, eficientes e esteticamente agradáveis, atendendo às exigências mais diversas e garantindo a qualidade em cada detalhe.</strong></p>
+                    <p className="w-full">Conosco, você encontra não apenas um produto, mas uma solução completa para suas necessidades de churrasco. Estamos prontos para levar até sua casa o melhor em churrasqueiras pré-moldadas, trazendo praticidade, beleza e muito sabor para os seus momentos!</p>
+                    
                     <div ref={redesSociais} className="links justify-center flex flex-col w-[95%] gap-[5px]">
                         <h3 className="w-full text-[1.5rem] md:text-[2rem] text-center font-medium">Redes sociais:</h3>
                         <span className="w-full justify-center flex flex-row gap-[2rem]">

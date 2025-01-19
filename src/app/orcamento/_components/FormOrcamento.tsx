@@ -4,19 +4,23 @@ import OrcamentoFinalizado from "./DivOrcamentoFinalizado";
 import Link from "next/link";
 import TypeDadosCliente from "@/app/_components/types/Type_dadosCliente";
 import ObterValorDoProduto from "@/app/_components/functions/ObterValorDoProduto";
+
 type TypeVariacao = {
     id: number,
     nome_variacao: string,
-    imagem_variacao: string
-}
+    imagem_variacao: string}
 
-const FormQuote: React.FC<({
+
+type formProps = {
     produto_nome: string,
     produto: string, 
     produto_tipo: string, 
     isLaje: boolean,
     dadosCliente: TypeDadosCliente | null
-    variacoes: TypeVariacao[] | null})> = ({produto_nome, produto, produto_tipo, isLaje, dadosCliente, variacoes}) =>{
+    variacoes: TypeVariacao[] | null
+}
+const FormQuote  = (props: formProps) =>{
+    const { produto_nome, produto, produto_tipo, isLaje, dadosCliente, variacoes } = props
 
     const [orcamento, setOrcamento] = useState<TypeOrcamento | undefined>(undefined)
     const [isOrcamento_concluido, setIsOrcamento_concluido] = useState(false)
@@ -27,12 +31,15 @@ const FormQuote: React.FC<({
             setVariacao('Natural');
         }
     }, [produto_tipo]);
+
     const [qtProdutos, setQtProdutos] = useState(1)
     const valorUn_produto = ObterValorDoProduto(produto, produto_tipo, 1)
         if (valorUn_produto == 0){
             setOrcamentoErro("Erro ao buscar o valor unitário do produto")}
+
     const [tamParede_metros, setTamParede_metros] = useState(0)
     const [tamLaje_metros, setTamLaje_metros] = useState(0)
+
     const alturaParede = (tamParede_metros * 100)  + (tamLaje_metros * 100) // cliente informa altura em metros mas pros calculos usamos sempre em cm
     
     function getValorDecimal(number: number){
@@ -54,7 +61,8 @@ const FormQuote: React.FC<({
         } else{
             return 0
         }
-    }     
+    }  
+    
     function calcDutos(): number{
         const base = ( alturaParede - 190) /25
         function getDutos(base: number): number {
@@ -73,6 +81,7 @@ const FormQuote: React.FC<({
         }       
         return getModulos(base)
     }
+
     function valorTotal(e: React.FormEvent){
         e.preventDefault()
         const perguntaLaje = document.querySelector('.perguntaLaje')
@@ -84,6 +93,7 @@ const FormQuote: React.FC<({
         let valorModulos = 0     
 
         if(produto == 'churrasqueira'){
+            // calculo da churrasqueira varia de acordo com o modelo de churrasqueira
             if(produto_tipo == 'predial'){
                 qtModulos = calcModulos()
                 valorModulos = ObterValorDoProduto('modulo', 'predial', qtModulos) ?? 0
@@ -91,7 +101,6 @@ const FormQuote: React.FC<({
             } else if (produto_tipo == 'tijolinho' || produto_tipo == 'tijolinho balcao'){
                 valorDutos = ObterValorDoProduto('duto', 'tijolinho', qtDutos) ?? 0
             }
-
 
             const valorProduto = qtProdutos * valorUn_produto
             const soma = valorDutos + valorModulos + valorProduto
@@ -104,6 +113,7 @@ const FormQuote: React.FC<({
                 modulos: {qt: qtModulos, valor: valorModulos}
             })
         } else {
+            // calculo de qualquer outro produto além das churrasqueiras
             const valorProduto = qtProdutos * valorUn_produto
             const soma =  valorProduto
             setOrcamento({
@@ -117,25 +127,26 @@ const FormQuote: React.FC<({
         }
         setIsOrcamento_concluido(true)
     }
+
     function handle_setQtProduto(add: boolean){
         const novaQt = add? qtProdutos + 1 : qtProdutos - 1
         setQtProdutos(novaQt)
     }
 
 
-    // Elementos HTML
+    // componentes
     if (orcamentoErro){
         window.alert(orcamentoErro)
     }
 
-    const EscolherVariacao = ()=>{
+    const SelectEscolherVariacao = ()=>{
         const handleEscolherVariacao = (event: React.ChangeEvent<HTMLSelectElement>) => {
             setVariacao(event.target.value)
         };
 
         if (!variacoes || variacoes.length <= 1) {
-            return <div><p>Variação padrão</p></div>;
-        }
+            return <div><p>Variação padrão</p></div>;}
+
         return(<>
             <div className="flex flex-col py-[10px]">
                 <label htmlFor="variacao">Escolha a variação:</label>
@@ -149,7 +160,8 @@ const FormQuote: React.FC<({
                         <option value="">Selecione uma variação</option>
 
                         {variacoes.map((variacaoItem) => (
-                        <option key={variacaoItem.id} value={variacaoItem.nome_variacao}>
+                        <option key={variacaoItem.id} 
+                        value={variacaoItem.nome_variacao}>
                             {variacaoItem.nome_variacao}
                         </option>
                         ))}
@@ -160,14 +172,25 @@ const FormQuote: React.FC<({
     }
 
 
-    const QuantProdutos = () =>{
+    const InputQuantProdutos = () =>{
         return(<>
                 <div className="set_qtProduto w-full mt-[10px] flex flex-wrap items-center justify-center">
                     <label htmlFor="set-qtProdutos" className="flex">Quantidade de {produto}s pro orçamento:</label>
                     <span className="w-full h-fit flex items-center justify-center mb-2">
-                        <button className="text-[35px] w-fit h-fit" type="button" onClick={() => handle_setQtProduto(false)}>-</button>
-                        <input className="text-[--devScheme-gray] w-[20%] mx-[15px]" type="number" name="set-qtProdutos" placeholder="Quantidade de itens" value={qtProdutos} onChange={(e) => {parseFloat(e.target.value)}}></input>
-                        <button className="text-[32px] text-[--devScheme-gray] w-fit h-fit" type="button" onClick={() => handle_setQtProduto(true)}>+</button>
+                        <button className="text-[35px] w-fit h-fit" 
+                        type="button" 
+                        onClick={() => handle_setQtProduto(false)}>
+                            -
+                        </button>
+                        <input className="text-[--devScheme-gray] w-[20%] mx-[15px]" 
+                        type="number" 
+                        name="set-qtProdutos" 
+                        placeholder="Quantidade de itens" 
+                        value={qtProdutos} 
+                        onChange={(e) => {parseFloat(e.target.value)}}></input>
+                        <button className="text-[32px] text-[--devScheme-gray] w-fit h-fit" 
+                        type="button" 
+                        onClick={() => handle_setQtProduto(true)}>+</button>
                     </span>
                 </div>
             </>)
@@ -177,31 +200,64 @@ const FormQuote: React.FC<({
     return(<>
         
         {isOrcamento_concluido && orcamento ? (
-            <OrcamentoFinalizado dadosCliente={dadosCliente} getOrcamento={orcamento} alturaParede={alturaParede / 100} produtoInfo={produto} produtoVariacao={variacao}/>
+            <OrcamentoFinalizado 
+            dadosCliente={dadosCliente} 
+            getOrcamento={orcamento} 
+            alturaParede={alturaParede / 100} //Já envia convertido pra metros pro orcamento finalizado
+            produtoInfo={produto} 
+            produtoVariacao={variacao}/>
         ) : (<>
             <div className=" w-fit px-[20px] flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[95%]">
             
-            <form onSubmit={valorTotal} className="form-orcamento relative flex flex-col items-center gap-x-[10px] justify-evenly p-[20px]w-full">
+            <form onSubmit={valorTotal} 
+            className="form-orcamento relative flex flex-col items-center gap-x-[10px] justify-evenly p-[20px]w-full">
                     {produto_tipo == 'predial' && isLaje ? (
                         <>
-                        <label htmlFor="alturaParede">Por favor informe a altura em <strong>metros</strong> do chão até a laje da área em que será instalada a churrasqueira:</label>
-                        <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaParede" required min={1}></input>
-                        <label htmlFor="alturaLaje">Por favor informe a altura em <strong>metros</strong> da laje até o telhado:</label>
-                        <input onChange={(e) => {setTamLaje_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-laje border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaLaje" required min={1}></input>
+                        <label htmlFor="alturaParede">
+                            Por favor informe a altura em <strong>metros</strong> do chão até a laje da área em que será instalada a churrasqueira:
+                        </label>
+                        <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} 
+                        type="number" 
+                        placeholder="tamanho em metros..." 
+                        className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" 
+                        name="alturaParede" 
+                        required min={1}></input>
+                        <label htmlFor="alturaLaje">
+                            Por favor informe a altura em <strong>metros</strong> da laje até o telhado:
+                        </label>
+                        <input onChange={(e) => {setTamLaje_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" 
+                        placeholder="tamanho em metros..." 
+                        className="altura-laje border-[--devScheme-orange] border border-solid rounded-lg text-black" 
+                        name="alturaLaje" 
+                        required min={1}></input>
                         </>
                     ):(
                         <>
-                            <label htmlFor="alturaParede" className="block">Por favor informe a altura em <strong>metros</strong> do chão até o telhado da área em que será instalada a churrasqueira</label>
-                            <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} type="number" placeholder="tamanho em metros..." className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" name="alturaParede" required min={1}></input>
+                            <label htmlFor="alturaParede" 
+                            className="block">
+                                Por favor informe a altura em <strong>metros</strong> do chão até o telhado da área em que será instalada a churrasqueira:
+                            </label>
+                            <input onChange={(e) => {setTamParede_metros(parseFloat(e.target.value.replace(",",".")))}} 
+                            type="number" 
+                            placeholder="tamanho em metros..." 
+                            className="altura-parede border-[--devScheme-orange] border border-solid rounded-lg text-black" 
+                            name="alturaParede" required min={1}></input>
                         </>
                     )}
                     {variacoes != null && variacoes?.length > 1 && (
-                        <EscolherVariacao />
+                        <SelectEscolherVariacao />
                     )}
-                    <QuantProdutos />
-                <button type="submit" className="calcular w-fit py-[3px] mb-[10px] px-[30px] rounded-[30px] bg-[--devScheme-orange] text-white">calcular</button>
+                    <InputQuantProdutos />
+                <button type="submit" 
+                className="calcular w-fit py-[3px] mb-[10px] px-[30px] rounded-[30px] bg-[--devScheme-orange] text-white">
+                    calcular
+                </button>
             </form>
-            <Link href="/" aria-label="Voltar a página inicial" className="w-fit py-[3px] px-[20px] rounded-[30px] bg-[--devScheme-gray] text-white p-2">Voltar</Link>
+            <Link href="/" 
+            aria-label="Voltar a página inicial" 
+            className="w-fit py-[3px] px-[20px] rounded-[30px] bg-[--devScheme-gray] text-white p-2">
+                Voltar
+            </Link>
             </div>
         </>)}
     </>)

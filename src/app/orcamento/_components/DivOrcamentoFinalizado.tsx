@@ -29,9 +29,8 @@ produtoVariacao}) => {
         redirect('/')
     }
 
-    function handleControlePergunta(resposta: boolean, event: React.MouseEvent<HTMLButtonElement>){
+    function handleControlePergunta(resposta: boolean){
         setIsDesconto(resposta)
-        console.log(event)
     }
 
     function finalizarOrcamento(enviarMensagem: boolean){
@@ -92,11 +91,11 @@ produtoVariacao}) => {
                 <p className=" w-full text-center">O pagamento seria no Pix?</p>
                 <span className="flex w-full flex-row items-center justify-evenly">
                     <button type="button" className={`perguntaDesconto sim py-[3px] px-[20px] rounded-[20px] ${isDesconto === true ? "on" : "off"}`} 
-                    onClick={(event)=> handleControlePergunta(true, event)}>
+                    onClick={()=> handleControlePergunta(true)}>
                         Sim
                     </button>
                     <button type="button" className={`perguntaDesconto nao py-[3px] px-[20px] rounded-[20px] ${isDesconto === true ? "off" : "on"}`}  
-                    onClick={(event)=> handleControlePergunta(false, event)}>
+                    onClick={()=> handleControlePergunta(false)}>
                         Não
                     </button>
                 </span>
@@ -108,12 +107,12 @@ produtoVariacao}) => {
     {salvarOrcamento?(<BaixarOrcamento/>):(<>
         <div className="orcamento-concluido mt-[20px] flex flex-col w-[97%] text-black items-center justify-center">
             {produtoInfo == 'churrasqueira' && (<> 
-                {produtoVariacao != undefined && (<p>Cor do produto: {produtoVariacao}</p>)}
+                {produtoVariacao != undefined && (<p>Variação: {produtoVariacao}</p>)}
                 <p>Altura da parede: {alturaParede}m</p>
-                <p>Quantidade de dutos: {orcamento.dutos.qt}</p>
+                <p>Quantidade de dutos necessários: {orcamento.dutos.qt}</p>
                 <p>Valor dos dutos: R${orcamento.dutos.valor}</p>
                 {orcamento.modulos.qt > 0 && (<>
-                    <p>Quantidade de modulos: {orcamento.modulos.qt}</p>
+                    <p>Quantidade de módulos necessários: {orcamento.modulos.qt}</p>
                     <p>Valor dos modulos: R${orcamento.modulos.valor}</p>
                 </>)}
             </>)}

@@ -4,6 +4,7 @@ import { jsPDF } from "jspdf";
 import enviarOrcamentoWhatsapp from "./EnviarMensagem";
 
 export default function GerarPdfOrcamento(dadosCliente: TypeDadosCliente | null,orcamento: TypeOrcamento, alturaParede: number, produtoVariacao: string | undefined, enviarMensagem: boolean){
+
     const doc = new jsPDF();
 
     doc.setFontSize(20);
