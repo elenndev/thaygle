@@ -15,6 +15,7 @@ const SectionCatalogo = () =>{
     const miniCardsProduto = useRef(null)
     function entradaCards(){
         const cards = sectionCatalogo.current?.querySelectorAll('.smallCard-produto')
+        if(!cards){return}
         let delay = 0.0
         cards?.forEach(card => {
             delay = delay + 0.5
@@ -32,6 +33,7 @@ const SectionCatalogo = () =>{
     }
     function saidaCards(){
         const cards = sectionCatalogo.current?.querySelectorAll('.smallCard-produto')
+        if(!cards!){return}
         cards?.forEach(card => {
             gsap.context(()=>{
                 gsap.fromTo(card,{

@@ -19,6 +19,7 @@ const SectionHome = () => {
         const destinoX = isAnimacaoDeEntrada? 0 : 100
         const origemOpacity = isAnimacaoDeEntrada? 0 : 1
         const destinoOpacity = isAnimacaoDeEntrada? 1 : 0
+        if(!linkLocalizacao.current){return}
         gsap.context(()=>{
             gsap.fromTo(linkLocalizacao.current, {
                 x: origemX,
@@ -37,6 +38,7 @@ const SectionHome = () => {
         const destinoX = isAnimacaoDeEntrada? 0 : -100
         const origemOpacity = isAnimacaoDeEntrada? 0 : 1
         const destinoOpacity = isAnimacaoDeEntrada? 1 : 0
+        if(!textoPrincipal){return}
         gsap.context(()=>{
             gsap.fromTo(textoPrincipal.current, {
                 x: origemX,

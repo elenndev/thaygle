@@ -13,6 +13,7 @@ const SectionSobre = () => {
 
     function entradaSection(){
         const animacaoTitulo = ()=>{gsap.context(()=>{
+            if(!titulo.current){return}
             gsap.fromTo(titulo.current,{
                 x: 100,
                 opacity: 0,
@@ -23,6 +24,7 @@ const SectionSobre = () => {
             })
         }, titulo)}
         const animacaoImagem = () =>{gsap.context(()=>{
+            if(!imagem.current){return}
             gsap.fromTo(imagem.current,{
                 x: -100,
                 opacity: 0,
@@ -33,6 +35,7 @@ const SectionSobre = () => {
             })
         }, imagem)}
         const animacaoTextoSobre = ()=>{gsap.context(()=>{
+            if(!textoSobre.current){return}
             gsap.fromTo(textoSobre.current,{
                 x: 100,
                 opacity: 0,
@@ -43,6 +46,7 @@ const SectionSobre = () => {
             })
         }, textoSobre)}
         const animacaoRedesSociais = () =>{gsap.context(()=>{
+            if(!redesSociais.current){return}
             gsap.fromTo(redesSociais.current,{
                 x: -100,
                 opacity: 0,
@@ -60,6 +64,7 @@ const SectionSobre = () => {
     }
     function saidaSection(){
         const animacaoTitulo = () =>{gsap.context(()=>{
+            if(!titulo.current){return}
             gsap.fromTo(titulo.current,{
                 x: 0,
                 opacity: 1,
@@ -70,6 +75,7 @@ const SectionSobre = () => {
             })
         }, titulo)}
         const animacaoImagem = () =>{gsap.context(()=>{
+            if(!imagem.current){return}
             gsap.fromTo(imagem.current,{
                 x: 0,
                 opacity: 1,
@@ -80,6 +86,7 @@ const SectionSobre = () => {
             })
         }, imagem)}
         const animacaoTextoSobre = () =>{gsap.context(()=>{
+            if(!textoSobre.current){return}
             gsap.fromTo(textoSobre.current,{
                 x: 0,
                 opacity: 1,
@@ -90,6 +97,7 @@ const SectionSobre = () => {
             })
         }, textoSobre)}
         const animacaoRedesSociais = () =>{gsap.context(()=>{
+            if(!redesSociais.current){return}
             gsap.fromTo(redesSociais.current,{
                 x: 0,
                 opacity: 1,
