@@ -56,7 +56,7 @@ const SectionCatalogo = () =>{
             }
     },[])
 
-    // elementos html   
+    // componentes   
     const CardProduto: React.FC<{produto: TypeChurrasqueira}> = ({produto}) =>{
         type TypeVariacoes = {
             id: number;
