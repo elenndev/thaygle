@@ -8,9 +8,6 @@ export const metadata = {
     description: 'Orçamento de churrasqueira pré-moldada - Itumbiara GO'
 }
 
-// type PageProps = {
-//     params: {slug: string;}
-// }
 
 export async function generateStaticParams(){
     const churrasqueiras: TypeChurrasqueira[] = Churrasqueiras

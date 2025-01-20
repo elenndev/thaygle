@@ -289,7 +289,7 @@ const SectionCatalogo = () =>{
                                 alt={`Imagem da variação do produto`} 
                                 src={imagemEsquerda.imagem_variacao}/>
                             </span>
-                            <span className="imagem-centro overflow-hidden flex items-center justify-center flex-col w-full gap-y-[10px]">
+                            <span className="imagem-centro flex items-center justify-center flex-col w-full gap-y-[10px]">
                                 <Image ref={containerCentro} 
                                 width={400} 
                                 height={400} 
