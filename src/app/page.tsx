@@ -1,9 +1,9 @@
-import Navbar from "./_components/Navbar";
+import Navbar from "../components/Navbar";
 import { Suspense } from "react";
-import SectionCatalogo from "./_components/SectionCatalogo";
-import SectionSobre from "./_components/SectionSobre";
-import Churrasqueiras from "./_components/utilities/Churrasqueiras";
-import SectionHome from "./_components/SectionHome";
+import SectionCatalogo from "../components/SectionCatalogo";
+import SectionSobre from "../components/SectionSobre";
+import Churrasqueiras from "../components/utilities/Churrasqueiras";
+import SectionHome from "../components/SectionHome";
 
 
 const Catalogo = () => {

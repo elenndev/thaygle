@@ -3,10 +3,10 @@ import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import FormQuote from "../_components/FormOrcamento"
 import "@/app/globals.css"
-import TypeDadosCliente from "@/app/_components/types/Type_dadosCliente"
+import TypeDadosCliente from "@/components/types/Type_dadosCliente"
 import FormDadosCliente from "../_components/FormDadosCliente"
-import Navbar from "@/app/_components/Navbar"
-import Churrasqueiras from "@/app/_components/utilities/Churrasqueiras"
+import Navbar from "@/components/Navbar"
+import Churrasqueiras from "@/components/utilities/Churrasqueiras"
 
 
 const PageFazerOrcamento = () => {

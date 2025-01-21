@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import TypeDadosCliente from '@/app/_components/types/Type_dadosCliente';
+import TypeDadosCliente from '@/components/types/Type_dadosCliente';
 
 interface FormularioProps {
   handleResposta: (dados: TypeDadosCliente) => void;

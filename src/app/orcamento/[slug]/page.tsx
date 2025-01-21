@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import PageFazerOrcamento from "./PageFazerOrcamento";
-import Churrasqueiras from "@/app/_components/utilities/Churrasqueiras";
-import TypeChurrasqueira from "@/app/_components/types/Type_churrasqueira";
+import Churrasqueiras from "@/components/utilities/Churrasqueiras";
+import TypeChurrasqueira from "@/components/types/Type_churrasqueira";
 
 export const metadata = {
     title: 'Thaygle | Orçamento',

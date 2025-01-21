@@ -1,9 +1,9 @@
-import TypeOrcamento from "@/app/_components/types/Type_orcamento"
+import TypeOrcamento from "@/components/types/Type_orcamento"
 import { useState, useEffect } from "react"
 import OrcamentoFinalizado from "./DivOrcamentoFinalizado";
 import Link from "next/link";
-import TypeDadosCliente from "@/app/_components/types/Type_dadosCliente";
-import ObterValorDoProduto from "@/app/_components/functions/ObterValorDoProduto";
+import TypeDadosCliente from "@/components/types/Type_dadosCliente";
+import ObterValorDoProduto from "@/components/functions/ObterValorDoProduto";
 
 type TypeVariacao = {
     id: number,

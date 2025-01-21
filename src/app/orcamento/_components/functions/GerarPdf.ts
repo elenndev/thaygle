@@ -1,5 +1,5 @@
-import TypeOrcamento from "@/app/_components/types/Type_orcamento";
-import TypeDadosCliente from "@/app/_components/types/Type_dadosCliente";
+import TypeOrcamento from "@/components/types/Type_orcamento";
+import TypeDadosCliente from "@/components/types/Type_dadosCliente";
 import { jsPDF } from "jspdf";
 import enviarOrcamentoWhatsapp from "./EnviarMensagem";
 
