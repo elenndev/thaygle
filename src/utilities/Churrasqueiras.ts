@@ -1,9 +1,4 @@
-import TypeChurrasqueira from "../types/Type_churrasqueira"
-
-const imagemUrl = "/logo.webp"
-// const url = process.env.NODE_ENV == 'development'? 'http://localhost:3000' : process.env.PRODUCTION_URL
-
-
+import { TypeChurrasqueira } from "../types"
 
 const Churrasqueiras: TypeChurrasqueira[] = [
     {id: 1,
@@ -13,7 +8,7 @@ const Churrasqueiras: TypeChurrasqueira[] = [
             tipo: 'tijolinho',
             breve_descricao: 'Design rústico e alvenaria em alto relevo.',
             descricao_completa: 'Com um design único nossas churrasqueiras desenhadas simulam o formato de tijolinho de alvenaria em alto relevo que com seu estilo rústico combina com qualquer espaço. Trabalhamos com uma variedade de cores para você escolher a que melhor combina com o seu espaço.',
-            imagem: imagemUrl,
+            imagem: '/tijolinho-prestigio.png',
             valor: 800},
         detalhes: {
             listas: [
@@ -63,7 +58,7 @@ const Churrasqueiras: TypeChurrasqueira[] = [
             tipo: 'tijolinho balcao',
             breve_descricao: 'Design rústico e alvenaria em alto relevo e com bancada auxiliar.',
             descricao_completa: 'Além do design único que simula o formato de tijolinho de alvenaria em alto relevo e diversas opções de cores, atende a necessidade de um espaço sem a existência de bancadads, nossa churrasqueira com bancada auxiliar é o melhor custo benéfico, permitindo que você escolha a localização da bancada, seja no lado direito quanto esquerdo.',
-            imagem: imagemUrl,
+            imagem: '/tijolinho-balcao-prestigio.png',
             valor: 1300},
         detalhes: {
             listas: [
@@ -114,7 +109,7 @@ const Churrasqueiras: TypeChurrasqueira[] = [
             tipo: 'predial',
             breve_descricao: 'Customizável, moderna e prática.',
             descricao_completa: 'Projetada para combinar com qualquer ambiente, nossa churrasqueira predial abre um leque de possibilidades para que sua imaginação flua e a customize como você sempre sonhou.',
-            imagem: imagemUrl,
+            imagem: '/predial-natural.png',
             valor: 800},
         detalhes: {
             listas: [

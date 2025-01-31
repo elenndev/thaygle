@@ -7,7 +7,7 @@ type listaVariacao = {
     nome_variacao: string;
     imagem_variacao: string;
 }
-type TypeChurrasqueira = {
+export type TypeChurrasqueira = {
     id: number;
     nome: string;
     infos: {
@@ -23,5 +23,3 @@ type TypeChurrasqueira = {
         variacoes: listaVariacao[];
     };
 }
-
-export default TypeChurrasqueira

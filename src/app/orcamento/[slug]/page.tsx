@@ -1,13 +1,12 @@
 import { Suspense } from "react";
-import PageFazerOrcamento from "./PageFazerOrcamento";
-import Churrasqueiras from "@/components/utilities/Churrasqueiras";
-import TypeChurrasqueira from "@/components/types/Type_churrasqueira";
+import { ContentFazerOrcamento } from "../../../components/Orcamento/ContentFazerOrcamento";
+import Churrasqueiras from "@/utilities/Churrasqueiras";
+import { TypeChurrasqueira } from "@/types";
 
 export const metadata = {
     title: 'Thaygle | Orçamento',
     description: 'Orçamento de churrasqueira pré-moldada - Itumbiara GO'
 }
-
 
 export async function generateStaticParams(){
     const churrasqueiras: TypeChurrasqueira[] = Churrasqueiras
@@ -21,7 +20,7 @@ export default function OrcamentoPage() {
         <Suspense fallback={<div>
             <p>Orçamento Churrasqueira Pré Moldada</p>
         </div>}>
-            <PageFazerOrcamento />
+        <ContentFazerOrcamento/>
         </Suspense>
     );
 }

@@ -1,9 +1,8 @@
-import TypeOrcamento from "@/components/types/Type_orcamento"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import OrcamentoFinalizado from "./DivOrcamentoFinalizado";
 import Link from "next/link";
-import TypeDadosCliente from "@/components/types/Type_dadosCliente";
-import ObterValorDoProduto from "@/components/functions/ObterValorDoProduto";
+import { TypeDadosCliente, TypeOrcamento } from "../../types";
+import { useOrcamento } from "./use-Orcamento";
 
 type TypeVariacao = {
     id: number,
@@ -19,126 +18,42 @@ type formProps = {
     dadosCliente: TypeDadosCliente | null
     variacoes: TypeVariacao[] | null
 }
-const FormQuote  = (props: formProps) =>{
+export const FormOrcamento  = (props: formProps) =>{
     const { produto_nome, produto, produto_tipo, isLaje, dadosCliente, variacoes } = props
-
     const [orcamento, setOrcamento] = useState<TypeOrcamento | undefined>(undefined)
-    const [isOrcamento_concluido, setIsOrcamento_concluido] = useState(false)
-    const [orcamentoErro, setOrcamentoErro] = useState<boolean | string>(false)
+    const [isOrcamentoConcluido, setIsOrcamentoConcluido] = useState(false)
     const [variacao, setVariacao] = useState<string | undefined>(undefined)
-    useEffect(() => {
-        if (produto_tipo === 'predial') {
-            setVariacao('Natural');
-        }
-    }, [produto_tipo]);
-
+    if (produto_tipo === 'predial') {
+        setVariacao('Natural');}
+    
     const [qtProdutos, setQtProdutos] = useState(1)
-    const valorUn_produto = ObterValorDoProduto(produto, produto_tipo, 1)
-        if (valorUn_produto == 0){
-            setOrcamentoErro("Erro ao buscar o valor unitário do produto")}
-
     const [tamParede_metros, setTamParede_metros] = useState(0)
     const [tamLaje_metros, setTamLaje_metros] = useState(0)
-
+    
     const alturaParede = (tamParede_metros * 100)  + (tamLaje_metros * 100) // cliente informa altura em metros mas pros calculos usamos sempre em cm
-    
-    function getValorDecimal(number: number){
-        const string = number.toString()
-        const decimalPartIndex = string.indexOf('.')
-        if(decimalPartIndex === -1 || decimalPartIndex + 1 >= string.length){
-            return 0
-        }
 
-        return parseInt(string.charAt(decimalPartIndex + 1))
-    }
-    function arredondarResultado(dec: number, base: number){
-        if(dec < 5){
-            return Math.floor(base)
-        } else if (dec >= 5 && dec < 9){
-            return parseFloat(`${base.toString().split('.')[0]}.5`)
-        } else if (dec > 9){
-            return Math.ceil(base)
-        } else{
-            return 0
-        }
-    }  
-    
-    function calcDutos(): number{
-        const base = ( alturaParede - 190) /25
-        function getDutos(base: number): number {
-            const dec = getValorDecimal(base)
-            if (dec >= 1){
-                return Math.floor(base) + 2
-            } else { return base + 1}
-        }       
-        return getDutos(base)
-    }
-    function calcModulos(): number{
-        const base = ( alturaParede - 200) / 50
-        function getModulos(base: number): number {
-            const dec = getValorDecimal(base)
-            return arredondarResultado(dec, base)            
-        }       
-        return getModulos(base)
-    }
+    const { valorTotal } = useOrcamento()
 
-    function valorTotal(e: React.FormEvent){
+    function handleCalcularOrcamento(e: React.FormEvent){
         e.preventDefault()
-        const perguntaLaje = document.querySelector('.perguntaLaje')
-        perguntaLaje?.classList.remove('flex')
-        perguntaLaje?.classList.add('hidden')
-        const qtDutos = calcDutos()
-        let valorDutos = 0
-        let qtModulos = 0
-        let valorModulos = 0     
-
-        if(produto == 'churrasqueira'){
-            // calculo da churrasqueira varia de acordo com o modelo de churrasqueira
-            if(produto_tipo == 'predial'){
-                qtModulos = calcModulos()
-                valorModulos = ObterValorDoProduto('modulo', 'predial', qtModulos) ?? 0
-                valorDutos = ObterValorDoProduto('duto', 'liso', qtDutos) ?? 0
-            } else if (produto_tipo == 'tijolinho' || produto_tipo == 'tijolinho balcao'){
-                valorDutos = ObterValorDoProduto('duto', 'tijolinho', qtDutos) ?? 0
-            }
-
-            const valorProduto = qtProdutos * valorUn_produto
-            const soma = valorDutos + valorModulos + valorProduto
-            setOrcamento({
-                produto: produto_nome,
-                total: soma,
-                soma: soma,
-                desconto: 0,
-                dutos: {qt: qtDutos, valor: valorDutos},
-                modulos: {qt: qtModulos, valor: valorModulos}
-            })
-        } else {
-            // calculo de qualquer outro produto além das churrasqueiras
-            const valorProduto = qtProdutos * valorUn_produto
-            const soma =  valorProduto
-            setOrcamento({
-                produto: produto_nome,
-                total: soma,
-                soma: soma,
-                desconto: 0,
-                dutos: {qt: qtDutos, valor: valorDutos},
-                modulos: {qt: qtModulos, valor: valorModulos}
-            })
+        function concluir(status: boolean, orcamento: TypeOrcamento | undefined){
+            setIsOrcamentoConcluido(status)
+            setOrcamento(orcamento)
         }
-        setIsOrcamento_concluido(true)
+        valorTotal({props: {
+            alturaParede: alturaParede,
+            nome: produto_nome,
+            produto: produto,
+            tipo: produto_tipo,
+            qtProdutos: qtProdutos,
+            callback: concluir}})
     }
-
     function handle_setQtProduto(add: boolean){
         const novaQt = add? qtProdutos + 1 : qtProdutos - 1
         setQtProdutos(novaQt)
     }
 
-
-    // componentes
-    if (orcamentoErro){
-        window.alert(orcamentoErro)
-    }
-
+    
     const SelectEscolherVariacao = ()=>{
         const handleEscolherVariacao = (event: React.ChangeEvent<HTMLSelectElement>) => {
             setVariacao(event.target.value)
@@ -170,8 +85,6 @@ const FormQuote  = (props: formProps) =>{
                 </div>
         </>)
     }
-
-
     const InputQuantProdutos = () =>{
         return(<>
                 <div className="set_qtProduto w-full mt-[10px] flex flex-wrap items-center justify-center">
@@ -195,21 +108,22 @@ const FormQuote  = (props: formProps) =>{
                 </div>
             </>)
     }
-
     
     return(<>
         
-        {isOrcamento_concluido && orcamento ? (
-            <OrcamentoFinalizado 
-            dadosCliente={dadosCliente} 
-            getOrcamento={orcamento} 
-            alturaParede={alturaParede / 100} //Já envia convertido pra metros pro orcamento finalizado
-            produtoInfo={produto} 
-            produtoVariacao={variacao}/>
+        {isOrcamentoConcluido && orcamento ? (
+            <OrcamentoFinalizado props={{
+                dadosCliente:dadosCliente,
+                getOrcamento:orcamento,
+                alturaParede:alturaParede / 100, //Já envia convertido pra metros pro orcamento finalizado
+                produtoInfo:produto,
+                produtoVariacao:variacao}
+            }
+           />
         ) : (<>
             <div className=" w-fit px-[20px] flex flex-col items-center justify-center gap-10 text-black rounded-sm max-w-[95%]">
             
-            <form onSubmit={valorTotal} 
+            <form onSubmit={handleCalcularOrcamento} 
             className="form-orcamento relative flex flex-col items-center gap-x-[10px] justify-evenly p-[20px]w-full">
                     {produto_tipo == 'predial' && isLaje ? (
                         <>
@@ -262,5 +176,3 @@ const FormQuote  = (props: formProps) =>{
         </>)}
     </>)
 }
-
-export default FormQuote

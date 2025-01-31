@@ -1,4 +1,4 @@
-type TypeOrcamento = {
+export type TypeOrcamento = {
     produto: string,
     total: number,
     soma: number,
@@ -6,4 +6,3 @@ type TypeOrcamento = {
     dutos: {qt: number, valor: number},
     modulos: {qt: number, valor: number}
 }
-export default TypeOrcamento

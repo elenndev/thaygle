@@ -1,8 +1,8 @@
 import Navbar from "../components/Navbar";
 import { Suspense } from "react";
-import SectionCatalogo from "../components/SectionCatalogo";
+import SectionCatalogo from "../components/SectionCatalogo/SectionCatalogo";
 import SectionSobre from "../components/SectionSobre";
-import Churrasqueiras from "../components/utilities/Churrasqueiras";
+import Churrasqueiras from "../utilities/Churrasqueiras";
 import SectionHome from "../components/SectionHome";
 
 
@@ -60,7 +60,7 @@ export default function HomePage() {
   return (
     <>
     <Navbar isHome={true}/>
-    <main className="homepage relative min-h-[fit-content] bg-gray-900 w-screen min-w-screen h-full flex flex-col items-center justify-end">
+    <main className="homepage relative min-h-[fit-content] bg-gray-900 w-screen h-full flex flex-col items-center justify-end">
       <SectionHome />
       <Catalogo />
       <Sobre />

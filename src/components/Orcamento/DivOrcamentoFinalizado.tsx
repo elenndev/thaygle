@@ -1,21 +1,25 @@
-import TypeOrcamento from "@/components/types/Type_orcamento";
-import { useState, useEffect } from "react";
-import GerarPdfOrcamento from "./functions/GerarPdf";
+import { useState} from "react";
 import ConfirmationModal from "./ModalFecharOrcamento";
 import { redirect } from "next/navigation";
-import TypeDadosCliente from "@/components/types/Type_dadosCliente";
+import { TypeDadosCliente, TypeOrcamento } from "@/types";
+import { useOrcamento } from "./use-Orcamento";
 
-const OrcamentoFinalizado: React.FC<{
-dadosCliente: TypeDadosCliente | null,
-getOrcamento: TypeOrcamento, 
-alturaParede: number, 
-produtoInfo: string, 
-produtoVariacao: string | undefined}> = ({
-getOrcamento, 
-alturaParede, 
-produtoInfo, 
-dadosCliente, 
-produtoVariacao}) => {
+type OrcamentoFinalizadoProps = {
+    dadosCliente: TypeDadosCliente | null,
+    getOrcamento: TypeOrcamento, 
+    alturaParede: number, 
+    produtoInfo: string, 
+    produtoVariacao: string | undefined
+}
+
+const OrcamentoFinalizado: React.FC<{props: OrcamentoFinalizadoProps}> = ({props}
+) => {
+    const { getOrcamento, 
+    alturaParede, 
+    produtoInfo, 
+    dadosCliente, 
+    produtoVariacao} = props
+
     const [isDesconto, setIsDesconto] = useState(false)
     const [orcamento, setOrcamento] = useState<TypeOrcamento>(getOrcamento)
     const [salvarOrcamento, setSalvarOrcamento] = useState(false)
@@ -29,12 +33,15 @@ produtoVariacao}) => {
         redirect('/')
     }
 
+    const {GerarPdfOrcamento} = useOrcamento()
+
     function handleControlePergunta(resposta: boolean){
         setIsDesconto(resposta)
+        aplicarDesconto(resposta)
     }
 
     function finalizarOrcamento(enviarMensagem: boolean){
-        GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao, enviarMensagem)
+        GerarPdfOrcamento({props:{dadosCliente, orcamento, alturaParede, produtoVariacao, enviarMensagem}})
         setSalvarOrcamento(true)
         setOrcamentoEnviado(true)
     }
@@ -47,8 +54,8 @@ produtoVariacao}) => {
         }
     }
 
-    function aplicarDesconto(){
-        if(isDesconto){
+    function aplicarDesconto(desconto: boolean){
+        if(desconto){
             const desconto = orcamento.soma * 0.05
             setOrcamento({
                 ...orcamento,
@@ -65,16 +72,11 @@ produtoVariacao}) => {
         }
     }
 
-    useEffect(()=> {
-        aplicarDesconto()
-    }, [isDesconto])
-
-    //elementos html
     const BaixarOrcamento = () => {
         return(<div className="flex flex-col text-[--devScheme-gray] w-[80%] h-full items-center justify-start">
             <p>Baixando orçamento...</p>
             <p className="cursor-pointer" 
-            onClick={()=> GerarPdfOrcamento(dadosCliente, orcamento, alturaParede, produtoVariacao, false)}>
+            onClick={()=> GerarPdfOrcamento({props:{dadosCliente, orcamento, alturaParede, produtoVariacao, enviarMensagem: false}})}>
                 Download não iniciou? <strong>Clique aqui para tentar novamente</strong>
             </p>
             <button className="bg-[--devScheme-orange] text-white rounded-[2rem] px-[10px]  py-2" 

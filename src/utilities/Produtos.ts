@@ -1,6 +1,4 @@
-import TypeProduto from "../types/Type_produto"
-// import imagemUrl from "../midia/logo.webp"
-const imagemUrl = "/logo.webp"
+import { TypeProduto } from "../types"
 
 const Produtos: TypeProduto[] = [
     {id: 1,
@@ -10,7 +8,7 @@ const Produtos: TypeProduto[] = [
             tipo: 'tijolinho',
             breve_descricao: 'loren loren loren loren loren loren',
             descricao_completa: 'loren loren loren loren loren loren',
-            imagem: imagemUrl,
+            imagem: '/tijolinho-prestigio.png',
             valor: 800}},
     {id: 2,
     nome: 'Churrasqueira Tijolinho com Balcão',
@@ -19,7 +17,7 @@ const Produtos: TypeProduto[] = [
             tipo: 'tijolinho balcao',
             breve_descricao: 'loren loren loren loren loren loren',
             descricao_completa: 'loren loren loren loren loren loren',
-            imagem: imagemUrl,
+            imagem: '/tijolinho-balcao-prestigio.png',
             valor: 1300}},
     {id: 3,
     nome: 'Churrasqueira Predial',
@@ -28,7 +26,7 @@ const Produtos: TypeProduto[] = [
             tipo: 'predial',
             breve_descricao: 'loren loren loren loren loren loren',
             descricao_completa: 'loren loren loren loren loren loren',
-            imagem: imagemUrl,
+            imagem: '/predial-natural.png',
             valor: 800}},
     {id: 4,
     nome: 'Duto/Prolongador Tijolinho',

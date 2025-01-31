@@ -1,43 +1,43 @@
 'use client'
 import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
-import FormQuote from "../_components/FormOrcamento"
+import { useState } from "react"
 import "@/app/globals.css"
-import TypeDadosCliente from "@/components/types/Type_dadosCliente"
-import FormDadosCliente from "../_components/FormDadosCliente"
+import FormDadosCliente from "./FormDadosCliente"
 import Navbar from "@/components/Navbar"
-import Churrasqueiras from "@/components/utilities/Churrasqueiras"
+import { useOrcamento } from "./use-Orcamento"
+import { TypeDadosCliente } from "../../types"
+import { FormOrcamento } from "./FormOrcamento"
 
 
-const PageFazerOrcamento = () => {
-    type TypeVariacao = {
-        id: number,
-        nome_variacao: string,
-        imagem_variacao: string
-    }
+type TypeVariacao = {
+    id: number,
+    nome_variacao: string,
+    imagem_variacao: string
+}
+export const ContentFazerOrcamento = () => {
     const searchParams = useSearchParams()
+    const {dadosCliente,
+        isLaje,
+        setDadosCliente,
+        setIsLaje,
+        buscarProduto} = useOrcamento()
     const produtoId = searchParams.get('id') ?? '0'
-    const buscarProduto = Churrasqueiras.find((e)=> e.id == parseFloat(produtoId))
-    const produto = buscarProduto?.infos.produto ?? 'undefined'
-    const produto_tipo = buscarProduto?.infos.tipo ?? 'undefined'
-    const produto_nome = buscarProduto?.nome ?? 'undefined'
-    const produto_variacoes: TypeVariacao[] | undefined = buscarProduto?.detalhes.variacoes
+
+    const produto = {
+        produto: buscarProduto(+produtoId)?.infos.produto ?? 'undefined',
+        tipo: buscarProduto(+produtoId)?.infos.tipo ?? 'undefined',
+        nome: buscarProduto(+produtoId)?.nome ?? 'undefined',
+        variacoes: buscarProduto(+produtoId)?.detalhes.variacoes as TypeVariacao[] | null}
+
     const [paramsError, setErro] = useState(false)
-    const [isLaje, setIsLaje] = useState(false)
-    const [dadosCliente, setDadosCliente] = useState<TypeDadosCliente | null>(null)
+
     // Perguntas pro orcamento
     const [pergunta_dadosCliente, setPergunta_dadosCliente] = useState(false)
-    const [pergunta_possuiLaje, setPergunta_possuiLaje] = useState(false)
-    useEffect(()=> {
-        const pergunta = produto == 'churrasqueira' && produto_tipo =='predial' ? false : true
-        setPergunta_possuiLaje(pergunta)
-    }, [])
+    const [pergunta_possuiLaje, setPergunta_possuiLaje] = useState(produto.produto == 'churrasqueira' && produto.tipo =='predial' ? false : true)
 
-    useEffect(() => {
-        if (produto == 'default_value' || produto_tipo == 'default_value' || produto_nome == 'default_value') {
-            setErro(true);
-        }
-    }, [produto, produto_tipo, produto_nome]);
+    if (produto.produto == 'default_value' || produto.tipo == 'default_value' || produto.nome == 'default_value') {
+        setErro(true);
+    }
 
     if(paramsError){
         return(
@@ -45,13 +45,6 @@ const PageFazerOrcamento = () => {
         )
     }
 
-
-    if (!produto_variacoes || produto_variacoes.length === 0) {
-        return <div>Erro ao acessar variações</div>;
-    }
-
-
-    //elementos HTML
     const Pergunta_DadosCliente = () => {
         function handleResposta(dados: TypeDadosCliente){
             setPergunta_dadosCliente(true)
@@ -86,7 +79,7 @@ const PageFazerOrcamento = () => {
     return(<>
         <Navbar isHome={false}/>
         <main className="orcamento h-full text-[1.25rem] md:text-[1.85rem] relative m-0 gap-y-[20px]  mt-[60px] w-screen flex flex-col items-center justify-start">
-            <h1 className="mt-[15px] font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[2rem] md:text-[3rem]">Orcamento: {produto_nome}</h1>
+            <h1 className="mt-[15px] font-gothic text-[--devScheme-gray] rounded-[20px] text-center px-[10px] text-[2rem] md:text-[3rem]">Orcamento: {produto.nome}</h1>
             <div className="quote-container relative flex flex-col items-center justify-start min-h-[fit-content] h-[90%] w-[90%] gap-y-[30px]">
                 {!pergunta_dadosCliente && (
                     <Pergunta_DadosCliente />
@@ -95,19 +88,16 @@ const PageFazerOrcamento = () => {
                     <Pergunta_PossuiLaje />
                 </>)}
                 {pergunta_dadosCliente && pergunta_possuiLaje && (<>
-                    <FormQuote produto_nome = {produto_nome} 
-                    produto = {produto} 
-                    produto_tipo={produto_tipo} 
+                    <FormOrcamento produto_nome = {produto.nome} 
+                    produto = {produto.produto} 
+                    produto_tipo={produto.tipo} 
                     isLaje={isLaje} 
                     dadosCliente={dadosCliente} 
-                    variacoes={produto_variacoes}/>
+                    variacoes={produto.variacoes}/>
                 </>)}
-
-
             </div>
         </main>
     </>)
 }
 
-export default PageFazerOrcamento
 

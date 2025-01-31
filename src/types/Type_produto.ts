@@ -1,6 +1,4 @@
-// import { StaticImageData } from "next/image";
-
-type TypeProduto = {
+export type TypeProduto = {
     id: number;
     nome: string;
     infos: {
@@ -11,5 +9,3 @@ type TypeProduto = {
         imagem: string;
         valor: number
     }}
-
-export default TypeProduto
