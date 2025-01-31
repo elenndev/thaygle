@@ -306,12 +306,10 @@ export const ListaProdutos = () =>{
     return(
         <>
         <div className="catalogo 
-        flex flex-col lg:w-[95%] lg:flex-row gap-y-[20px] gap-x-[10px] h-[max-content] w-full items-center justify-center
-        bg-[--devScheme-white] lg:w-sreen min-h-[fit]  flex-wrap ">
+        flex flex-col lg:w-[95%] lg:flex-row gap-y-[20px] gap-x-[10px]  w-full items-center justify-center
+        bg-[--devScheme-white] h-full min-h-[fi-content]  flex-wrap ">
             <Principais />
-            <a className="bg-[--devScheme-softBlue] text-[1.25rem] md:text-[1.70rem] lg:text-[2rem] px-[10px] lg:px-[15px] py-[2px] mb-[10px] text-white rounded-[2rem]" href="/Thaygle Pre-Moldados - Catalogo.pdf" download>
-                Baixar catálogo
-            </a>
+            
         </div>
         </>
     )

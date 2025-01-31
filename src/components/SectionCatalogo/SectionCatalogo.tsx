@@ -45,6 +45,9 @@ const SectionCatalogo = () =>{
             <div ref={Lista} className="produtos-principais w-full h-max">
                 <ListaProdutos />
             </div>
+            <a className="bg-[--devScheme-softBlue] text-[1.25rem] md:text-[1.70rem] lg:text-[2rem] px-[10px] lg:px-[15px] py-[2px] my-[10px] text-white rounded-[2rem]" href="/Thaygle Pre-Moldados - Catalogo.pdf" download>
+                Baixar catálogo
+            </a>
         </section>
     )
 }
