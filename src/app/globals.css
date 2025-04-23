@@ -57,9 +57,9 @@ body {
     content: "";
     position: absolute;
     background: var(--devScheme-white);
-    top: -3%;
+    top: -15%;
     width: 150%;
-    height: 40%;
+    height: 50%;
     z-index: 1;
     clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
     transform: rotate(-15deg);
@@ -205,6 +205,7 @@ button.calcular{
     img{
       height: 240;
       width: auto;
+      margin-left: 2rem;
     }
   }
 }
